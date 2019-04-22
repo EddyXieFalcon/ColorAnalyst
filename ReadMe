@@ -1,0 +1,11 @@
+1. 本软件基于python3.6版本进行开发，以及运行，依赖的package参见requirement.txt，并使用cython，和pyinstaller进行打包
+
+2. 软件遵循MVC设计模式，即（modular模型， view视图， controller控制器）三方分离的方式
+
+    2.1 软件入口为：main.py，主要实现软件启动时候的各个模块的部署
+
+    2.2 UIModular：主要负责实现软件的界面，以及界面的交互逻辑，即view
+
+    2.3 ControllerModular：主要负责实现软件与硬件的消息通讯，即使用pyserial实现串口通信，保证ui下发的指令的解析，以及的执行
+
+    2.4 AnalysisModular：主要负责实现数据的处理和分析
