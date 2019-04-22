@@ -1,0 +1,9 @@
+pyqt5
+pyqt5-tools
+numpy
+pandas
+pyserial
+opencv-python
+Pilow
+PyInstaller
+pywin32
