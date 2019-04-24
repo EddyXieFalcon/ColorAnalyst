@@ -25,7 +25,7 @@ class Device(object):
         # 读取参数
         self.__Parameter = ParameterMgr().GetParameter()
 
-        # 创建五个电机控制线程
+        # 创建五个电机控制线程，传参为（端口号，波特率，超时判定）
         self.__MotorStageX = StageCOM(
             self.__Parameter["motor_stage_x_port"],
             self.__Parameter["baud_rate"],
