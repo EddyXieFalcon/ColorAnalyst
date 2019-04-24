@@ -7,10 +7,10 @@ from ControllerModular.COM.BaseCOM import BaseCOM
 """
 
 
-class StageCOM(BaseCOM):
+class FilterCOM(BaseCOM):
     def __init__(self, port, bps, timeout):
         """ 初始化方法，只需要调用父类的构造方法"""
-        super(StageCOM,self).__init__(port, bps, timeout)
+        super(FilterCOM,self).__init__(port, bps, timeout)
 
     def Switch(self):
         """切换滤光片"""

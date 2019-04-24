@@ -10,6 +10,7 @@ import json
 class ParameterMgr(object):
     def __init__(self):
         """初始化方法，加载配置参数"""
+        self.__settingMap = {}
 
         # 尝试打开json文件
         try:
@@ -27,3 +28,4 @@ class ParameterMgr(object):
 # 测试代码
 if __name__ == '__main__':
     print(ParameterMgr().GetParameter())
+    print(type(ParameterMgr().GetParameter()))

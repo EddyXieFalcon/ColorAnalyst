@@ -10,6 +10,7 @@ import json
 class InstructionMgr(object):
     def __init__(self):
         """初始化方法，加载配置参数"""
+        self.__settingMap = {}
 
         # 尝试打开json文件
         try:
