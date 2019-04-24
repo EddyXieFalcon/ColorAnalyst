@@ -53,6 +53,13 @@ class Device(object):
 
         # 创建CCD控制线程
 
+        # 启动所有的线程
+        self.__MotorStageX.start()
+        self.__MotorStageY.start()
+        self.__MotorStageZ.start()
+        self.__MotorPump.start()
+        self.__MotorFilter.start()
+
     def __new__(cls, *args, **kwargs):
         """单例模式，如果对象没有被实例化，构造一个，如果已被构造，那么直接返回该对象"""
         if not hasattr(Device, "_instance"):
