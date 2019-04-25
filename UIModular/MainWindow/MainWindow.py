@@ -3,6 +3,7 @@
 from UIModular.MainWindow.MainWindowModify import MainWindowModify
 from UIModular.MainWindow.FunctionWidget.HomeWidget.HomeWidget import HomeWidget
 from UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidget import ProtocolsWidget
+from UIModular.MainWindow.StatusBarWidget.StatusBarWidget import StatusBarWidget
 
 
 class MainWindow(MainWindowModify):
@@ -28,6 +29,10 @@ class MainWindow(MainWindowModify):
         # 将按钮与子界面的关联
         for buttom in self.__functionWidgetDict:
             buttom.clicked.connect(self.ShowFunctionWidget)
+
+        # 将状态栏放入主界面
+        self.__statusBarWidget = StatusBarWidget(self.widgetFunction)
+        self.gridLayout_4.addWidget(self.__statusBarWidget, 0, 0, 1, 1)
 
         # 创建硬件管理类
         # self.__device = Device()
