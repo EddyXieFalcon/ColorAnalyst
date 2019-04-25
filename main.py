@@ -13,8 +13,8 @@ def main():
     ui = MainWindow()
 
     # 显示ui界面
-    # ui.showMaximized()
-    ui.show()
+    ui.showMaximized()
+    # ui.show()
 
     # 进入消息循环
     sys.exit(app.exec_())
