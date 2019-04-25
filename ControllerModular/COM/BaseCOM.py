@@ -16,6 +16,9 @@ from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
 
 
 class BaseCOM(threading.Thread):
+    # 安全锁
+    __msg_lock = threading.Lock()
+
     def __init__(self, port, bps, timeout):
         """
             初始化方法, 用于指定本条线程管理哪一个串口
@@ -36,9 +39,6 @@ class BaseCOM(threading.Thread):
 
         # 串口指令表
         self.__InstructionList = InstructionMgr().GetParameter()
-
-        # 安全锁
-        self.__msg_lock = threading.Lock()
 
     def CreatInstruction(self, msg, parameters=[]):
         """解析串口指令"""
@@ -76,22 +76,22 @@ class BaseCOM(threading.Thread):
             return
 
         # 当需要发送数据的时候，先要判断消息队列是否在被操作（即是否有在发送数据）
-        if self.__msg_lock.acquire():
+        if BaseCOM.__msg_lock.acquire():
             # 将传来的消息转义，然后放入待发送的消息队列中
             self.__msg_queue.append(instruction)
 
             # 完成工作，将锁释放
-            self.__msg_lock.release()
+            BaseCOM.__msg_lock.release()
 
     def run(self):
         """线程将会循环执行本函数，可视为一个while True循环"""
 
         # 如果安全锁没有被打开，表示其他模块正在添加数据，阻塞，暂不执行动作
-        if self.__msg_lock.acquire():
+        if BaseCOM.__msg_lock.acquire():
             # 发送消息
             for instruction in self.__msg_queue:
                 self.__serial_port.write(instruction)
 
             # 完成工作，将锁释放，并暂停1毫秒，防止线程冲突
-            self.__msg_lock.release()
+            BaseCOM.__msg_lock.release()
             time.sleep(0.001)
