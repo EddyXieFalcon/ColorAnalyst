@@ -1,0 +1,6 @@
+{
+  "head":      ["0xFF"],
+  "tail":      ["0xFE"],
+  "long_sign": ["0x04"],
+  "end":       ["0xFD"]
+}

@@ -4,7 +4,9 @@ import serial
 import time
 import serial.tools.list_ports
 import threading
+import binascii
 from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.ReceiveMsgMgr.ReceiveMsgMgr import ReceiveMsgMgr
 
 """
 本类为所有串口设备的控制基类，
@@ -39,6 +41,9 @@ class BaseCOM(threading.Thread):
 
         # 串口指令表
         self.__InstructionList = InstructionMgr().GetParameter()
+
+        # 串口返回值列表
+        self.__ReceiveMsgList = ReceiveMsgMgr().GetParameter()
 
     def CreatInstruction(self, msg, parameters=[]):
         """解析串口指令"""
@@ -83,6 +88,60 @@ class BaseCOM(threading.Thread):
             # 完成工作，将锁释放
             BaseCOM.__msg_lock.release()
 
+    def ReceiveMsg(self):
+        """监听串口，抓取返回值"""
+
+        # 创建一个零时数据容器
+        serialData = ""
+
+        # 创建一个计数器
+        count = 0
+
+        # 循环监听，防止消息不全
+        while True:
+            # 读取串口数据
+            serialData = serialData + str(binascii.b2a_hex(self.__serial_port.read_all()))
+
+            # 如果读到数据尾了，或者超时退出
+            if self.__ReceiveMsgList["tail"] in serialData or count > 60:
+                break
+
+            # 暂停0.1秒，并计数
+            time.sleep(0.1)
+            count = count + 1
+
+        # 返回串口数据
+        return serialData
+
+    def ReceiveLongMsg(self):
+        """监听串口，抓取长返回值"""
+
+        # 创建一个零时数据容器
+        serialData = ""
+
+        # 创建一个计数器
+        count = 0
+
+        # 循环监听，防止消息不全
+        while True:
+            # 读取串口数据
+            serialData = serialData + str(binascii.b2a_hex(self.__serial_port.read_all()))
+
+            # 如果读到数据尾了，或者超时退出
+            if self.__ReceiveMsgList["end"] in serialData:
+                break
+
+            # 超时控制
+            if count > 600 and len(serialData) == 0:
+                break
+
+            # 暂停0.1秒，并计数
+            time.sleep(0.1)
+            count = count + 1
+
+        # 返回串口数据
+        return serialData
+
     def run(self):
         """线程将会循环执行本函数，可视为一个while True循环"""
 
@@ -92,6 +151,9 @@ class BaseCOM(threading.Thread):
             for instruction in self.__msg_queue:
                 self.__serial_port.write(instruction)
 
-            # 完成工作，将锁释放，并暂停1毫秒，防止线程冲突
+            # 发送完消息之后，监听端口，抓取返回值
+            self.ReceiveMsg()
+
+            # 完成工作，将锁释放，并暂停0.1秒，防止线程冲突
             BaseCOM.__msg_lock.release()
-            time.sleep(0.001)
+            time.sleep(0.1)
