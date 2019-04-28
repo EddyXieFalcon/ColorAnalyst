@@ -1,5 +1,6 @@
 # coding=utf8
 
+import os
 from PyQt5 import QtWidgets
 from UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidgetUI import Ui_ProtocolsWidget
 
@@ -13,3 +14,6 @@ class ProtocolsWidgetModify(QtWidgets.QWidget, Ui_ProtocolsWidget):
 
         # 创建界面
         self.setupUi(self)  # 创建界面
+
+        # 获取资源路径
+        self.__resourcePath = os.path.dirname(os.path.realpath(__file__)).replace("UIModular", "UIResource")

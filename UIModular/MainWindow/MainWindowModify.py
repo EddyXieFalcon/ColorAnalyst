@@ -1,5 +1,6 @@
 # coding=utf8
 
+import os, sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QInputDialog, QLineEdit, QTableWidgetItem
 from PyQt5.QtCore import pyqtSlot
@@ -16,3 +17,6 @@ class MainWindowModify(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 创建界面
         self.setupUi(self)  # 创建界面
+
+        # 获取资源路径
+        self.__resourcePath = os.path.dirname(os.path.realpath(__file__)).replace("UIModular", "UIResource")
