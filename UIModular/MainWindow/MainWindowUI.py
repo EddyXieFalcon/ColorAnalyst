@@ -2,17 +2,16 @@
 
 # Form implementation generated from reading ui file 'MainWindowUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(806, 660)
+        MainWindow.resize(975, 844)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralWidget)
@@ -272,12 +271,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addWidget(self.pushButtonProtocols)
         spacerItem1 = QtWidgets.QSpacerItem(485, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem1)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widgetTabBar)
+        self.pushButton_Sampling = QtWidgets.QPushButton(self.widgetTabBar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.pushButton_Sampling.sizePolicy().hasHeightForWidth())
+        self.pushButton_Sampling.setSizePolicy(sizePolicy)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(62, 72, 84))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -315,15 +314,15 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(62, 72, 84))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        self.pushButton_3.setPalette(palette)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_5.addWidget(self.pushButton_3)
-        self.pushButton_4 = QtWidgets.QPushButton(self.widgetTabBar)
+        self.pushButton_Sampling.setPalette(palette)
+        self.pushButton_Sampling.setObjectName("pushButton_Sampling")
+        self.horizontalLayout_5.addWidget(self.pushButton_Sampling)
+        self.pushButton_Imaging = QtWidgets.QPushButton(self.widgetTabBar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.pushButton_Imaging.sizePolicy().hasHeightForWidth())
+        self.pushButton_Imaging.setSizePolicy(sizePolicy)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(62, 72, 84))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -361,9 +360,9 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(62, 72, 84))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        self.pushButton_4.setPalette(palette)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.horizontalLayout_5.addWidget(self.pushButton_4)
+        self.pushButton_Imaging.setPalette(palette)
+        self.pushButton_Imaging.setObjectName("pushButton_Imaging")
+        self.horizontalLayout_5.addWidget(self.pushButton_Imaging)
         self.verticalLayout.addWidget(self.widgetTabBar)
         self.widgetFunction = QtWidgets.QWidget(self.centralWidget)
         self.widgetFunction.setObjectName("widgetFunction")
@@ -398,7 +397,6 @@ class Ui_MainWindow(object):
         self.labelCompanyLogo.setText(_translate("MainWindow", "CompanyLogo"))
         self.pushButtonHome.setText(_translate("MainWindow", "Home"))
         self.pushButtonProtocols.setText(_translate("MainWindow", "Protocols"))
-        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
-
+        self.pushButton_Sampling.setText(_translate("MainWindow", "Sampling"))
+        self.pushButton_Imaging.setText(_translate("MainWindow", "Imaging"))
 
