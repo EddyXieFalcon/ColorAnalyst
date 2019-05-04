@@ -3,6 +3,8 @@
 import json
 from PyQt5.QtWidgets import *
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetModify import SamplingWidgetModify
+from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailog import CommendDailog
+from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
 
 
 class SamplingWidget(SamplingWidgetModify):
@@ -12,6 +14,9 @@ class SamplingWidget(SamplingWidgetModify):
         # 父类构造方法
         super(SamplingWidget, self).__init__()
 
+        # 准备对话框
+        self.__commendDailog = CommendDailog()
+
         # 五个安娜牛的槽函数
         self.pushButton_load.clicked.connect(self.on_pushbutton_load_clicked_slot)
         self.pushButton_export.clicked.connect(self.on_pushbutton_export_clicked_slot)
@@ -19,6 +24,9 @@ class SamplingWidget(SamplingWidgetModify):
         self.pushButton_remove.clicked.connect(self.on_pushbutton_remove_clicked_slot)
         self.pushButton_edit.clicked.connect(self.on_pushbutton_edit_clicked_slot)
         self.pushButton_DoIt.clicked.connect(self.on_pushbutton_Doit_clicked_slot)
+
+        # 对话框按钮
+        self.__commendDailog.selectedInstruction.connect(self.addInstructionToTableWidget)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
@@ -65,7 +73,9 @@ class SamplingWidget(SamplingWidgetModify):
 
     def on_pushbutton_add_clicked_slot(self):
         """添加命令"""
-        pass
+
+        # 弹出对话框，要求为配置输入一个名称
+        self.__commendDailog.show()
 
     def on_pushbutton_remove_clicked_slot(self):
         """删除命令"""
@@ -100,3 +110,16 @@ class SamplingWidget(SamplingWidgetModify):
             self.tableWidget.item(index, 1).setText(script[index]["parameter"])
             self.tableWidget.item(index, 2).setText(script[index]["volume"])
             self.tableWidget.item(index, 3).setText(script[index]["volume"])
+
+    def addInstructionToTableWidget(self, instruction):
+        """添加指令"""
+
+        # 容错
+        instructionlist = InstructionMgr().GetParameter()
+        if instruction not in instructionlist:
+            return
+
+        # 添加指令到界面
+        rowCount = self.tableWidget.rowCount()
+        self.tableWidget.setRowCount(rowCount + 1)
+        self.tableWidget.setItem(rowCount, 0, QTableWidgetItem(instruction))

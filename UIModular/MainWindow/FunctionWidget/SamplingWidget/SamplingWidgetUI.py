@@ -2,16 +2,17 @@
 
 # Form implementation generated from reading ui file 'SamplingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_SamplingWidget(object):
     def setupUi(self, SamplingWidget):
         SamplingWidget.setObjectName("SamplingWidget")
-        SamplingWidget.resize(685, 559)
+        SamplingWidget.resize(1033, 842)
         self.horizontalLayout = QtWidgets.QHBoxLayout(SamplingWidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tableWidget = QtWidgets.QTableWidget(SamplingWidget)
@@ -74,4 +75,5 @@ class Ui_SamplingWidget(object):
         self.pushButton_remove.setText(_translate("SamplingWidget", "remove"))
         self.pushButton_edit.setText(_translate("SamplingWidget", "edit"))
         self.pushButton_DoIt.setText(_translate("SamplingWidget", "Do it"))
+
 
