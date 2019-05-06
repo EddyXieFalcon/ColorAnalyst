@@ -88,7 +88,7 @@ class Ui_SamplingWidget(object):
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("SamplingWidget", "volume(ml)"))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("SamplingWidget", "describe"))
+        item.setText(_translate("SamplingWidget", "return message"))
         self.pushButton_load.setText(_translate("SamplingWidget", "load"))
         self.pushButton_export.setText(_translate("SamplingWidget", "export"))
         self.pushButton_add.setText(_translate("SamplingWidget", "add"))

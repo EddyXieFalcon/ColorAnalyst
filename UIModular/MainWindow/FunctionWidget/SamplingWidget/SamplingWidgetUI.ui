@@ -52,17 +52,22 @@
        </column>
        <column>
         <property name="text">
-         <string>parameter</string>
+         <string>parameter1</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>volume(ml)</string>
+         <string>parameter2</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>describe</string>
+         <string>parameter3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>return message</string>
         </property>
        </column>
       </widget>

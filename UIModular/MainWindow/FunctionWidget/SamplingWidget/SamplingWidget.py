@@ -159,10 +159,34 @@ class SamplingWidget(SamplingWidgetModify):
         """执行脚本"""
         
         # 获取表格中的行数
-
+        rowCount = self.tableWidget.rowCount()
+        if rowCount <= 0:
+            return
 
         # 依次执行列表中的命令
+        for index in range(rowCount):
+            # 获取文本
+            commend = self.tableWidget.item(index, 0).text()
+            parameter1 = self.tableWidget.item(index, 1).text()
+            parameter2 = self.tableWidget.item(index, 2).text()
+            parameter3 = self.tableWidget.item(index, 3).text()
 
+            # 合成指令
+            instruction = commend % (parameter1, parameter2, parameter3)
+
+            # 发送指令
+
+            # 监听返回值
+            returnMessage = ""
+
+            # 选中当前行
+            self.tableWidget.setCurrentRow(index)
+
+            # 设置返回值到界面
+            self.tableWidget.setItem(index, 4, QTableWidgetItem(returnMessage))
+
+        # 取消选中
+        self.tableWidget.setCurrentRow(-1)
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
