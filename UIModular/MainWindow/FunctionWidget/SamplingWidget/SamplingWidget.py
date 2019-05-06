@@ -1,6 +1,8 @@
 # coding=utf8
 
 import json
+import serial
+import serial.tools.list_ports
 from PyQt5.QtWidgets import *
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetModify import SamplingWidgetModify
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailog import CommendDailog
@@ -17,6 +19,12 @@ class SamplingWidget(SamplingWidgetModify):
         # 准备对话框
         self.__commendDailog = CommendDailog()
 
+        # 初始化状态
+        self.InitStatus()
+
+        # 串口连接的槽函数
+        self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
+
         # 五个安娜牛的槽函数
         self.pushButton_load.clicked.connect(self.on_pushbutton_load_clicked_slot)
         self.pushButton_export.clicked.connect(self.on_pushbutton_export_clicked_slot)
@@ -25,8 +33,48 @@ class SamplingWidget(SamplingWidgetModify):
         self.pushButton_edit.clicked.connect(self.on_pushbutton_edit_clicked_slot)
         self.pushButton_DoIt.clicked.connect(self.on_pushbutton_Doit_clicked_slot)
 
-        # 对话框按钮
-        self.__commendDailog.selectedInstruction.connect(self.addInstructionToTableWidget)
+    def InitStatus(self):
+        """初始化状态，所有的按钮不可用"""
+
+        self.pushButton_connect.setText("Connect")
+
+        self.pushButton_connect.setEnabled(True)
+        self.pushButton_scan.setEnabled(False)
+
+        self.comboBox_connect.setEnabled(False)
+        self.comboBox_scan.setEnabled(False)
+
+        self.pushButton_load.setEnabled(False)
+        self.pushButton_export.setEnabled(False)
+        self.pushButton_add.setEnabled(False)
+        self.pushButton_remove.setEnabled(False)
+        self.pushButton_edit.setEnabled(False)
+        self.pushButton_DoIt.setEnabled(False)
+
+    def on_pushbutton_connect_clicked_slot(self):
+        """连接按钮，刷新串口列表"""
+
+        # 如果处于初始状态，刷新
+        if self.pushButton_connect.text() == "Connect":
+            self.ReflashComList()
+        # 否则，回归初始化
+        else:
+            self.InitStatus()
+
+    def ReflashComList(self):
+        """扫描串口列表"""
+
+        # 获取所有的串口设备号
+        port_list = list(serial.tools.list_ports.comports())
+        print(port_list)
+
+        if len(port_list) <= 0:
+            print("The Serial port can't find!")
+        else:
+            port_list_0 = list(port_list[0])
+            port_serial = port_list_0[0]
+            ser = serial.Serial(port_serial, 9600, timeout=60)
+            print("check which port was really used >", ser.name)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
@@ -77,17 +125,44 @@ class SamplingWidget(SamplingWidgetModify):
         # 弹出对话框，要求为配置输入一个名称
         self.__commendDailog.show()
 
+        # 对话框按钮数据流方向
+        self.__commendDailog.selectedInstruction.disconnect(self.editInstructionToTableWidget)
+        self.__commendDailog.selectedInstruction.connect(self.addInstructionToTableWidget)
+
     def on_pushbutton_remove_clicked_slot(self):
         """删除命令"""
-        pass
+
+        # 判断当前是否有选中的行
+        rowIndex = self.tableWidget.currentRow()
+        if rowIndex < 0:
+            return
+
+        # 删除行
+        self.tableWidget.removeRow(rowIndex)
 
     def on_pushbutton_edit_clicked_slot(self):
         """编辑命令"""
-        pass
+
+        # 判断当前是否有选中的行
+        rowIndex = self.tableWidget.currentRow()
+        if rowIndex < 0:
+            return
+
+        # 弹出对话框，要求为配置输入一个名称
+        self.__commendDailog.show()
+
+        # 对话框按钮数据流方向
+        self.__commendDailog.selectedInstruction.disconnect(self.addInstructionToTableWidget)
+        self.__commendDailog.selectedInstruction.connect(self.editInstructionToTableWidget)
 
     def on_pushbutton_Doit_clicked_slot(self):
         """执行脚本"""
-        pass
+        
+        # 获取表格中的行数
+
+
+        # 依次执行列表中的命令
+
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
@@ -123,3 +198,8 @@ class SamplingWidget(SamplingWidgetModify):
         rowCount = self.tableWidget.rowCount()
         self.tableWidget.setRowCount(rowCount + 1)
         self.tableWidget.setItem(rowCount, 0, QTableWidgetItem(instruction))
+
+    def editInstructionToTableWidget(self, instruction):
+        """修改命令"""
+
+        self.tableWidget.setItem(self.tableWidget.currentRow(), 0, QTableWidgetItem(instruction))
