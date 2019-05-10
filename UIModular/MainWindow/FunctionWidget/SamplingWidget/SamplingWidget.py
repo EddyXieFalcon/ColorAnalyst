@@ -63,6 +63,8 @@ class SamplingWidget(SamplingWidgetModify):
 
     def ReflashComList(self):
         """扫描串口列表"""
+        
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
         # 获取所有的串口设备号
         port_list = list(serial.tools.list_ports.comports())
