@@ -67,15 +67,18 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 获取所有的串口设备号
         port_list = list(serial.tools.list_ports.comports())
-        print(port_list)
 
+        # 没有获取设备号
         if len(port_list) <= 0:
             print("The Serial port can't find!")
+        # 判断有设备
         else:
-            port_list_0 = list(port_list[0])
-            port_serial = port_list_0[0]
-            ser = serial.Serial(port_serial, 9600, timeout=60)
-            print("check which port was really used >", ser.name)
+            # 解析设备
+            for port_info in port_list:
+                port_info_list = list(port_info)
+                port_serial = port_info_list[0]
+                ser = serial.Serial(port_serial, 9600, timeout=60)
+                print("check which port was really used >", ser.name)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
