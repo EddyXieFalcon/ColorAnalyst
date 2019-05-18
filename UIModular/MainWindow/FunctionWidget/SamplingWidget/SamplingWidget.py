@@ -56,6 +56,7 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 如果处于初始状态，刷新
         if self.pushButton_connect.text() == "Connect":
+            # 刷新列表
             self.ReflashComList()
         # 否则，回归初始化
         else:
