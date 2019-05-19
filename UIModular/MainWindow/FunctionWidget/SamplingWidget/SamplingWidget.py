@@ -17,6 +17,9 @@ class SamplingWidget(SamplingWidgetModify):
         # 父类构造方法
         super(SamplingWidget, self).__init__()
 
+        # 当前控制的串口
+        self.__serial = None
+
         # 准备对话框
         self.__commendDailog = CommendDailog()
 
@@ -25,6 +28,9 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
+
+        # 串口扫描的槽函数
+        self.pushButton_scan.clicked.connect(self.on_pushbutton_scan_clicked_slot)
 
         # 五个安娜牛的槽函数
         self.pushButton_load.clicked.connect(self.on_pushbutton_load_clicked_slot)
@@ -82,16 +88,25 @@ class SamplingWidget(SamplingWidgetModify):
                 port_info_list = list(port_info)
                 # 获取该串口的链接名称
                 port_serial = port_info_list[0]
-                # 创建链接
-                ser = serial.Serial(port_serial, 9600, timeout=60)
                 # 将串口名称放入下拉菜单中
-                self.comboBox_connect.addItem(ser.name)
+                self.comboBox_connect.addItem(port_serial)
 
             # 打开串口选择下拉菜单框
             self.comboBox_connect.setEnabled(True)
 
             # 连接按钮反转状态
             self.pushButton_connect.setText("Disconnect")
+
+    def on_pushbutton_scan_clicked_slot(self):
+        """扫描按钮，对选中的串口发起链接通讯"""
+
+        # 获取用户选择的串口名称
+        port_serial = self.comboBox_connect.currentText()
+
+        # 创建链接
+        self.__serial = serial.Serial(port_serial, 9600, timeout=60)
+
+        # 判断是否连接成功
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
