@@ -1,5 +1,6 @@
 # coding=utf8
 
+import time
 import json
 import serial
 import serial.tools.list_ports
@@ -38,11 +39,11 @@ class SamplingWidget(SamplingWidgetModify):
 
         self.pushButton_connect.setText("Connect")
 
-        self.pushButton_connect.setEnabled(True)
-        self.pushButton_scan.setEnabled(False)
-
         self.comboBox_connect.setEnabled(False)
+        self.comboBox_connect.clear()
+
         self.comboBox_scan.setEnabled(False)
+        self.comboBox_scan.clear()
 
         self.pushButton_load.setEnabled(False)
         self.pushButton_export.setEnabled(False)
@@ -70,15 +71,27 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 没有获取设备号
         if len(port_list) <= 0:
-            print("The Serial port can't find!")
+            self.pushButton_connect.setText("No Device!!!")
+            time.sleep(2)
+            self.pushButton_connect.setText("Connect")
         # 判断有设备
         else:
             # 解析设备
             for port_info in port_list:
+                # 获取单个串口的相关信息列表
                 port_info_list = list(port_info)
+                # 获取该串口的链接名称
                 port_serial = port_info_list[0]
+                # 创建链接
                 ser = serial.Serial(port_serial, 9600, timeout=60)
-                print("check which port was really used >", ser.name)
+                # 将串口名称放入下拉菜单中
+                self.comboBox_connect.addItem(ser.name)
+
+            # 打开串口选择下拉菜单框
+            self.comboBox_connect.setEnabled(True)
+
+            # 连接按钮反转状态
+            self.pushButton_connect.setText("Disconnect")
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
