@@ -29,6 +29,9 @@ class SamplingWidget(SamplingWidgetModify):
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
 
+        # “连接”下拉菜单的槽
+        self.comboBox_connect.currentTextChanged.connect(self.on_comboBox_currentTextChanged_slot)
+
         # 串口扫描的槽函数
         self.pushButton_scan.clicked.connect(self.on_pushbutton_scan_clicked_slot)
 
@@ -43,20 +46,29 @@ class SamplingWidget(SamplingWidgetModify):
     def InitStatus(self):
         """初始化状态，所有的按钮不可用"""
 
+        # 设置“连接”按钮文本
         self.pushButton_connect.setText("Connect")
 
+        # 关闭“连接”按钮
         self.comboBox_connect.setEnabled(False)
         self.comboBox_connect.clear()
 
+        # 关闭“扫描”按钮
         self.comboBox_scan.setEnabled(False)
         self.comboBox_scan.clear()
 
+        # 关闭控制按钮
         self.pushButton_load.setEnabled(False)
         self.pushButton_export.setEnabled(False)
         self.pushButton_add.setEnabled(False)
         self.pushButton_remove.setEnabled(False)
         self.pushButton_edit.setEnabled(False)
         self.pushButton_DoIt.setEnabled(False)
+
+        # 断开串口链接
+        if self.__serial is not None and self.__serial.isOpen():
+            self.__serial.close()
+            self.__serial = None
 
     def on_pushbutton_connect_clicked_slot(self):
         """连接按钮，刷新串口列表"""
@@ -104,9 +116,17 @@ class SamplingWidget(SamplingWidgetModify):
         port_serial = self.comboBox_connect.currentText()
 
         # 创建链接
+        if port_serial is None:
+            return
         self.__serial = serial.Serial(port_serial, 9600, timeout=60)
 
-        # 判断是否连接成功
+        # 打开所有的控制按钮
+        self.pushButton_load.setEnabled(True)
+        self.pushButton_export.setEnabled(True)
+        self.pushButton_add.setEnabled(True)
+        self.pushButton_remove.setEnabled(True)
+        self.pushButton_edit.setEnabled(True)
+        self.pushButton_DoIt.setEnabled(True)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
@@ -259,3 +279,22 @@ class SamplingWidget(SamplingWidgetModify):
         """修改命令"""
 
         self.tableWidget.setItem(self.tableWidget.currentRow(), 0, QTableWidgetItem(instruction))
+
+    def on_comboBox_currentTextChanged_slot(self):
+        """连接下来菜单的槽函数"""
+
+        # 关闭“扫描”按钮
+        self.comboBox_scan.clear()
+
+        # 关闭控制按钮
+        self.pushButton_load.setEnabled(False)
+        self.pushButton_export.setEnabled(False)
+        self.pushButton_add.setEnabled(False)
+        self.pushButton_remove.setEnabled(False)
+        self.pushButton_edit.setEnabled(False)
+        self.pushButton_DoIt.setEnabled(False)
+
+        # 断开串口链接
+        if self.__serial is not None and self.__serial.isOpen():
+            self.__serial.close()
+            self.__serial = None
