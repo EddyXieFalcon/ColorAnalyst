@@ -21,7 +21,12 @@ class SamplingWidget(SamplingWidgetModify):
         self.__serial = None
 
         # 准备对话框
-        self.__commendDailog = CommendDailog()
+        self.__commendDailogForAdd = CommendDailog()
+        self.__commendDailogForEdit = CommendDailog()
+
+        # 对话框按钮数据流方向
+        self.__commendDailogForAdd.selectedInstruction.connect(self.addInstructionToTableWidget)
+        self.__commendDailogForEdit.selectedInstruction.connect(self.editInstructionToTableWidget)
 
         # 初始化状态
         self.InitStatus()
@@ -35,7 +40,7 @@ class SamplingWidget(SamplingWidgetModify):
         # 串口扫描的槽函数
         self.pushButton_scan.clicked.connect(self.on_pushbutton_scan_clicked_slot)
 
-        # 五个安娜牛的槽函数
+        # 五个按钮的槽函数
         self.pushButton_load.clicked.connect(self.on_pushbutton_load_clicked_slot)
         self.pushButton_export.clicked.connect(self.on_pushbutton_export_clicked_slot)
         self.pushButton_add.clicked.connect(self.on_pushbutton_add_clicked_slot)
@@ -225,11 +230,7 @@ class SamplingWidget(SamplingWidgetModify):
         """添加命令"""
 
         # 弹出对话框，要求为配置输入一个名称
-        self.__commendDailog.show()
-
-        # 对话框按钮数据流方向
-        self.__commendDailog.selectedInstruction.disconnect(self.editInstructionToTableWidget)
-        self.__commendDailog.selectedInstruction.connect(self.addInstructionToTableWidget)
+        self.__commendDailogForAdd.show()
 
     def on_pushbutton_remove_clicked_slot(self):
         """删除命令"""
@@ -251,11 +252,7 @@ class SamplingWidget(SamplingWidgetModify):
             return
 
         # 弹出对话框，要求为配置输入一个名称
-        self.__commendDailog.show()
-
-        # 对话框按钮数据流方向
-        self.__commendDailog.selectedInstruction.disconnect(self.addInstructionToTableWidget)
-        self.__commendDailog.selectedInstruction.connect(self.editInstructionToTableWidget)
+        self.__commendDailogForEdit.show()
 
     def on_pushbutton_Doit_clicked_slot(self):
         """执行脚本"""
