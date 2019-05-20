@@ -110,21 +110,39 @@ class SamplingWidget(SamplingWidgetModify):
     def on_pushbutton_scan_clicked_slot(self):
         """扫描按钮，对选中的串口发起链接通讯"""
 
+        # 串口通信初始化
+
+
         # 获取用户选择的串口名称
         port_serial = self.comboBox_connect.currentText()
 
         # 创建链接
-        if port_serial is None:
+        if not len(port_serial):
             return
-        self.__serial = serial.Serial(port_serial, 9600, timeout=60)
+        self.__serial = serial.Serial(port_serial, 115200, timeout=1)
 
-        # 打开所有的控制按钮
-        self.pushButton_load.setEnabled(True)
-        self.pushButton_export.setEnabled(True)
-        self.pushButton_add.setEnabled(True)
-        self.pushButton_remove.setEnabled(True)
-        self.pushButton_edit.setEnabled(True)
-        self.pushButton_DoIt.setEnabled(True)
+        # 循环遍历1-32个
+        for id in range(1, 33):
+            # 发送握手
+            msg = "%s hsk\n" % id
+            self.__serial.write(msg.encode("utf-8"))
+
+            # 读取反馈
+            result = self.__serial.read(28)
+
+            # 如果有反馈，将id加入下拉菜单
+            if len(result) != 0:
+                # 将id放入下拉菜单
+                self.comboBox_scan.setEnabled(True)
+                self.comboBox_scan.addItem(str(id))
+
+                # 打开所有的控制按钮
+                self.pushButton_load.setEnabled(True)
+                self.pushButton_export.setEnabled(True)
+                self.pushButton_add.setEnabled(True)
+                self.pushButton_remove.setEnabled(True)
+                self.pushButton_edit.setEnabled(True)
+                self.pushButton_DoIt.setEnabled(True)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
