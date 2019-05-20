@@ -70,6 +70,19 @@ class SamplingWidget(SamplingWidgetModify):
             self.__serial.close()
             self.__serial = None
 
+    def InitSerial(self):
+        """串口通信初始化"""
+
+        # 断开串口
+        if self.__serial is not None and self.__serial.isOpen():
+            self.__serial.close()
+
+        # 清空下拉菜单
+        self.comboBox_scan.clear()
+
+        # 禁用
+        self.comboBox_scan.setEnabled(False)
+
     def on_pushbutton_connect_clicked_slot(self):
         """连接按钮，刷新串口列表"""
 
@@ -111,7 +124,7 @@ class SamplingWidget(SamplingWidgetModify):
         """扫描按钮，对选中的串口发起链接通讯"""
 
         # 串口通信初始化
-
+        self.InitSerial()
 
         # 获取用户选择的串口名称
         port_serial = self.comboBox_connect.currentText()
