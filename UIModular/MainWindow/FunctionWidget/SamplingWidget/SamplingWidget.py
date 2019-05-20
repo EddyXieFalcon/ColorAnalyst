@@ -156,16 +156,7 @@ class SamplingWidget(SamplingWidgetModify):
             # 如果有反馈，将id加入下拉菜单
             if len(result) != 0:
                 # 将id放入下拉菜单
-                self.comboBox_scan.setEnabled(True)
                 self.comboBox_scan.addItem(str(id))
-
-                # 打开所有的控制按钮
-                self.pushButton_load.setEnabled(True)
-                self.pushButton_export.setEnabled(True)
-                self.pushButton_add.setEnabled(True)
-                self.pushButton_remove.setEnabled(True)
-                self.pushButton_edit.setEnabled(True)
-                self.pushButton_DoIt.setEnabled(True)
 
             # 设置进度
             self.progressBar.setValue(100 * id / 32)
@@ -173,6 +164,19 @@ class SamplingWidget(SamplingWidgetModify):
         # 隐藏进度条，显示下拉菜单
         self.progressBar.hide()
         self.comboBox_scan.show()
+
+        # 如果扫描到设备，下拉菜单可用
+        if self.comboBox_scan.count():
+            # 下拉菜单可用
+            self.comboBox_scan.setEnabled(True)
+
+            # 打开所有的控制按钮
+            self.pushButton_load.setEnabled(True)
+            self.pushButton_export.setEnabled(True)
+            self.pushButton_add.setEnabled(True)
+            self.pushButton_remove.setEnabled(True)
+            self.pushButton_edit.setEnabled(True)
+            self.pushButton_DoIt.setEnabled(True)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
