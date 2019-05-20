@@ -2,12 +2,11 @@
 
 # Form implementation generated from reading ui file 'SamplingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_SamplingWidget(object):
     def setupUi(self, SamplingWidget):
@@ -29,12 +28,22 @@ class Ui_SamplingWidget(object):
         self.comboBox_scan = QtWidgets.QComboBox(SamplingWidget)
         self.comboBox_scan.setObjectName("comboBox_scan")
         self.horizontalLayout_2.addWidget(self.comboBox_scan)
+        self.progressBar = QtWidgets.QProgressBar(SamplingWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
+        self.progressBar.setSizePolicy(sizePolicy)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setTextVisible(False)
+        self.progressBar.setObjectName("progressBar")
+        self.horizontalLayout_2.addWidget(self.progressBar)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tableWidget = QtWidgets.QTableWidget(SamplingWidget)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(4)
+        self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -44,6 +53,8 @@ class Ui_SamplingWidget(object):
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, item)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.horizontalLayout.addWidget(self.tableWidget)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -84,10 +95,12 @@ class Ui_SamplingWidget(object):
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("SamplingWidget", "instructions "))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("SamplingWidget", "parameter"))
+        item.setText(_translate("SamplingWidget", "parameter1"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("SamplingWidget", "volume(ml)"))
+        item.setText(_translate("SamplingWidget", "parameter2"))
         item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("SamplingWidget", "parameter3"))
+        item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("SamplingWidget", "return message"))
         self.pushButton_load.setText(_translate("SamplingWidget", "load"))
         self.pushButton_export.setText(_translate("SamplingWidget", "export"))
@@ -95,5 +108,4 @@ class Ui_SamplingWidget(object):
         self.pushButton_remove.setText(_translate("SamplingWidget", "remove"))
         self.pushButton_edit.setText(_translate("SamplingWidget", "edit"))
         self.pushButton_DoIt.setText(_translate("SamplingWidget", "Do it"))
-
 

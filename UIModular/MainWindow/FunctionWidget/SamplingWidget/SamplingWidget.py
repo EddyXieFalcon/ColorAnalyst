@@ -46,6 +46,9 @@ class SamplingWidget(SamplingWidgetModify):
     def InitStatus(self):
         """初始化状态，所有的按钮不可用"""
 
+        # 隐藏进度条
+        self.progressBar.hide()
+
         # 设置“连接”按钮文本
         self.pushButton_connect.setText("Connect")
 
@@ -76,6 +79,9 @@ class SamplingWidget(SamplingWidgetModify):
         # 断开串口
         if self.__serial is not None and self.__serial.isOpen():
             self.__serial.close()
+
+        # 隐藏进度条
+        self.progressBar.hide()
 
         # 清空下拉菜单
         self.comboBox_scan.clear()
@@ -134,6 +140,10 @@ class SamplingWidget(SamplingWidgetModify):
             return
         self.__serial = serial.Serial(port_serial, 115200, timeout=1)
 
+        # 隐藏下拉菜单，显示进度条
+        self.comboBox_scan.hide()
+        self.progressBar.show()
+
         # 循环遍历1-32个
         for id in range(1, 33):
             # 发送握手
@@ -156,6 +166,13 @@ class SamplingWidget(SamplingWidgetModify):
                 self.pushButton_remove.setEnabled(True)
                 self.pushButton_edit.setEnabled(True)
                 self.pushButton_DoIt.setEnabled(True)
+
+            # 设置进度
+            self.progressBar.setValue(100 * id / 32)
+
+        # 隐藏进度条，显示下拉菜单
+        self.progressBar.hide()
+        self.comboBox_scan.show()
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
