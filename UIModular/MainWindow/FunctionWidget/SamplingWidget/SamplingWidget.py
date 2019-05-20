@@ -274,9 +274,10 @@ class SamplingWidget(SamplingWidgetModify):
             instruction = commend % (parameter1, parameter2, parameter3)
 
             # 发送指令
+            self.__serial.write(instruction.encode("utf-8"))
 
             # 监听返回值
-            returnMessage = ""
+            returnMessage = self.__serial.read(28)
 
             # 选中当前行
             self.tableWidget.setCurrentRow(index)
