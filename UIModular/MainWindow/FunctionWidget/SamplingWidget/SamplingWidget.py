@@ -89,10 +89,8 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 没有获取设备号
         if len(port_list) <= 0:
-            self.pushButton_connect.setText("No Device!!!")
-            time.sleep(2)
-            self.pushButton_connect.setText("Connect")
-        # 判断有设备
+            QMessageBox.warning(self, "警告", "没有连接设备！！！", QMessageBox.Yes)
+            # 判断有设备
         else:
             # 解析设备
             for port_info in port_list:
