@@ -110,37 +110,31 @@ class SamplingWidget(SamplingWidgetModify):
     def on_pushbutton_scan_clicked_slot(self):
         """扫描按钮，对选中的串口发起链接通讯"""
 
+        # 串口通信初始化
+
+
         # 获取用户选择的串口名称
         port_serial = self.comboBox_connect.currentText()
 
         # 创建链接
         if not len(port_serial):
             return
-        if self.__serial is None:
-            self.__serial = serial.Serial(port_serial, 115200, timeout=1)
-        elif self.__serial.is_open():
-            self.__serial.close()
-            self.__serial = serial.Serial(port_serial, 115200, timeout=1)
+        self.__serial = serial.Serial(port_serial, 115200, timeout=1)
 
         # 循环遍历1-32个
-        for index in range(1, 33):
+        for id in range(1, 33):
             # 发送握手
-            msg = "%s hsk\n" % index
+            msg = "%s hsk\n" % id
             self.__serial.write(msg.encode("utf-8"))
-
-            print(index)
 
             # 读取反馈
             result = self.__serial.read(28)
-
-            print(result)
-            print(len(result))
 
             # 如果有反馈，将id加入下拉菜单
             if len(result) != 0:
                 # 将id放入下拉菜单
                 self.comboBox_scan.setEnabled(True)
-                self.comboBox_scan.addItem(str(index))
+                self.comboBox_scan.addItem(str(id))
 
                 # 打开所有的控制按钮
                 self.pushButton_load.setEnabled(True)
