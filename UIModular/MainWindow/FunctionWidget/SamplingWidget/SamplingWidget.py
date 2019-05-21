@@ -206,18 +206,19 @@ class SamplingWidget(SamplingWidgetModify):
         if file_path is None:
             return
 
-        # 加载脚本
-        self.export_experiment_script(file_path)
-
         # 创建实验数据结构
         script = []
         count = self.tableWidget.rowCount()
         for index in range(count):
-            step = {}
-            step["instructions"] = self.tableWidget.item(index, 0).text()
-            step["parameter"] = self.tableWidget.item(index, 1).text()
-            step["volume"] = self.tableWidget.item(index, 2).text()
-            step["volume"] = self.tableWidget.item(index, 3).text()
+            # 单条指令
+            instrction = []
+            instrction.append(self.tableWidget.item(index, 0).text())
+            instrction.append(self.tableWidget.item(index, 1).text())
+            instrction.append(self.tableWidget.item(index, 2).text())
+            instrction.append(self.tableWidget.item(index, 3).text())
+
+            # 放入指令
+            script.append(instrction)
 
         # 将数据转成文件
         with open(file_path, "w") as jsonFile:
