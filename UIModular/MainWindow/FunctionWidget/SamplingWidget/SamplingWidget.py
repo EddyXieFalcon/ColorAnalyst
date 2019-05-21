@@ -28,8 +28,8 @@ class SamplingWidget(SamplingWidgetModify):
         self.__commendDailogForAdd.selectedInstruction.connect(self.addInstructionToTableWidget)
         self.__commendDailogForEdit.selectedInstruction.connect(self.editInstructionToTableWidget)
 
-        # 初始化状态
-        self.InitStatus()
+        # 初始化状态， todo
+        # self.InitStatus()
 
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
@@ -201,27 +201,31 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 获取文件保存路径
         file_path = QFileDialog.getSaveFileName(self, u"保存文件", u"C:/", "实验脚本(*.json)")
+        print(file_path)
 
         # 容错判断
         if file_path is None:
             return
 
         # 创建实验数据结构
-        script = []
+        script = {}
         count = self.tableWidget.rowCount()
         for index in range(count):
             # 单条指令
             instrction = []
-            instrction.append(self.tableWidget.item(index, 0).text())
-            instrction.append(self.tableWidget.item(index, 1).text())
-            instrction.append(self.tableWidget.item(index, 2).text())
-            instrction.append(self.tableWidget.item(index, 3).text())
+
+            # 读取指令表格数据
+            for i in range(4):
+                if self.tableWidget.item(index, i) is not None:
+                    instrction.append(self.tableWidget.item(index, i).text())
+                else:
+                    instrction.append("")
 
             # 放入指令
-            script.append(instrction)
+            script[index] = instrction
 
         # 将数据转成文件
-        with open(file_path, "w") as jsonFile:
+        with open(file_path[0], "w") as jsonFile:
             try:
                 json.dump(script, jsonFile)
             except:
@@ -280,7 +284,10 @@ class SamplingWidget(SamplingWidgetModify):
             paraList = []
             for num in range(paraNum):
                 # 获取参数
-                parameter = self.tableWidget.item(index, num + 1).text()
+                if self.tableWidget.item(index, num + 1) is not None:
+                    parameter = self.tableWidget.item(index, num + 1).text()
+                else:
+                    parameter = '0'
 
                 # 判断添加的参数是否合法，如果不合法，自动转换为最小值
                 try:
