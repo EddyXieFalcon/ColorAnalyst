@@ -190,7 +190,7 @@ class SamplingWidget(SamplingWidgetModify):
         (file_path, file_type) = QFileDialog.getOpenFileName(self, u"选择一个实验脚本", u"C:/", u"实验脚本(*.json)")
 
         # 容错判断
-        if file_path is None or file_type != "json":
+        if file_path is None or "json" not in file_type:
             return
 
         # 加载脚本
@@ -200,8 +200,7 @@ class SamplingWidget(SamplingWidgetModify):
         """导出实验"""
 
         # 获取文件保存路径
-        file_path = QFileDialog.getSaveFileName(self, u"保存文件", u"C:/", "实验脚本(*.json)")
-        print(file_path)
+        (file_path, file_type) = QFileDialog.getSaveFileName(self, u"保存文件", u"C:/", "实验脚本(*.json)")
 
         # 容错判断
         if file_path is None:
@@ -225,7 +224,7 @@ class SamplingWidget(SamplingWidgetModify):
             script[index] = instrction
 
         # 将数据转成文件
-        with open(file_path[0], "w") as jsonFile:
+        with open(file_path, "w") as jsonFile:
             try:
                 json.dump(script, jsonFile)
             except:
@@ -334,10 +333,10 @@ class SamplingWidget(SamplingWidgetModify):
         self.tableWidget.clearContents()
         self.tableWidget.setRowCount(len(script))
         for index in range(len(script)):
-            self.tableWidget.item(index, 0).setText(script[index]["instructions"])
-            self.tableWidget.item(index, 1).setText(script[index]["parameter"])
-            self.tableWidget.item(index, 2).setText(script[index]["volume"])
-            self.tableWidget.item(index, 3).setText(script[index]["volume"])
+            self.tableWidget.item(index, 0).setText(script[index][0])
+            self.tableWidget.item(index, 1).setText(script[index][1])
+            self.tableWidget.item(index, 2).setText(script[index][2])
+            self.tableWidget.item(index, 3).setText(script[index][3])
 
     def addInstructionToTableWidget(self, instruction):
         """添加指令"""
