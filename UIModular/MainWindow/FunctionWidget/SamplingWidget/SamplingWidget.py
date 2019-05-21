@@ -289,16 +289,13 @@ class SamplingWidget(SamplingWidgetModify):
             self.__serial.write(instruction.encode("utf-8"))
 
             # 选中当前行
-            # self.tableWidget.setCurrentRow(index)
+            self.tableWidget.setCurrentCell(index, 0)
 
             # 监听返回值
             returnMessage = self.__serial.read(128)
 
             # 设置返回值到界面
             self.tableWidget.setItem(index, 4, QTableWidgetItem(str(returnMessage)))
-
-        # 取消选中
-        # self.tableWidget.setCurrentRow(-1)
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
