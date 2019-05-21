@@ -143,7 +143,7 @@ class SamplingWidget(SamplingWidgetModify):
         # 创建链接
         if not len(port_serial):
             return
-        self.__serial = serial.Serial(port_serial, 115200, timeout=1)
+        self.__serial = serial.Serial(port_serial, 115200, timeout=0.1)
 
         # 隐藏下拉菜单，显示进度条
         self.comboBox_scan.hide()
@@ -264,29 +264,41 @@ class SamplingWidget(SamplingWidgetModify):
 
         # 依次执行列表中的命令
         for index in range(rowCount):
-            # 获取文本
-            commend = self.tableWidget.item(index, 0).text()
-            parameter1 = self.tableWidget.item(index, 1).text()
-            parameter2 = self.tableWidget.item(index, 2).text()
-            parameter3 = self.tableWidget.item(index, 3).text()
+
+            # 获取指令
+            msg = self.tableWidget.item(index, 0).text()
+            commend = InstructionMgr().GetParameter()[msg]
+
+            # 解析指令
+            instruction = commend[0]
+
+            # 判断有几个参数
+            paraNum = len(commend) - 1
+
+            # 为指令添加参数
+            paraList = []
+            for num in range(paraNum):
+                paraList.append(self.tableWidget.item(index, num + 1).text())
 
             # 合成指令
-            instruction = commend % (parameter1, parameter2, parameter3)
+            if paraNum > 0:
+                instruction = instruction % tuple(paraList)
+            instruction = self.comboBox_scan.currentText() + " " + instruction
 
             # 发送指令
             self.__serial.write(instruction.encode("utf-8"))
 
-            # 监听返回值
-            returnMessage = self.__serial.read(28)
-
             # 选中当前行
-            self.tableWidget.setCurrentRow(index)
+            # self.tableWidget.setCurrentRow(index)
+
+            # 监听返回值
+            returnMessage = self.__serial.read(128)
 
             # 设置返回值到界面
-            self.tableWidget.setItem(index, 4, QTableWidgetItem(returnMessage))
+            self.tableWidget.setItem(index, 4, QTableWidgetItem(str(returnMessage)))
 
         # 取消选中
-        self.tableWidget.setCurrentRow(-1)
+        # self.tableWidget.setCurrentRow(-1)
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
