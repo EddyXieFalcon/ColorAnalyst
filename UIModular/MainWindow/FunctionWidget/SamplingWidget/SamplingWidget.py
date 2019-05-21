@@ -278,7 +278,19 @@ class SamplingWidget(SamplingWidgetModify):
             # 为指令添加参数
             paraList = []
             for num in range(paraNum):
-                paraList.append(self.tableWidget.item(index, num + 1).text())
+                # 获取参数
+                parameter = self.tableWidget.item(index, num + 1).text()
+
+                # 判断添加的参数是否合法，如果不合法，自动转换为最小值
+                try:
+                    value = float(parameter)
+                    assert (value >= commend[num + 1][0] and value <= commend[num + 1][1])
+                except:
+                    parameter = str(commend[num + 1][0])
+                    self.tableWidget.setItem(index, num + 1, QTableWidgetItem(parameter))
+
+                # 放入参数
+                paraList.append(parameter)
 
             # 合成指令
             if paraNum > 0:
