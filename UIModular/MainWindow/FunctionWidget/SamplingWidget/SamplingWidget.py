@@ -29,7 +29,7 @@ class SamplingWidget(SamplingWidgetModify):
         self.__commendDailogForEdit.selectedInstruction.connect(self.editInstructionToTableWidget)
 
         # 初始化状态
-        self.InitStatus()
+        # self.InitStatus()
 
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
@@ -333,10 +333,10 @@ class SamplingWidget(SamplingWidgetModify):
         self.tableWidget.clearContents()
         self.tableWidget.setRowCount(len(script))
         for index in range(len(script)):
-            self.tableWidget.item(index, 0).setText(script[index][0])
-            self.tableWidget.item(index, 1).setText(script[index][1])
-            self.tableWidget.item(index, 2).setText(script[index][2])
-            self.tableWidget.item(index, 3).setText(script[index][3])
+            self.tableWidget.setItem(index, 0, QTableWidgetItem(script[str(index)][0]))
+            self.tableWidget.setItem(index, 1, QTableWidgetItem(script[str(index)][1]))
+            self.tableWidget.setItem(index, 2, QTableWidgetItem(script[str(index)][2]))
+            self.tableWidget.setItem(index, 3, QTableWidgetItem(script[str(index)][3]))
 
     def addInstructionToTableWidget(self, instruction):
         """添加指令"""
