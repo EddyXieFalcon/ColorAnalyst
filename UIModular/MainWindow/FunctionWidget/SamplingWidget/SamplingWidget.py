@@ -28,8 +28,8 @@ class SamplingWidget(SamplingWidgetModify):
         self.__commendDailogForAdd.selectedInstruction.connect(self.addInstructionToTableWidget)
         self.__commendDailogForEdit.selectedInstruction.connect(self.editInstructionToTableWidget)
 
-        # 初始化状态， todo
-        # self.InitStatus()
+        # 初始化状态
+        self.InitStatus()
 
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
