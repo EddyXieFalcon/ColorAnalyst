@@ -33,6 +33,8 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout.addWidget(self.btnLoad)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.graphicsView = QtWidgets.QGraphicsView(ImagingWidget)
+        self.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.graphicsView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.graphicsView.setObjectName("graphicsView")
         self.verticalLayout.addWidget(self.graphicsView)
         self.horizontalLayout_12.addLayout(self.verticalLayout)

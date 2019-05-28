@@ -4,6 +4,7 @@ from UIModular.MainWindow.MainWindowModify import MainWindowModify
 from UIModular.MainWindow.FunctionWidget.HomeWidget.HomeWidget import HomeWidget
 from UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidget import ProtocolsWidget
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidget import SamplingWidget
+from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidget import ImagingWidget
 from UIModular.MainWindow.StatusBarWidget.StatusBarWidget import StatusBarWidget
 
 
@@ -22,10 +23,12 @@ class MainWindow(MainWindowModify):
         self.__protocolsWidget = ProtocolsWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__protocolsWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButtonProtocols] = self.__protocolsWidget
-
         self.__samplingWidget = SamplingWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__samplingWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButton_Sampling] = self.__samplingWidget
+        self.__imagingWidget = ImagingWidget(self.widgetFunction)
+        self.gridLayout_3.addWidget(self.__imagingWidget, 0, 0, 1, 1)
+        self.__functionWidgetDict[self.pushButton_Imaging] = self.__imagingWidget
 
         # 将所有的子界面隐藏，默认显示第一个界面
         self.HideAllFunctionWidget()
