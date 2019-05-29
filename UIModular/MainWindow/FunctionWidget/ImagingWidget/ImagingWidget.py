@@ -9,3 +9,20 @@ class ImagingWidget(ImagingWidgetModify):
 
         # 父类构造方法
         super(ImagingWidget, self).__init__()
+
+        ######### 基本属性 #########
+        # 帧率
+        self.spinBoxFPS.valueChanged.connect(self.OnSpinBoxFPSValueChangedSlot)
+        # 自动曝光
+        self.btnAutoExposureOn.clicked.connect(self.OnBtnAutoExposureClickedSlot)
+        self.btnAutoExposureOff.clicked.connect(self.OnBtnAutoExposureClickedSlot)
+
+    def OnSpinBoxFPSValueChangedSlot(self):
+        """帧率"""
+
+        pass
+
+    def OnBtnAutoExposureClickedSlot(self):
+        """自动曝光"""
+
+        print(self.btnAutoExposureOn.isChecked(), self.btnAutoExposureOff.isChecked())
