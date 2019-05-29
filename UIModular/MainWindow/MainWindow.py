@@ -17,15 +17,19 @@ class MainWindow(MainWindowModify):
 
         # 将所有的子界面放入MainWindow中，并用字典管理
         self.__functionWidgetDict = {}
+
         self.__homeWidget = HomeWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__homeWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButtonHome] = self.__homeWidget
+
         self.__protocolsWidget = ProtocolsWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__protocolsWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButtonProtocols] = self.__protocolsWidget
+
         self.__samplingWidget = SamplingWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__samplingWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButton_Sampling] = self.__samplingWidget
+        
         self.__imagingWidget = ImagingWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__imagingWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButton_Imaging] = self.__imagingWidget
