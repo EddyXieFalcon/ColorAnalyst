@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1077</width>
-    <height>872</height>
+    <width>1195</width>
+    <height>1139</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,11 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QSpinBox" name="spinBoxFPS"/>
+             <widget class="QSpinBox" name="spinBoxFPS">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="labelFPSUnit">
@@ -144,7 +148,11 @@
           <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QSpinBox" name="spinBoxExposureTime"/>
+             <widget class="QSpinBox" name="spinBoxExposureTime">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="labelExposureTimeUnit">
@@ -208,7 +216,11 @@
           <item row="4" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QSpinBox" name="spinBoxGain"/>
+             <widget class="QSpinBox" name="spinBoxGain">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="label_12">
@@ -272,7 +284,11 @@
           <item row="6" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
-             <widget class="QSpinBox" name="spinBoxGamma"/>
+             <widget class="QSpinBox" name="spinBoxGamma">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="label_13">
@@ -336,7 +352,11 @@
           <item row="8" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
-             <widget class="QSpinBox" name="spinBoxBlackLevel"/>
+             <widget class="QSpinBox" name="spinBoxBlackLevel">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="label_14">
@@ -513,10 +533,139 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnAutoExposureOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxExposureTime</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1031</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnAutoExposureOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxExposureTime</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1106</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGainOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGain</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1031</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGainOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGain</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1106</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGammaOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGamma</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1031</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGammaOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGamma</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1128</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnBlackLevelOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxBlackLevel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1061</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnBlackLevelOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxBlackLevel</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1135</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_4"/>
  </buttongroups>

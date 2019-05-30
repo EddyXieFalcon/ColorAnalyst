@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
         ImagingWidget.setObjectName("ImagingWidget")
-        ImagingWidget.resize(1077, 872)
+        ImagingWidget.resize(1195, 1139)
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(ImagingWidget)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -52,6 +52,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.spinBoxFPS = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxFPS.setEnabled(True)
         self.spinBoxFPS.setObjectName("spinBoxFPS")
         self.horizontalLayout_4.addWidget(self.spinBoxFPS)
         self.labelFPSUnit = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -84,6 +85,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.spinBoxExposureTime = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxExposureTime.setEnabled(False)
         self.spinBoxExposureTime.setObjectName("spinBoxExposureTime")
         self.horizontalLayout_3.addWidget(self.spinBoxExposureTime)
         self.labelExposureTimeUnit = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -116,6 +118,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.spinBoxGain = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxGain.setEnabled(False)
         self.spinBoxGain.setObjectName("spinBoxGain")
         self.horizontalLayout_8.addWidget(self.spinBoxGain)
         self.label_12 = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -149,6 +152,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.spinBoxGamma = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxGamma.setEnabled(False)
         self.spinBoxGamma.setObjectName("spinBoxGamma")
         self.horizontalLayout_9.addWidget(self.spinBoxGamma)
         self.label_13 = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -182,6 +186,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         self.spinBoxBlackLevel = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxBlackLevel.setEnabled(False)
         self.spinBoxBlackLevel.setObjectName("spinBoxBlackLevel")
         self.horizontalLayout_10.addWidget(self.spinBoxBlackLevel)
         self.label_14 = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -273,6 +278,14 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_12.addLayout(self.verticalLayout_4)
 
         self.retranslateUi(ImagingWidget)
+        self.btnAutoExposureOn.clicked['bool'].connect(self.spinBoxExposureTime.setEnabled)
+        self.btnAutoExposureOff.clicked['bool'].connect(self.spinBoxExposureTime.setDisabled)
+        self.btnGainOn.clicked['bool'].connect(self.spinBoxGain.setEnabled)
+        self.btnGainOff.clicked['bool'].connect(self.spinBoxGain.setDisabled)
+        self.btnGammaOn.clicked['bool'].connect(self.spinBoxGamma.setEnabled)
+        self.btnGammaOff.clicked['bool'].connect(self.spinBoxGamma.setDisabled)
+        self.btnBlackLevelOn.clicked['bool'].connect(self.spinBoxBlackLevel.setEnabled)
+        self.btnBlackLevelOff.clicked['bool'].connect(self.spinBoxBlackLevel.setDisabled)
         QtCore.QMetaObject.connectSlotsByName(ImagingWidget)
 
     def retranslateUi(self, ImagingWidget):
