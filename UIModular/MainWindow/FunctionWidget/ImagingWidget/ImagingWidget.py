@@ -1,5 +1,6 @@
 # coding=utf8
 
+from PyQt5 import QtWidgets
 from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetModify import ImagingWidgetModify
 
 
@@ -9,6 +10,21 @@ class ImagingWidget(ImagingWidgetModify):
 
         # 父类构造方法
         super(ImagingWidget, self).__init__()
+
+        ######### 界面处理 #########
+        self.__scene = QtWidgets.QGraphicsScene()#创建视口的场景
+        self.graphicsView.setScene(self.__scene)#将视口与场景绑定
+
+        ######### 图像处理 #########
+        # 取流
+        self.__isLiveStreaming = False
+        self.btnLiveStreaming.clicked.connect(self.OnBtnLiveStreamingClickedSlot)
+        # 抓取
+        self.btnCapture.clicked.connect(self.OnBtnCaptureClickedSlot)
+        # 保存
+        self.btnSaveAs.clicked.connect(self.OnBtnSaveAsClickedSlot)
+        # 载入
+        self.btnLoad.clicked.connect(self.OnBtnLoadClickedSlot)
 
         ######### 基本属性 #########
         # 帧率
@@ -38,6 +54,23 @@ class ImagingWidget(ImagingWidgetModify):
         self.btnBlackLevelOn.clicked.connect(self.OnBtnBlackLevelClickedSlot)
         self.btnBlackLevelOff.clicked.connect(self.OnBtnBlackLevelClickedSlot)
         self.spinBoxBlackLevel.valueChanged.connect(self.OnSpinBoxBlackLevelValueChangedSlot)
+
+    def OnBtnLiveStreamingClickedSlot(self):
+    	"""取流"""
+
+    	self.__isLiveStreaming = not self.__isLiveStreaming
+
+    def OnBtnCaptureClickedSlot(self):
+    	"""抓取"""
+    	pass
+
+    def OnBtnSaveAsClickedSlot(self):
+    	"""保存"""
+    	pass
+
+    def OnBtnLoadClickedSlot(self):
+    	"""载入"""
+    	pass
 
     def OnSpinBoxFPSValueChangedSlot(self):
         """帧率"""
