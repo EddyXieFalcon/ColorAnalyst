@@ -44,8 +44,8 @@ if __name__ == "__main__":
         deviceIp = input("please input current camera ip : ")
         netIp = input("please input net export ip : ")
     else:
-        deviceIp = raw_input("please input current camera ip : ")
-        netIp = raw_input("please input net export ip : ")
+        deviceIp = input("please input current camera ip : ")
+        netIp = input("please input net export ip : ")
 
     deviceIpList = deviceIp.split('.')
     stGigEDev.nCurrentIp = (int(deviceIpList[0]) << 24) | (int(deviceIpList[1]) << 16) | (
