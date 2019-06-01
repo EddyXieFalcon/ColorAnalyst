@@ -1,6 +1,17 @@
 # coding=utf8
 
-from PyQt5 import QtWidgets
+import sys
+import threading
+import msvcrt
+
+from ctypes import *
+
+from ThirdParty.MVS.MvImport.MvCameraControl_class import *
+from ThirdParty.MVS.MvImport.CameraParams_const import *
+from ThirdParty.MVS.MvImport.CameraParams_header import *
+
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetModify import ImagingWidgetModify
 
 
@@ -12,7 +23,7 @@ class ImagingWidget(ImagingWidgetModify):
         super(ImagingWidget, self).__init__()
 
         ######### 界面处理 #########
-        self.__scene = QtWidgets.QGraphicsScene()#创建视口的场景
+        self.__scene = QGraphicsScene()#创建视口的场景
         self.graphicsView.setScene(self.__scene)#将视口与场景绑定
 
         ######### 图像处理 #########
@@ -58,6 +69,45 @@ class ImagingWidget(ImagingWidgetModify):
     def OnBtnLiveStreamingClickedSlot(self):
     	"""取流"""
 
+    	# 判断状态，如果已经在取流，无需操作
+    	if self.__isLiveStreaming:
+    		return
+
+    	# 获取CCD设备信息
+    	deviceList = MV_CC_DEVICE_INFO_LIST()
+    	tlayerType = MV_GIGE_DEVICE | MV_USB_DEVICE
+    	ret = MvCamera.MV_CC_EnumDevices(tlayerType, deviceList)
+
+    	# 如果没有查到设备，退出函数
+    	if ret != 0 or deviceList.nDeviceNum == 0:
+	        QMessageBox.question(self, u"CCD连接", u"无法找到CCD", QMessageBox.Ok)
+	        return
+
+        # ch:创建相机实例 | en:Creat Camera Object
+	    cam = MvCamera()
+
+	    # ch:选择设备并创建句柄 | en:Select device and create handle
+	    stDeviceList = cast(deviceList.pDeviceInfo[int(nConnectionNum)], POINTER(MV_CC_DEVICE_INFO)).contents
+
+	    # 创建设备连接句柄
+	    if cam.MV_CC_CreateHandle(stDeviceList) != 0:
+	        return
+
+	    # ch:打开设备 | en:Open device
+	    if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
+	        return
+
+	    # ch:设置触发模式为off | en:Set trigger mode as off
+	    if cam.MV_CC_SetEnumValue("TriggerMode", MV_TRIGGER_MODE_OFF) != 0:
+	        return
+
+	    # ch:获取数据包大小 | en:Get payload size
+	    stParam = MVCC_INTVALUE()
+	    memset(byref(stParam), 0, sizeof(MVCC_INTVALUE))
+
+	    # ch:开始取流 | en:Start grab image
+
+    	# 设置状态，是否正在取流
     	self.__isLiveStreaming = not self.__isLiveStreaming
 
     def OnBtnCaptureClickedSlot(self):
