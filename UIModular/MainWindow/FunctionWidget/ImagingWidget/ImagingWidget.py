@@ -76,10 +76,9 @@ class ImagingWidget(ImagingWidgetModify):
     	# 获取CCD设备信息
     	deviceList = MV_CC_DEVICE_INFO_LIST()
     	tlayerType = MV_GIGE_DEVICE | MV_USB_DEVICE
-    	ret = MvCamera.MV_CC_EnumDevices(tlayerType, deviceList)
 
     	# 如果没有查到设备，退出函数
-    	if ret != 0 or deviceList.nDeviceNum == 0:
+    	if not MvCamera.MV_CC_EnumDevices(tlayerType, deviceList) or deviceList.nDeviceNum == 0:
 	        QMessageBox.question(self, u"CCD连接", u"无法找到CCD", QMessageBox.Ok)
 	        return
 
@@ -90,15 +89,15 @@ class ImagingWidget(ImagingWidgetModify):
 	    stDeviceList = cast(deviceList.pDeviceInfo[int(nConnectionNum)], POINTER(MV_CC_DEVICE_INFO)).contents
 
 	    # 创建设备连接句柄
-	    if cam.MV_CC_CreateHandle(stDeviceList) != 0:
+	    if not cam.MV_CC_CreateHandle(stDeviceList):
 	        return
 
 	    # ch:打开设备 | en:Open device
-	    if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
+	    if not cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0):
 	        return
 
 	    # ch:设置触发模式为off | en:Set trigger mode as off
-	    if cam.MV_CC_SetEnumValue("TriggerMode", MV_TRIGGER_MODE_OFF) != 0:
+	    if not cam.MV_CC_SetEnumValue("TriggerMode", MV_TRIGGER_MODE_OFF):
 	        return
 
 	    # ch:获取数据包大小 | en:Get payload size
