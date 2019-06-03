@@ -12,8 +12,8 @@ class ImagingWidget(ImagingWidgetModify):
         super(ImagingWidget, self).__init__()
 
         ######### 界面处理 #########
-        self.__scene = QtWidgets.QGraphicsScene()#创建视口的场景
-        self.graphicsView.setScene(self.__scene)#将视口与场景绑定
+        self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
+        self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
 
         ######### 图像处理 #########
         # 取流
@@ -56,21 +56,21 @@ class ImagingWidget(ImagingWidgetModify):
         self.spinBoxBlackLevel.valueChanged.connect(self.OnSpinBoxBlackLevelValueChangedSlot)
 
     def OnBtnLiveStreamingClickedSlot(self):
-    	"""取流"""
+        """取流"""
 
-    	self.__isLiveStreaming = not self.__isLiveStreaming
+        self.__isLiveStreaming = not self.__isLiveStreaming
 
     def OnBtnCaptureClickedSlot(self):
-    	"""抓取"""
-    	pass
+        """抓取"""
+        pass
 
     def OnBtnSaveAsClickedSlot(self):
-    	"""保存"""
-    	pass
+        """保存"""
+        pass
 
     def OnBtnLoadClickedSlot(self):
-    	"""载入"""
-    	pass
+        """载入"""
+        pass
 
     def OnSpinBoxFPSValueChangedSlot(self):
         """帧率"""
