@@ -20,12 +20,11 @@ def work_thread(cam=0, pData=0, nDataSize=0):
     while True:
         ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
         if ret == 0:
-            print(help(pData))
-            # print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
-            #    stFrameInfo.nWidth,  # 图片宽度
-            #    stFrameInfo.nHeight,  # 图片高度
-            #    stFrameInfo.nFrameNum  # 第几帧index
-            #))
+            print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
+               stFrameInfo.nWidth,  # 图片宽度
+               stFrameInfo.nHeight,  # 图片高度
+               stFrameInfo.nFrameNum  # 第几帧index
+            ))
         else:
             print("no data[0x%x]" % ret)
         if g_bExit == True:
