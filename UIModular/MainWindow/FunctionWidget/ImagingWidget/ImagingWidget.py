@@ -1,6 +1,7 @@
 # coding=utf8
 
 import msvcrt
+import threading
 
 from ctypes import *
 
@@ -8,11 +9,13 @@ from ThirdParty.MVS.MvImport.MvCameraControl_class import *
 from ThirdParty.MVS.MvImport.MvCameraControl_header import *
 from ThirdParty.MVS.MvImport.CameraParams_const import *
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui, QtCore
 from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetModify import ImagingWidgetModify
 
 
 class ImagingWidget(ImagingWidgetModify):
+    LiveStreamingSccessSignal = QtCore.pyqtSignal()
+
     def __init__(self, parent=None):
         """构造方法"""
 
@@ -20,13 +23,18 @@ class ImagingWidget(ImagingWidgetModify):
         super(ImagingWidget, self).__init__()
 
         ######### 界面处理 #########
+        self.__dataBuff = None  # 取流数据缓冲
         self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
         self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
+        self.__image = QtWidgets.QGraphicsPixmapItem()  # 图片图元
+        self.__imageWidth = 0  # 图片宽度
+        self.__imageHeight = 0  # 图片高度
 
         ######### 图像处理 #########
         # 取流
         self.__isLiveStreaming = False
         self.btnLiveStreaming.clicked.connect(self.OnBtnLiveStreamingClickedSlot)
+        self.LiveStreamingSccessSignal.connect(self.ShowStreamImageSlot)
         # 抓取
         self.btnCapture.clicked.connect(self.OnBtnCaptureClickedSlot)
         # 保存
@@ -86,7 +94,7 @@ class ImagingWidget(ImagingWidgetModify):
 
         # 创建设备连接句柄
         if cam.MV_CC_CreateHandle(stDeviceList) != 0:
-           return
+            return
 
         # ch:打开设备 | en:Open device
         if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
@@ -109,15 +117,33 @@ class ImagingWidget(ImagingWidgetModify):
         if cam.MV_CC_StartGrabbing() != 0:
             return
 
-        # 创建设备信息列表数据结构体
-        stDeviceList = MV_FRAME_OUT_INFO_EX()
-        # 为上述数据结构体填装数据
-        memset(byref(stDeviceList), 0, sizeof(stDeviceList))
-        # 创建数据缓冲区
-        data_buf = (c_ubyte * nPayloadSize)()
+        # 准备数据容器
+        self.__dataBuff = (c_ubyte * nPayloadSize)()
 
-        # 反转标识
-        self.__isLiveStreaming = not self.__isLiveStreaming
+        # 先抓一帧数据
+        if cam.MV_CC_GetOneFrameTimeout(byref(self.__dataBuff), nPayloadSize, stDeviceList, 1000) == 0:
+            # 如果这区成功，初始化界面
+            self.__scene.setSceneRect(0, 0, stDeviceList.nWidth, stDeviceList.nHeight)
+            # 记录图片宽高
+            self.__imageWidth = stDeviceList.nWidth
+            self.__imageHeight = stDeviceList.nHeight
+            # 将图片容器放入其中
+            self.__scene.addItem(self.__image)
+
+        else:
+            return
+
+        # 启动取流线程
+        try:
+            hThreadHandle = threading.Thread(target=self.LiveStreamingThread,
+                                             args=(cam, byref(self.__dataBuff), nPayloadSize))
+
+            # 反转标识
+            self.__isLiveStreaming = True
+
+            hThreadHandle.start()
+        except:
+            self.__isLiveStreaming = False
 
     def OnBtnCaptureClickedSlot(self):
         """抓取"""
@@ -166,3 +192,45 @@ class ImagingWidget(ImagingWidgetModify):
     def OnSpinBoxBlackLevelValueChangedSlot(self):
         """Black Level大小"""
         self.__blackLevel = self.spinBoxBlackLevel.value()
+
+    def LiveStreamingThread(self, cam=0, pData=0, nDataSize=0):
+        """取流的独立工作线程"""
+
+        # 流信息容器
+        stFrameInfo = MV_FRAME_OUT_INFO_EX()
+        # 内存拷贝
+        memset(byref(stFrameInfo), 0, sizeof(stFrameInfo))
+        # 线程工作方式
+        while True:
+            if cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000) == 0:
+                # 放出信号，表示取流成功
+                self.LiveStreamingSccessSignal.emit()
+            else:
+                continue
+            if self.__isLiveStreaming == False:
+                break
+
+    def ShowStreamImageSlot(self):
+        """将获取的图片流显示到UI"""
+
+        # 解析图片流
+        data = list(self.__dataBuff)
+
+        # 准备容器
+        img = QtGui.QImage()
+
+        # 解析并填装
+        for line in range(self.__imageHeight):
+            for pixel in range(self.__imageWidth):
+                color = QtGui.QColor(
+                    data[self.__imageHeight * self.__imageWidth],
+                    data[self.__imageHeight * self.__imageWidth + 1],
+                    data[self.__imageHeight * self.__imageWidth + 2]
+                )
+                img.setPixel(self.__imageWidth, self.__imageHeight, color)
+
+        # 转换格式
+        pix = QtGui.QPixmap().fromImage(img, QtCore.Qt.ImageConversionFlags)
+
+        # 显示
+        self.__iamge.setPixmap(pix)
