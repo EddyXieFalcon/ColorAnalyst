@@ -25,12 +25,12 @@ class ImagingWidget(ImagingWidgetModify):
         super(ImagingWidget, self).__init__()
 
         ######### 界面处理 #########
-        self.__dataBuff = None  # 取流数据缓冲
-        self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
-        self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
-        self.__pixmapItem = QtWidgets.QGraphicsPixmapItem()  # 图片图元
         self.__imageWidth = 0  # 图片宽度
         self.__imageHeight = 0  # 图片高度
+        self.__pixmap = QtGui.QPixmap()  # 图片图元
+        self.__pixmapItem = QtWidgets.QGraphicsPixmapItem()  # 图片图元
+        self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
+        self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
 
         ######### 图像处理 #########
         # 取流
@@ -126,32 +126,10 @@ class ImagingWidget(ImagingWidgetModify):
         memset(byref(stDeviceList), 0, sizeof(stDeviceList))
         # 创建数据缓冲区
         data_buf = (c_ubyte * nPayloadSize)()
-
-        # 先抓一帧数据
+        # 先抓取一帧，用于初始化界面
         if cam.MV_CC_GetOneFrameTimeout(byref(data_buf), nPayloadSize, stDeviceList, 1000) == 0:
-
-            # 解析数据
-            nRGBSize = stDeviceList.nWidth * stDeviceList.nHeight * 3
-            stConvertParam = MV_CC_PIXEL_CONVERT_PARAM()
-            memset(byref(stConvertParam), 0, sizeof(stConvertParam))
-            stConvertParam.nWidth = stDeviceList.nWidth
-            stConvertParam.nHeight = stDeviceList.nHeight
-            stConvertParam.pSrcData = data_buf
-            stConvertParam.nSrcDataLen = stDeviceList.nFrameLen
-            stConvertParam.enSrcPixelType = stDeviceList.enPixelType
-            stConvertParam.enDstPixelType = PixelType_Gvsp_RGB8_Packed
-            stConvertParam.pDstBuffer = (c_ubyte * nRGBSize)()
-            stConvertParam.nDstBufferSize = nRGBSize
-
-            # 进行数据类型转换
-            if cam.MV_CC_ConvertPixelType(stConvertParam) != 0:
-                del data_buf
-
-            self.__dataBuff = (c_ubyte * stConvertParam.nDstLen)()
-            cdll.msvcrt.memcpy(byref(self.__dataBuff), stConvertParam.pDstBuffer, stConvertParam.nDstLen)
-
-            # 如果这区成功，初始化界面
-            self.__scene.setSceneRect(0, 0, stDeviceList.nWidth, stDeviceList.nHeight)
+            # 初始化界面
+            self.__scene.setSceneRect(0, 0, stDeviceList.nWidth / 8, stDeviceList.nHeight / 8)
             # 记录图片宽高
             self.__imageWidth = stDeviceList.nWidth
             self.__imageHeight = stDeviceList.nHeight
@@ -159,22 +137,18 @@ class ImagingWidget(ImagingWidgetModify):
             self.__scene.addItem(self.__pixmapItem)
             # 显示
             self.graphicsView.show()
-
-            # test
             self.ShowStreamImageSlot()
-
-        else:
-            return
+            # 删除缓冲区
+            del data_buf
 
         # 启动取流线程
         try:
-            # hThreadHandle = threading.Thread(target=self.LiveStreamingThread,
-            #                                  args=(cam, byref(self.__dataBuff), nPayloadSize))
-
+            # 创建取流的线程
+            hThreadHandle = threading.Thread(target=self.LiveStreamingThread, args=(cam, nPayloadSize))
             # 反转标识
             self.__isLiveStreaming = True
-
-            # hThreadHandle.start()
+            # 启动线程，取流
+            hThreadHandle.start()
         except:
             self.__isLiveStreaming = False
 
@@ -226,33 +200,46 @@ class ImagingWidget(ImagingWidgetModify):
         """Black Level大小"""
         self.__blackLevel = self.spinBoxBlackLevel.value()
 
-    def LiveStreamingThread(self, cam=0, pData=0, nDataSize=0):
-        """取流的独立工作线程"""
+    def LiveStreamingThread(self, cam=0, nPayloadSize=0):
+        """取流的独立线程"""
 
-        # 流信息容器
-        stFrameInfo = MV_FRAME_OUT_INFO_EX()
-        # 内存拷贝
-        memset(byref(stFrameInfo), 0, sizeof(stFrameInfo))
+        # 创建设备信息列表数据结构体
+        stDeviceList = MV_FRAME_OUT_INFO_EX()
+        # 为上述数据结构体填装数据
+        memset(byref(stDeviceList), 0, sizeof(stDeviceList))
+        # 创建数据缓冲区
+        data_buf = (c_ubyte * nPayloadSize)()
+
         # 线程工作方式
         while True:
             self.__lock.lock()
-            if cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000) == 0:
-                # 解析图片流
-                data = list(self.__dataBuff).copy()
+            if cam.MV_CC_GetOneFrameTimeout(byref(data_buf), nPayloadSize, stDeviceList, 1000) == 0:
+                # 解析数据
+                nRGBSize = stDeviceList.nWidth * stDeviceList.nHeight * 3
+                stConvertParam = MV_CC_PIXEL_CONVERT_PARAM()
+                memset(byref(stConvertParam), 0, sizeof(stConvertParam))
+                stConvertParam.nWidth = stDeviceList.nWidth
+                stConvertParam.nHeight = stDeviceList.nHeight
+                stConvertParam.pSrcData = data_buf
+                stConvertParam.nSrcDataLen = stDeviceList.nFrameLen
+                stConvertParam.enSrcPixelType = stDeviceList.enPixelType
+                stConvertParam.enDstPixelType = PixelType_Gvsp_RGB8_Packed
+                stConvertParam.pDstBuffer = (c_ubyte * nRGBSize)()
+                stConvertParam.nDstBufferSize = nRGBSize
 
-                # 解析并填装
-                count = 0
-                for line in range(0, self.__imageHeight, 8):
-                    for point in range(0, self.__imageWidth, 8):
-                        pixel = int(255 - (data[count] + data[count + 2] + data[count + 4] + data[count + 8]) / 4)
-                        # print("pixel = ", pixel)
-                        color = QtGui.QColor(pixel, pixel, pixel)
-                        count = line * point + point
-                        print(point / 8, line / 8)
-                        self.__img.setPixel(point / 8, line / 8, color.rgb())
+                # 进行数据类型转换
+                if cam.MV_CC_ConvertPixelType(stConvertParam) != 0:
+                    del data_buf
+
+                # 转换格式，解析并填装
+                img_buff = (c_ubyte * stConvertParam.nDstLen)()
+                cdll.msvcrt.memcpy(byref(img_buff), stConvertParam.pDstBuffer, stConvertParam.nDstLen)
+                img_byte_arry = bytearray(img_buff)
+                image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_RGB888)  # todo
+                # image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_Indexed8)
+                self.__pixmap = QtGui.QPixmap.fromImage(image.scaled(self.__imageWidth / 8, self.__imageWidth / 8))
 
                 # 放出信号，表示取流成功
-                print("0" * 10)
                 self.LiveStreamingSccessSignal.emit()
             else:
                 continue
@@ -266,13 +253,8 @@ class ImagingWidget(ImagingWidgetModify):
 
         self.__lock.lock()
 
-        # 转换格式
-        img_byte_arry = bytearray(self.__dataBuff)
-        image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_RGB888)
-
         # 显示
-        pixmap = QtGui.QPixmap.fromImage(image)
-        self.__pixmapItem.setPixmap(pixmap)
+        self.__pixmapItem.setPixmap(self.__pixmap)
         self.graphicsView.show()
 
         self.__lock.unlock()
