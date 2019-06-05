@@ -1,7 +1,5 @@
 # coding=utf8
 
-import numpy as np
-import cv2
 import msvcrt
 import threading
 
@@ -235,8 +233,14 @@ class ImagingWidget(ImagingWidgetModify):
                 img_buff = (c_ubyte * stConvertParam.nDstLen)()
                 cdll.msvcrt.memcpy(byref(img_buff), stConvertParam.pDstBuffer, stConvertParam.nDstLen)
                 img_byte_arry = bytearray(img_buff)
-                image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_RGB888)  # todo
-                # image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_Indexed8)
+                image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB888)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB16)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB666)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB555)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB444)
+                # img_byte_arry = bytearray(data_buf)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_Alpha8)
+                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_Indexed8)
                 self.__pixmap = QtGui.QPixmap.fromImage(image.scaled(self.__imageWidth / 8, self.__imageWidth / 8))
 
                 # 放出信号，表示取流成功
@@ -246,12 +250,16 @@ class ImagingWidget(ImagingWidgetModify):
             self.__lock.unlock()
 
             if self.__isLiveStreaming == False:
+                del img_buff
+                # del data_buf
                 break
 
     def ShowStreamImageSlot(self):
         """将获取的图片流显示到UI"""
 
         self.__lock.lock()
+
+        print("111111")
 
         # 显示
         self.__pixmapItem.setPixmap(self.__pixmap)
