@@ -1,5 +1,7 @@
 # coding=utf8
 
+import numpy as np
+import cv2
 import msvcrt
 import threading
 
@@ -26,13 +28,14 @@ class ImagingWidget(ImagingWidgetModify):
         self.__dataBuff = None  # 取流数据缓冲
         self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
         self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
-        self.__image = QtWidgets.QGraphicsPixmapItem()  # 图片图元
+        self.__pixmapItem = QtWidgets.QGraphicsPixmapItem()  # 图片图元
         self.__imageWidth = 0  # 图片宽度
         self.__imageHeight = 0  # 图片高度
 
         ######### 图像处理 #########
         # 取流
         self.__isLiveStreaming = False
+        self.__lock = QtCore.QMutex()
         self.btnLiveStreaming.clicked.connect(self.OnBtnLiveStreamingClickedSlot)
         self.LiveStreamingSccessSignal.connect(self.ShowStreamImageSlot)
         # 抓取
@@ -117,31 +120,61 @@ class ImagingWidget(ImagingWidgetModify):
         if cam.MV_CC_StartGrabbing() != 0:
             return
 
-        # 准备数据容器
-        self.__dataBuff = (c_ubyte * nPayloadSize)()
+        # 创建设备信息列表数据结构体
+        stDeviceList = MV_FRAME_OUT_INFO_EX()
+        # 为上述数据结构体填装数据
+        memset(byref(stDeviceList), 0, sizeof(stDeviceList))
+        # 创建数据缓冲区
+        data_buf = (c_ubyte * nPayloadSize)()
 
         # 先抓一帧数据
-        if cam.MV_CC_GetOneFrameTimeout(byref(self.__dataBuff), nPayloadSize, stDeviceList, 1000) == 0:
+        if cam.MV_CC_GetOneFrameTimeout(byref(data_buf), nPayloadSize, stDeviceList, 1000) == 0:
+
+            # 解析数据
+            nRGBSize = stDeviceList.nWidth * stDeviceList.nHeight * 3
+            stConvertParam = MV_CC_PIXEL_CONVERT_PARAM()
+            memset(byref(stConvertParam), 0, sizeof(stConvertParam))
+            stConvertParam.nWidth = stDeviceList.nWidth
+            stConvertParam.nHeight = stDeviceList.nHeight
+            stConvertParam.pSrcData = data_buf
+            stConvertParam.nSrcDataLen = stDeviceList.nFrameLen
+            stConvertParam.enSrcPixelType = stDeviceList.enPixelType
+            stConvertParam.enDstPixelType = PixelType_Gvsp_RGB8_Packed
+            stConvertParam.pDstBuffer = (c_ubyte * nRGBSize)()
+            stConvertParam.nDstBufferSize = nRGBSize
+
+            # 进行数据类型转换
+            if cam.MV_CC_ConvertPixelType(stConvertParam) != 0:
+                del data_buf
+
+            self.__dataBuff = (c_ubyte * stConvertParam.nDstLen)()
+            cdll.msvcrt.memcpy(byref(self.__dataBuff), stConvertParam.pDstBuffer, stConvertParam.nDstLen)
+
             # 如果这区成功，初始化界面
             self.__scene.setSceneRect(0, 0, stDeviceList.nWidth, stDeviceList.nHeight)
             # 记录图片宽高
             self.__imageWidth = stDeviceList.nWidth
             self.__imageHeight = stDeviceList.nHeight
             # 将图片容器放入其中
-            self.__scene.addItem(self.__image)
+            self.__scene.addItem(self.__pixmapItem)
+            # 显示
+            self.graphicsView.show()
+
+            # test
+            self.ShowStreamImageSlot()
 
         else:
             return
 
         # 启动取流线程
         try:
-            hThreadHandle = threading.Thread(target=self.LiveStreamingThread,
-                                             args=(cam, byref(self.__dataBuff), nPayloadSize))
+            # hThreadHandle = threading.Thread(target=self.LiveStreamingThread,
+            #                                  args=(cam, byref(self.__dataBuff), nPayloadSize))
 
             # 反转标识
             self.__isLiveStreaming = True
 
-            hThreadHandle.start()
+            # hThreadHandle.start()
         except:
             self.__isLiveStreaming = False
 
@@ -202,35 +235,44 @@ class ImagingWidget(ImagingWidgetModify):
         memset(byref(stFrameInfo), 0, sizeof(stFrameInfo))
         # 线程工作方式
         while True:
+            self.__lock.lock()
             if cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000) == 0:
+                # 解析图片流
+                data = list(self.__dataBuff).copy()
+
+                # 解析并填装
+                count = 0
+                for line in range(0, self.__imageHeight, 8):
+                    for point in range(0, self.__imageWidth, 8):
+                        pixel = int(255 - (data[count] + data[count + 2] + data[count + 4] + data[count + 8]) / 4)
+                        # print("pixel = ", pixel)
+                        color = QtGui.QColor(pixel, pixel, pixel)
+                        count = line * point + point
+                        print(point / 8, line / 8)
+                        self.__img.setPixel(point / 8, line / 8, color.rgb())
+
                 # 放出信号，表示取流成功
+                print("0" * 10)
                 self.LiveStreamingSccessSignal.emit()
             else:
                 continue
+            self.__lock.unlock()
+
             if self.__isLiveStreaming == False:
                 break
 
     def ShowStreamImageSlot(self):
         """将获取的图片流显示到UI"""
 
-        # 解析图片流
-        data = list(self.__dataBuff)
-
-        # 准备容器
-        img = QtGui.QImage()
-
-        # 解析并填装
-        for line in range(self.__imageHeight):
-            for pixel in range(self.__imageWidth):
-                color = QtGui.QColor(
-                    data[self.__imageHeight * self.__imageWidth],
-                    data[self.__imageHeight * self.__imageWidth + 1],
-                    data[self.__imageHeight * self.__imageWidth + 2]
-                )
-                img.setPixel(self.__imageWidth, self.__imageHeight, color)
+        self.__lock.lock()
 
         # 转换格式
-        pix = QtGui.QPixmap().fromImage(img, QtCore.Qt.ImageConversionFlags)
+        img_byte_arry = bytearray(self.__dataBuff)
+        image = QtGui.QImage(img_byte_arry, self.__imageHeight, self.__imageWidth, QtGui.QImage.Format_RGB888)
 
         # 显示
-        self.__iamge.setPixmap(pix)
+        pixmap = QtGui.QPixmap.fromImage(image)
+        self.__pixmapItem.setPixmap(pixmap)
+        self.graphicsView.show()
+
+        self.__lock.unlock()

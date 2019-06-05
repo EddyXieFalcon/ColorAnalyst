@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
         ImagingWidget.setObjectName("ImagingWidget")
-        ImagingWidget.resize(761, 555)
+        ImagingWidget.resize(847, 555)
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(ImagingWidget)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -32,7 +32,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout.addWidget(self.btnLoad)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.graphicsView = QtWidgets.QGraphicsView(ImagingWidget)
-        self.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.graphicsView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.graphicsView.setObjectName("graphicsView")
         self.verticalLayout.addWidget(self.graphicsView)
