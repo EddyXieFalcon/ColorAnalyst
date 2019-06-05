@@ -25,7 +25,8 @@ class ImagingWidget(ImagingWidgetModify):
         ######### 界面处理 #########
         self.__imageWidth = 0  # 图片宽度
         self.__imageHeight = 0  # 图片高度
-        self.__pixmap = QtGui.QPixmap()  # 图片图元
+        self.__image = QtGui.QImage()  # 图片对象
+        self.__pixmap = QtGui.QPixmap()  # 图片像素集对象
         self.__pixmapItem = QtWidgets.QGraphicsPixmapItem()  # 图片图元
         self.__scene = QtWidgets.QGraphicsScene()  # 创建视口的场景
         self.graphicsView.setScene(self.__scene)  # 将视口与场景绑定
@@ -152,15 +153,50 @@ class ImagingWidget(ImagingWidgetModify):
 
     def OnBtnCaptureClickedSlot(self):
         """抓取"""
-        pass
+
+        # 首先判断是否处于取流状态中，如果非取流状态，直接退出
+        if not self.__isLiveStreaming:
+            return
+
+        # 先停止取流
+        self.__lock.lock()
+        self.__isLiveStreaming = False
+        self.__lock.unlock()
 
     def OnBtnSaveAsClickedSlot(self):
         """保存"""
-        pass
+
+        # 如果还处在去留状态中，停止取流
+        if self.__isLiveStreaming:
+            self.__lock.lock()
+            self.__isLiveStreaming = False
+            self.__lock.unlock()
+
+        # 弹出对话框，保存图片
+        pictrureName, type = QtWidgets.QFileDialog.getSaveFileName(self, u"文件保存", "./", "Image Files(*.jpg)")
+
+        # 保存图片
+        self.__image.save(pictrureName, "JPG", 100)
 
     def OnBtnLoadClickedSlot(self):
         """载入"""
-        pass
+
+        # 如果在取流，退出
+        if self.__isLiveStreaming:
+            return
+
+        # 获取打开的文件
+        pictrureName, type = QtWidgets.QFileDialog.getOpenFileName(self, u"打开文件", "./", "Image Files(*.jpg)")
+
+        # 加载文件
+        self.__image = QtGui.QImage(pictrureName)
+
+        # 显示图片
+        self.__pixmap = QtGui.QPixmap.fromImage(self.__image.scaled(self.__image.width() / 8, self.__image.height() / 8))
+        self.__pixmapItem.setPixmap(self.__pixmap)
+        self.__scene.setSceneRect(0, 0, self.__image.width() / 8, self.__image.height() / 8)
+        self.__scene.addItem(self.__pixmapItem)
+        self.graphicsView.show()
 
     def OnSpinBoxFPSValueChangedSlot(self):
         """帧率"""
@@ -233,15 +269,8 @@ class ImagingWidget(ImagingWidgetModify):
                 img_buff = (c_ubyte * stConvertParam.nDstLen)()
                 cdll.msvcrt.memcpy(byref(img_buff), stConvertParam.pDstBuffer, stConvertParam.nDstLen)
                 img_byte_arry = bytearray(img_buff)
-                image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB888)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB16)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB666)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB555)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB444)
-                # img_byte_arry = bytearray(data_buf)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_Alpha8)
-                # image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_Indexed8)
-                self.__pixmap = QtGui.QPixmap.fromImage(image.scaled(self.__imageWidth / 8, self.__imageWidth / 8))
+                self.__image = QtGui.QImage(img_byte_arry, self.__imageWidth, self.__imageHeight, QtGui.QImage.Format_RGB888)
+                self.__pixmap = QtGui.QPixmap.fromImage(self.__image.scaled(self.__imageWidth / 8, self.__imageHeight / 8))
 
                 # 放出信号，表示取流成功
                 self.LiveStreamingSccessSignal.emit()
@@ -251,15 +280,12 @@ class ImagingWidget(ImagingWidgetModify):
 
             if self.__isLiveStreaming == False:
                 del img_buff
-                # del data_buf
                 break
 
     def ShowStreamImageSlot(self):
         """将获取的图片流显示到UI"""
 
         self.__lock.lock()
-
-        print("111111")
 
         # 显示
         self.__pixmapItem.setPixmap(self.__pixmap)
