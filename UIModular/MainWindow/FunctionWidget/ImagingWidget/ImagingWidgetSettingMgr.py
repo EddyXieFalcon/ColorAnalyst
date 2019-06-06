@@ -42,7 +42,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         self.spinBoxBlackLevel.valueChanged.connect(self.OnSpinBoxBlackLevelValueChangedSlot)
 
         # 配置生效按钮
-        self.btnDoActivite.clicked.connect(self.SetSettingFileToDevice())
+        self.btnDoActivite.clicked.connect(self.SetSettingFileToDevice)
 
         # 读取配置文件
         self.GetSettingFileFormDevice()
