@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
+    <width>853</width>
     <height>555</height>
    </rect>
   </property>
@@ -102,9 +102,12 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QSpinBox" name="spinBoxFPS">
+             <widget class="QDoubleSpinBox" name="doubleSpinBoxFPS">
               <property name="enabled">
                <bool>true</bool>
+              </property>
+              <property name="maximum">
+               <double>100000.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -170,9 +173,12 @@
           <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QSpinBox" name="spinBoxExposureTime">
+             <widget class="QDoubleSpinBox" name="spinBoxExposureTime">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="maximum">
+               <double>1000000.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -238,9 +244,12 @@
           <item row="4" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QSpinBox" name="spinBoxGain">
+             <widget class="QDoubleSpinBox" name="spinBoxGain">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="maximum">
+               <double>20.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -306,9 +315,12 @@
           <item row="6" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
-             <widget class="QSpinBox" name="spinBoxGamma">
+             <widget class="QDoubleSpinBox" name="doubleSpinBoxGamma">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="maximum">
+               <double>4.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -551,102 +563,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btnAutoExposureOn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxExposureTime</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1031</x>
-     <y>76</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>102</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnAutoExposureOff</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxExposureTime</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1106</x>
-     <y>74</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>102</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGainOn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGain</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1031</x>
-     <y>131</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>161</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGainOff</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGain</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1106</x>
-     <y>130</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>161</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGammaOn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGamma</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1031</x>
-     <y>189</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>220</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGammaOff</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGamma</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1128</x>
-     <y>192</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1058</x>
-     <y>220</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btnBlackLevelOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxBlackLevel</receiver>
@@ -680,10 +596,10 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup_5"/>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_4"/>
+  <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_5"/>
  </buttongroups>
 </ui>
