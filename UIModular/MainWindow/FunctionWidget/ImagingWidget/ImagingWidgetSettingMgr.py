@@ -139,8 +139,15 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         """Black Level大小"""
         self.__blackLevel = self.spinBoxBlackLevel.value()
 
+    def ReadSettingFromFile(self):
+        """读取配置文件中的参数"""
+
+
+
     def WriteSettingToFile(self, parameterName, parameterValue):
         """将参数写入配置文件"""
+
+        pass
 
 
 
