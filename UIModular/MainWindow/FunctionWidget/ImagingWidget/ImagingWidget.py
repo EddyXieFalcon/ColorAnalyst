@@ -50,7 +50,6 @@ class ImagingWidget(ImagingWidgetSettingMgr):
     def SetDoAlgorithmEnable(self, enable):
         """设置按钮是否能用"""
 
-        self.progressBarForAlgorithm.setEnabled(enable)
         self.btnDoAlgorithm.setEnabled(enable)
 
     def OnBtnLiveStreamingClickedSlot(self):
@@ -127,14 +126,14 @@ class ImagingWidget(ImagingWidgetSettingMgr):
             # 反转标识
             self.__isLiveStreaming = True
             # 禁用参数设置
-            self.SetAllParameterEnable(False)
+            self.SetDoActiviteEnable(False)
             # 算法不可用
             self.SetDoAlgorithmEnable(False)
             # 启动线程，取流
             hThreadHandle.start()
         except:
             self.__isLiveStreaming = False
-            self.SetAllParameterEnable(True)
+            self.SetDoActiviteEnable(True)
 
     def OnBtnCaptureClickedSlot(self):
         """抓取"""
@@ -146,7 +145,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         # 先停止取流
         self.__lock.lock()
         self.__isLiveStreaming = False
-        self.SetAllParameterEnable(True)
+        self.SetDoActiviteEnable(True)
         self.__lock.unlock()
 
         # 算法可用
@@ -159,7 +158,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         if self.__isLiveStreaming:
             self.__lock.lock()
             self.__isLiveStreaming = False
-            self.SetAllParameterEnable(True)
+            self.SetDoActiviteEnable(True)
             self.__lock.unlock()
 
         # 弹出对话框，保存图片
@@ -239,7 +238,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
             self.__lock.unlock()
 
             if self.__isLiveStreaming == False:
-                self.SetAllParameterEnable(True)
+                self.SetDoActiviteEnable(True)
                 del img_buff
                 break
 

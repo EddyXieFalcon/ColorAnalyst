@@ -65,13 +65,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_16">
        <item>
-        <widget class="QProgressBar" name="progressBarForAlgorithm">
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btnDoAlgorithm">
          <property name="text">
           <string>执行算法</string>
@@ -541,13 +534,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_14">
        <item>
-        <widget class="QProgressBar" name="progressBarForSetting">
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btnDoActivite">
          <property name="text">
           <string>配置生效</string>
@@ -596,10 +582,10 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup_4"/>
-  <buttongroup name="buttonGroup_3"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_4"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_5"/>
  </buttongroups>
 </ui>

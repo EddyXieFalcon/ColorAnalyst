@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file 'ImagingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
@@ -41,10 +42,6 @@ class Ui_ImagingWidget(object):
         self.verticalLayout_3.addLayout(self.verticalLayout)
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.progressBarForAlgorithm = QtWidgets.QProgressBar(ImagingWidget)
-        self.progressBarForAlgorithm.setProperty("value", 0)
-        self.progressBarForAlgorithm.setObjectName("progressBarForAlgorithm")
-        self.horizontalLayout_16.addWidget(self.progressBarForAlgorithm)
         self.btnDoAlgorithm = QtWidgets.QPushButton(ImagingWidget)
         self.btnDoAlgorithm.setObjectName("btnDoAlgorithm")
         self.horizontalLayout_16.addWidget(self.btnDoAlgorithm)
@@ -290,10 +287,6 @@ class Ui_ImagingWidget(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout_12)
         self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_14.setObjectName("horizontalLayout_14")
-        self.progressBarForSetting = QtWidgets.QProgressBar(ImagingWidget)
-        self.progressBarForSetting.setProperty("value", 0)
-        self.progressBarForSetting.setObjectName("progressBarForSetting")
-        self.horizontalLayout_14.addWidget(self.progressBarForSetting)
         self.btnDoActivite = QtWidgets.QPushButton(ImagingWidget)
         self.btnDoActivite.setObjectName("btnDoActivite")
         self.horizontalLayout_14.addWidget(self.btnDoActivite)
@@ -345,4 +338,5 @@ class Ui_ImagingWidget(object):
         self.labelBinningXName.setText(_translate("ImagingWidget", "Binning X"))
         self.labelBinningYName.setText(_translate("ImagingWidget", "Binning Y"))
         self.btnDoActivite.setText(_translate("ImagingWidget", "配置生效"))
+
 
