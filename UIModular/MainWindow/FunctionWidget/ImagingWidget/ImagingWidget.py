@@ -108,14 +108,18 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         if cam.MV_CC_GetOneFrameTimeout(byref(data_buf), nPayloadSize, stDeviceList, 1000) == 0:
             # 初始化界面
             self.__scene.setSceneRect(0, 0, stDeviceList.nWidth / 8, stDeviceList.nHeight / 8)
+
             # 记录图片宽高
             self.__imageWidth = stDeviceList.nWidth
             self.__imageHeight = stDeviceList.nHeight
+
             # 将图片容器放入其中
             self.__scene.addItem(self.__pixmapItem)
+
             # 显示
             self.graphicsView.show()
             self.ShowStreamImageSlot()
+
             # 删除缓冲区
             del data_buf
 
@@ -123,14 +127,19 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         try:
             # 创建取流的线程
             hThreadHandle = threading.Thread(target=self.LiveStreamingThread, args=(cam, nPayloadSize))
+
             # 反转标识
             self.__isLiveStreaming = True
+
             # 禁用参数设置
             self.SetDoActiviteEnable(False)
+
             # 算法不可用
             self.SetDoAlgorithmEnable(False)
+
             # 启动线程，取流
             hThreadHandle.start()
+
         except:
             self.__isLiveStreaming = False
             self.SetDoActiviteEnable(True)
@@ -205,6 +214,10 @@ class ImagingWidget(ImagingWidgetSettingMgr):
 
         # 线程工作方式
         while True:
+            # 停止取流
+            if not self.__isLiveStreaming:
+                break
+
             self.__lock.lock()
             if cam.MV_CC_GetOneFrameTimeout(byref(data_buf), nPayloadSize, stDeviceList, 1000) == 0:
                 # 解析数据
