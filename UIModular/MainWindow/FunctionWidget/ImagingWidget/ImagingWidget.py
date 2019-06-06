@@ -10,10 +10,10 @@ from ThirdParty.MVS.MvImport.MvCameraControl_header import *
 from ThirdParty.MVS.MvImport.CameraParams_const import *
 
 from PyQt5 import QtWidgets, QtGui, QtCore
-from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetModify import ImagingWidgetModify
+from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetSettingMgr import ImagingWidgetSettingMgr
 
 
-class ImagingWidget(ImagingWidgetModify):
+class ImagingWidget(ImagingWidgetSettingMgr):
     LiveStreamingSccessSignal = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):

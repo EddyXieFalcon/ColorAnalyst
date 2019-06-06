@@ -2,18 +2,21 @@
 
 # Form implementation generated from reading ui file 'ImagingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
         ImagingWidget.setObjectName("ImagingWidget")
         ImagingWidget.resize(847, 555)
-        self.horizontalLayout_12 = QtWidgets.QHBoxLayout(ImagingWidget)
-        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.horizontalLayout_20 = QtWidgets.QHBoxLayout(ImagingWidget)
+        self.horizontalLayout_20.setObjectName("horizontalLayout_20")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -36,7 +39,22 @@ class Ui_ImagingWidget(object):
         self.graphicsView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.graphicsView.setObjectName("graphicsView")
         self.verticalLayout.addWidget(self.graphicsView)
-        self.horizontalLayout_12.addLayout(self.verticalLayout)
+        self.verticalLayout_3.addLayout(self.verticalLayout)
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.progressBarForAlgorithm = QtWidgets.QProgressBar(ImagingWidget)
+        self.progressBarForAlgorithm.setProperty("value", 0)
+        self.progressBarForAlgorithm.setObjectName("progressBarForAlgorithm")
+        self.horizontalLayout_16.addWidget(self.progressBarForAlgorithm)
+        self.btnDoAlgorithm = QtWidgets.QPushButton(ImagingWidget)
+        self.btnDoAlgorithm.setObjectName("btnDoAlgorithm")
+        self.horizontalLayout_16.addWidget(self.btnDoAlgorithm)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_16)
+        self.horizontalLayout_20.addLayout(self.verticalLayout_3)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.groupBoxBaseFeature = QtWidgets.QGroupBox(ImagingWidget)
         self.groupBoxBaseFeature.setObjectName("groupBoxBaseFeature")
         self.gridLayout = QtWidgets.QGridLayout(self.groupBoxBaseFeature)
@@ -238,11 +256,15 @@ class Ui_ImagingWidget(object):
         self.btnReverseXOn = QtWidgets.QPushButton(self.groupBoxImageFeature)
         self.btnReverseXOn.setCheckable(True)
         self.btnReverseXOn.setObjectName("btnReverseXOn")
+        self.buttonGroup_5 = QtWidgets.QButtonGroup(ImagingWidget)
+        self.buttonGroup_5.setObjectName("buttonGroup_5")
+        self.buttonGroup_5.addButton(self.btnReverseXOn)
         self.horizontalLayout_18.addWidget(self.btnReverseXOn)
         self.btnReverseXOff = QtWidgets.QPushButton(self.groupBoxImageFeature)
         self.btnReverseXOff.setCheckable(True)
         self.btnReverseXOff.setChecked(True)
         self.btnReverseXOff.setObjectName("btnReverseXOff")
+        self.buttonGroup_5.addButton(self.btnReverseXOff)
         self.horizontalLayout_18.addWidget(self.btnReverseXOff)
         self.horizontalLayout_17.addLayout(self.horizontalLayout_18)
         self.gridLayout_2.addLayout(self.horizontalLayout_17, 4, 1, 1, 1)
@@ -262,6 +284,19 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_19.addWidget(self.spinBoxBinningY)
         self.gridLayout_2.addLayout(self.horizontalLayout_19, 6, 1, 1, 1)
         self.horizontalLayout_12.addWidget(self.groupBoxImageFeature)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_12)
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.progressBarForSetting = QtWidgets.QProgressBar(ImagingWidget)
+        self.progressBarForSetting.setProperty("value", 0)
+        self.progressBarForSetting.setObjectName("progressBarForSetting")
+        self.horizontalLayout_14.addWidget(self.progressBarForSetting)
+        self.btnDoActivite = QtWidgets.QPushButton(ImagingWidget)
+        self.btnDoActivite.setObjectName("btnDoActivite")
+        self.horizontalLayout_14.addWidget(self.btnDoActivite)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_14)
+        self.verticalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_20.addLayout(self.verticalLayout_2)
 
         self.retranslateUi(ImagingWidget)
         self.btnAutoExposureOn.clicked['bool'].connect(self.spinBoxExposureTime.setEnabled)
@@ -281,6 +316,7 @@ class Ui_ImagingWidget(object):
         self.btnCapture.setText(_translate("ImagingWidget", "Capture"))
         self.btnSaveAs.setText(_translate("ImagingWidget", "Save as"))
         self.btnLoad.setText(_translate("ImagingWidget", "Load"))
+        self.btnDoAlgorithm.setText(_translate("ImagingWidget", "执行算法"))
         self.groupBoxBaseFeature.setTitle(_translate("ImagingWidget", "基本属性"))
         self.labelFPSName.setText(_translate("ImagingWidget", "帧率"))
         self.labelFPSUnit.setText(_translate("ImagingWidget", "fps"))
@@ -311,4 +347,6 @@ class Ui_ImagingWidget(object):
         self.btnReverseXOff.setText(_translate("ImagingWidget", "Off"))
         self.labelBinningXName.setText(_translate("ImagingWidget", "Binning X"))
         self.labelBinningYName.setText(_translate("ImagingWidget", "Binning Y"))
+        self.btnDoActivite.setText(_translate("ImagingWidget", "配置生效"))
+
 
