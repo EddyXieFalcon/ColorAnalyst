@@ -47,7 +47,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         """设置所有的参数是否可用"""
         self.SetBaseParameterEnable(enable)
         self.SetImageParameterEnable(enable)
-        self
+        self.SetDoActiviteEnable(enable)
 
     def SetBaseParameterEnable(self, enable):
         """设置基本参数是否可用"""
@@ -67,6 +67,12 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         self.btnGammaOff.setEnabled(enable)
         self.btnBlackLevelOn.setEnabled(enable)
         self.btnBlackLevelOff.setEnabled(enable)
+
+    def SetDoActiviteEnable(self, enable):
+        """设置按钮是否能用"""
+
+        self.progressBarForSetting.setEnabled(enable)
+        self.btnDoActivite.setEnabled(enable)
 
     def SetImageParameterEnable(self, enable):
         """设置图片参数是否可用"""
