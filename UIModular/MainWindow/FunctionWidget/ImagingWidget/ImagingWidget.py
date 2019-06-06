@@ -22,6 +22,9 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         # 父类构造方法
         super(ImagingWidget, self).__init__()
 
+        # 界面初始化的时候，算法按钮不可用
+        self.SetDoAlgorithmEnable(False)
+
         ######### 界面处理 #########
         self.__imageWidth = 0  # 图片宽度
         self.__imageHeight = 0  # 图片高度
@@ -43,6 +46,12 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         self.btnSaveAs.clicked.connect(self.OnBtnSaveAsClickedSlot)
         # 载入
         self.btnLoad.clicked.connect(self.OnBtnLoadClickedSlot)
+
+    def SetDoAlgorithmEnable(self, enable):
+        """设置按钮是否能用"""
+
+        self.progressBarForAlgorithm.setEnabled(enable)
+        self.btnDoAlgorithm.setEnabled(enable)
 
     def OnBtnLiveStreamingClickedSlot(self):
         """取流"""
@@ -119,6 +128,8 @@ class ImagingWidget(ImagingWidgetSettingMgr):
             self.__isLiveStreaming = True
             # 禁用参数设置
             self.SetAllParameterEnable(False)
+            # 算法不可用
+            self.SetDoAlgorithmEnable(False)
             # 启动线程，取流
             hThreadHandle.start()
         except:
@@ -138,6 +149,9 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         self.SetAllParameterEnable(True)
         self.__lock.unlock()
 
+        # 算法可用
+        self.SetDoAlgorithmEnable(True)
+
     def OnBtnSaveAsClickedSlot(self):
         """保存"""
 
@@ -153,6 +167,9 @@ class ImagingWidget(ImagingWidgetSettingMgr):
 
         # 保存图片
         self.__image.save(pictrureName, "JPG", 100)
+
+        # 算法可用
+        self.SetDoAlgorithmEnable(True)
 
     def OnBtnLoadClickedSlot(self):
         """载入"""
@@ -173,6 +190,9 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         self.__scene.setSceneRect(0, 0, self.__image.width() / 8, self.__image.height() / 8)
         self.__scene.addItem(self.__pixmapItem)
         self.graphicsView.show()
+
+        # 算法可用
+        self.SetDoAlgorithmEnable(True)
 
     def LiveStreamingThread(self, cam=0, nPayloadSize=0):
         """取流的独立线程"""

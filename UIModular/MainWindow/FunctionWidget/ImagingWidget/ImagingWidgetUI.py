@@ -2,12 +2,11 @@
 
 # Form implementation generated from reading ui file 'ImagingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
@@ -64,11 +63,11 @@ class Ui_ImagingWidget(object):
         self.gridLayout.addWidget(self.labelFPSName, 0, 0, 1, 1)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.doubleSpinBoxFPS = QtWidgets.QDoubleSpinBox(self.groupBoxBaseFeature)
-        self.doubleSpinBoxFPS.setEnabled(True)
-        self.doubleSpinBoxFPS.setMaximum(100000.0)
-        self.doubleSpinBoxFPS.setObjectName("doubleSpinBoxFPS")
-        self.horizontalLayout_4.addWidget(self.doubleSpinBoxFPS)
+        self.spinBoxFPS = QtWidgets.QDoubleSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxFPS.setEnabled(True)
+        self.spinBoxFPS.setMaximum(100000.0)
+        self.spinBoxFPS.setObjectName("spinBoxFPS")
+        self.horizontalLayout_4.addWidget(self.spinBoxFPS)
         self.labelFPSUnit = QtWidgets.QLabel(self.groupBoxBaseFeature)
         self.labelFPSUnit.setObjectName("labelFPSUnit")
         self.horizontalLayout_4.addWidget(self.labelFPSUnit)
@@ -167,11 +166,11 @@ class Ui_ImagingWidget(object):
         self.gridLayout.addWidget(self.labelGammaName, 6, 0, 1, 1)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        self.doubleSpinBoxGamma = QtWidgets.QDoubleSpinBox(self.groupBoxBaseFeature)
-        self.doubleSpinBoxGamma.setEnabled(False)
-        self.doubleSpinBoxGamma.setMaximum(4.0)
-        self.doubleSpinBoxGamma.setObjectName("doubleSpinBoxGamma")
-        self.horizontalLayout_9.addWidget(self.doubleSpinBoxGamma)
+        self.spinBoxGamma = QtWidgets.QDoubleSpinBox(self.groupBoxBaseFeature)
+        self.spinBoxGamma.setEnabled(False)
+        self.spinBoxGamma.setMaximum(4.0)
+        self.spinBoxGamma.setObjectName("spinBoxGamma")
+        self.horizontalLayout_9.addWidget(self.spinBoxGamma)
         self.label_13 = QtWidgets.QLabel(self.groupBoxBaseFeature)
         self.label_13.setText("")
         self.label_13.setObjectName("label_13")
@@ -346,5 +345,4 @@ class Ui_ImagingWidget(object):
         self.labelBinningXName.setText(_translate("ImagingWidget", "Binning X"))
         self.labelBinningYName.setText(_translate("ImagingWidget", "Binning Y"))
         self.btnDoActivite.setText(_translate("ImagingWidget", "配置生效"))
-
 
