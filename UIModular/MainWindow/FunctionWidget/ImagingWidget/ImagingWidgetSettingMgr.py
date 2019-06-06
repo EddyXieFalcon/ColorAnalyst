@@ -93,29 +93,43 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         """帧率"""
         self.__fps = self.spinBoxFPS.value()
 
+        # AcquisitionFrameRate 14
+
     def OnBtnAutoExposureClickedSlot(self):
         """自动曝光"""
         self.__autoExposureEnable = not self.__autoExposureEnable
+
+        # ExposureAuto Off
 
     def OnSpinBoxExposureTimeValueChangedSlot(self):
         """曝光时间"""
         self.__exposureTime = self.spinBoxExposureTime.value()
 
+        # ExposureTime 19
+
     def OnBtnGainClickedSlot(self):
         """是否打开增益"""
         self.__gainEnable = not self.__gainEnable
+
+        # GainAuto Off
 
     def OnSpinBoxGainValueChangedSlot(self):
         """增益大小"""
         self.__gain = self.spinBoxGain.value()
 
+        # Gain 1.0052
+
     def OnBtnGammaClickedSlot(self):
         """是否打开伽马"""
         self.__gamaEnable = not self.__gamaEnable
 
+        # GammaEnable 1
+
     def OnSpinBoxGammaValueChangedSlot(self):
         """伽马大小"""
         self.__gama = self.spinBoxGamma.value()
+
+        # Gamma 1.11User
 
     def OnBtnBlackLevelClickedSlot(self):
         """是否打开Black Level"""
@@ -124,4 +138,9 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxBlackLevelValueChangedSlot(self):
         """Black Level大小"""
         self.__blackLevel = self.spinBoxBlackLevel.value()
+
+    def WriteSettingToFile(self, parameterName, parameterValue):
+        """将参数写入配置文件"""
+
+
 
