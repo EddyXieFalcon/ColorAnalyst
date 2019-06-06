@@ -200,6 +200,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         self.spinBoxBlackLevel = QtWidgets.QSpinBox(self.groupBoxBaseFeature)
         self.spinBoxBlackLevel.setEnabled(False)
+        self.spinBoxBlackLevel.setMaximum(999)
         self.spinBoxBlackLevel.setObjectName("spinBoxBlackLevel")
         self.horizontalLayout_10.addWidget(self.spinBoxBlackLevel)
         self.label_14 = QtWidgets.QLabel(self.groupBoxBaseFeature)
@@ -297,6 +298,12 @@ class Ui_ImagingWidget(object):
         self.retranslateUi(ImagingWidget)
         self.btnBlackLevelOn.clicked['bool'].connect(self.spinBoxBlackLevel.setEnabled)
         self.btnBlackLevelOff.clicked['bool'].connect(self.spinBoxBlackLevel.setDisabled)
+        self.btnAutoExposureOn.clicked['bool'].connect(self.spinBoxExposureTime.setEnabled)
+        self.btnAutoExposureOff.clicked['bool'].connect(self.spinBoxExposureTime.setDisabled)
+        self.btnGainOn.clicked['bool'].connect(self.spinBoxGain.setEnabled)
+        self.btnGainOff.clicked['bool'].connect(self.spinBoxGain.setDisabled)
+        self.btnGammaOn.clicked['bool'].connect(self.spinBoxGamma.setEnabled)
+        self.btnGammaOff.clicked['bool'].connect(self.spinBoxGamma.setDisabled)
         QtCore.QMetaObject.connectSlotsByName(ImagingWidget)
 
     def retranslateUi(self, ImagingWidget):

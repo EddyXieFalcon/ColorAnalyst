@@ -41,7 +41,25 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         self.btnBlackLevelOff.clicked.connect(self.OnBtnBlackLevelClickedSlot)
         self.spinBoxBlackLevel.valueChanged.connect(self.OnSpinBoxBlackLevelValueChangedSlot)
 
-        # 配置生效按钮
+        ######### 图像属性 #########
+        # 宽度
+        self.__width = self.spinBoxWidth.value()
+        self.spinBoxWidth.valueChanged.connect(self.OnSpinBoxWidthValueChangedSlot)
+        # 高度
+        self.__height = self.spinBoxHeight.value()
+        self.spinBoxHeight.valueChanged.connect(self.OnSpinBoxHeightValueChangedSlot)
+        # Offset X
+        self.__offsetX = self.spinBoxOffsetX.value()
+        self.spinBoxOffsetX.valueChanged.connect(self.OnSpinBoxOffsetXValueChangedSlot)
+        # Offset Y
+        self.__offsetY = self.spinBoxOffsetY.value()
+        self.spinBoxOffsetY.valueChanged.connect(self.OnSpinBoxOffsetYValueChangedSlot)
+        # Reverse X
+        self.__reverseX = False
+        self.btnReverseXOn.clicked.connect(self.OnBtnReverseXClickedSlot)
+        self.btnReverseXOff.clicked.connect(self.OnBtnReverseXClickedSlot)
+
+        # 配置生效按钮的槽函数
         self.btnDoActivite.clicked.connect(self.SetSettingFileToDevice)
 
         # 读取配置文件
@@ -100,6 +118,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
             self.WriteSettingToFile("GammaEnable", "1", "0")
         else:
             self.WriteSettingToFile("GammaEnable", "0", "1")
+        # 新数据记录
         self.__gamaEnable = not self.__gamaEnable
 
     def OnSpinBoxGammaValueChangedSlot(self):
@@ -111,11 +130,58 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
 
     def OnBtnBlackLevelClickedSlot(self):
         """是否打开Black Level"""
+        # 写入文件
+        if self.__blackLevelEnable:
+            self.WriteSettingToFile("BlackLevelEnable", "1", "0")
+        else:
+            self.WriteSettingToFile("BlackLevelEnable", "0", "1")
+        # 新数据记录
         self.__blackLevelEnable = not self.__blackLevelEnable
 
     def OnSpinBoxBlackLevelValueChangedSlot(self):
         """Black Level大小"""
+        # 写入文件
+        self.WriteSettingToFile("BlackLevel", self.__blackLevel, self.spinBoxBlackLevel.value())
+        # 新数据记录
         self.__blackLevel = self.spinBoxBlackLevel.value()
+
+    def OnSpinBoxWidthValueChangedSlot(self):
+        """宽度"""
+        # 写入文件
+        self.WriteSettingToFile("AutoFunctionAOIWidth", self.__width, self.spinBoxWidth.value())
+        # 新数据记录
+        self.__width = self.spinBoxWidth.value()
+
+    def OnSpinBoxHeightValueChangedSlot(self):
+        """高度"""
+        # 写入文件
+        self.WriteSettingToFile("AutoFunctionAOIHeight", self.__height, self.spinBoxHeight.value())
+        # 新数据记录
+        self.__height = self.spinBoxHeight.value()
+
+    def OnSpinBoxOffsetXValueChangedSlot(self):
+        """Offset X"""
+        # 写入文件
+        self.WriteSettingToFile("AutoFunctionAOIOffsetX", self.__offsetX, self.spinBoxOffsetX.value())
+        # 新数据记录
+        self.__offsetX = self.spinBoxOffsetX.value()
+
+    def OnSpinBoxOffsetYValueChangedSlot(self):
+        """Offset X"""
+        # 写入文件
+        self.WriteSettingToFile("AutoFunctionAOIOffsetY", self.__offsetY, self.spinBoxOffsetY.value())
+        # 新数据记录
+        self.__offsetY = self.spinBoxOffsetY.value()
+
+    def OnBtnReverseXClickedSlot(self):
+        """是否打开Reverse X"""
+        # 写入文件
+        if self.__reverseX:
+            self.WriteSettingToFile("ReverseX", "1", "0")
+        else:
+            self.WriteSettingToFile("ReverseX", "0", "1")
+        # 新数据记录
+        self.__reverseX = not self.__reverseX
 
     def ReadSettingFromFile(self):
         """读取配置文件中的参数"""
@@ -174,6 +240,46 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
                     elif "Gamma\t" in line:
                         self.spinBoxGamma.setValue(float(line.split("\t")[-1]))
                         self.__gama = self.spinBoxGamma.value()
+                    # 是否打开BlackLevel
+                    elif "BlackLevelEnable" in line:
+                        # 如果是关闭
+                        if not line.split("\t")[-1]:
+                            self.btnBlackLevelOff.setChecked(True)
+                            self.__blackLevelEnable = False
+                        # 如果是打开
+                        elif line.split("\t")[-1]:
+                            self.btnBlackLevelOn.setChecked(True)
+                            self.__blackLevelEnable = True
+                    # 读取BlackLevel大小
+                    elif "BlackLevel\t" in line:
+                        self.spinBoxBlackLevel.setValue(int(line.split("\t")[-1]))
+                        self.__blackLevel = self.spinBoxBlackLevel.value()
+                    # 读取宽度大小
+                    elif "AutoFunctionAOIWidth\t" in line:
+                        self.spinBoxWidth.setValue(int(line.split("\t")[-1]))
+                        self.__width = self.spinBoxWidth.value()
+                    # 读取高度大小
+                    elif "AutoFunctionAOIHeight\t" in line:
+                        self.spinBoxHeight.setValue(int(line.split("\t")[-1]))
+                        self.__height = self.spinBoxHeight.value()
+                    # 读取OffsetX大小
+                    elif "AutoFunctionAOIOffsetX\t" in line:
+                        self.spinBoxOffsetX.setValue(int(line.split("\t")[-1]))
+                        self.__offsetX = self.spinBoxOffsetX.value()
+                    # 读取OffsetY大小
+                    elif "AutoFunctionAOIOffsetY\t" in line:
+                        self.spinBoxOffsetY.setValue(int(line.split("\t")[-1]))
+                        self.__offsetY = self.spinBoxOffsetY.value()
+                    # 是否打开ReverseX
+                    elif "ReverseX" in line:
+                        # 如果是关闭
+                        if not line.split("\t")[-1]:
+                            self.btnReverseXOff.setChecked(True)
+                            self.__reverseX = False
+                        # 如果是打开
+                        elif line.split("\t")[-1]:
+                            self.btnReverseXOn.setChecked(True)
+                            self.__reverseX = True
                     else:
                         pass
 

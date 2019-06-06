@@ -383,6 +383,9 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="maximum">
+               <number>999</number>
+              </property>
              </widget>
             </item>
             <item>
@@ -555,12 +558,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
-     <y>246</y>
+     <x>515</x>
+     <y>437</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1058</x>
-     <y>279</y>
+     <x>512</x>
+     <y>488</y>
     </hint>
    </hints>
   </connection>
@@ -571,20 +574,116 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1135</x>
-     <y>250</y>
+     <x>590</x>
+     <y>437</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1058</x>
-     <y>279</y>
+     <x>512</x>
+     <y>488</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnAutoExposureOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxExposureTime</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>481</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnAutoExposureOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxExposureTime</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>561</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>506</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGainOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGain</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>209</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>460</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGainOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGain</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGammaOn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGamma</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>477</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>474</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnGammaOff</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBoxGamma</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>550</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>373</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_4"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_5"/>
  </buttongroups>
