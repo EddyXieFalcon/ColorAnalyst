@@ -44,35 +44,6 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         # 载入
         self.btnLoad.clicked.connect(self.OnBtnLoadClickedSlot)
 
-        ######### 基本属性 #########
-        # 帧率
-        self.__fps = self.spinBoxFPS.value()
-        self.spinBoxFPS.valueChanged.connect(self.OnSpinBoxFPSValueChangedSlot)
-        # 曝光
-        self.__autoExposureEnable = False
-        self.__exposureTime = self.spinBoxExposureTime.value()
-        self.btnAutoExposureOn.clicked.connect(self.OnBtnAutoExposureClickedSlot)
-        self.btnAutoExposureOff.clicked.connect(self.OnBtnAutoExposureClickedSlot)
-        self.spinBoxExposureTime.valueChanged.connect(self.OnSpinBoxExposureTimeValueChangedSlot)
-        # 增益
-        self.__gainEnable = False
-        self.__gain = self.spinBoxGain.value()
-        self.btnGainOn.clicked.connect(self.OnBtnGainClickedSlot)
-        self.btnGainOff.clicked.connect(self.OnBtnGainClickedSlot)
-        self.spinBoxGain.valueChanged.connect(self.OnSpinBoxGainValueChangedSlot)
-        # 伽马
-        self.__gamaEnable = False
-        self.__gama = self.spinBoxGamma.value()
-        self.btnGammaOn.clicked.connect(self.OnBtnGammaClickedSlot)
-        self.btnGammaOff.clicked.connect(self.OnBtnGammaClickedSlot)
-        self.spinBoxGamma.valueChanged.connect(self.OnSpinBoxGammaValueChangedSlot)
-        # Black Level
-        self.__blackLevelEnable = False
-        self.__blackLevel = self.spinBoxBlackLevel.value()
-        self.btnBlackLevelOn.clicked.connect(self.OnBtnBlackLevelClickedSlot)
-        self.btnBlackLevelOff.clicked.connect(self.OnBtnBlackLevelClickedSlot)
-        self.spinBoxBlackLevel.valueChanged.connect(self.OnSpinBoxBlackLevelValueChangedSlot)
-
     def OnBtnLiveStreamingClickedSlot(self):
         """取流"""
 
@@ -146,10 +117,13 @@ class ImagingWidget(ImagingWidgetSettingMgr):
             hThreadHandle = threading.Thread(target=self.LiveStreamingThread, args=(cam, nPayloadSize))
             # 反转标识
             self.__isLiveStreaming = True
+            # 禁用参数设置
+            self.SetAllParameterEnable(False)
             # 启动线程，取流
             hThreadHandle.start()
         except:
             self.__isLiveStreaming = False
+            self.SetAllParameterEnable(True)
 
     def OnBtnCaptureClickedSlot(self):
         """抓取"""
@@ -161,6 +135,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         # 先停止取流
         self.__lock.lock()
         self.__isLiveStreaming = False
+        self.SetAllParameterEnable(True)
         self.__lock.unlock()
 
     def OnBtnSaveAsClickedSlot(self):
@@ -170,6 +145,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         if self.__isLiveStreaming:
             self.__lock.lock()
             self.__isLiveStreaming = False
+            self.SetAllParameterEnable(True)
             self.__lock.unlock()
 
         # 弹出对话框，保存图片
@@ -197,42 +173,6 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         self.__scene.setSceneRect(0, 0, self.__image.width() / 8, self.__image.height() / 8)
         self.__scene.addItem(self.__pixmapItem)
         self.graphicsView.show()
-
-    def OnSpinBoxFPSValueChangedSlot(self):
-        """帧率"""
-        self.__fps = self.spinBoxFPS.value()
-
-    def OnBtnAutoExposureClickedSlot(self):
-        """自动曝光"""
-        self.__autoExposureEnable = not self.__autoExposureEnable
-
-    def OnSpinBoxExposureTimeValueChangedSlot(self):
-        """曝光时间"""
-        self.__exposureTime = self.spinBoxExposureTime.value()
-
-    def OnBtnGainClickedSlot(self):
-        """是否打开增益"""
-        self.__gainEnable = not self.__gainEnable
-
-    def OnSpinBoxGainValueChangedSlot(self):
-        """增益大小"""
-        self.__gain = self.spinBoxGain.value()
-
-    def OnBtnGammaClickedSlot(self):
-        """是否打开伽马"""
-        self.__gamaEnable = not self.__gamaEnable
-
-    def OnSpinBoxGammaValueChangedSlot(self):
-        """伽马大小"""
-        self.__gama = self.spinBoxGamma.value()
-
-    def OnBtnBlackLevelClickedSlot(self):
-        """是否打开Black Level"""
-        self.__blackLevelEnable = not self.__blackLevelEnable
-
-    def OnSpinBoxBlackLevelValueChangedSlot(self):
-        """Black Level大小"""
-        self.__blackLevel = self.spinBoxBlackLevel.value()
 
     def LiveStreamingThread(self, cam=0, nPayloadSize=0):
         """取流的独立线程"""
@@ -279,6 +219,7 @@ class ImagingWidget(ImagingWidgetSettingMgr):
             self.__lock.unlock()
 
             if self.__isLiveStreaming == False:
+                self.SetAllParameterEnable(True)
                 del img_buff
                 break
 
