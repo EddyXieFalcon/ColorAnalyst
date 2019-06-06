@@ -237,10 +237,23 @@ class ImagingWidget(ImagingWidgetSettingMgr):
                 continue
             self.__lock.unlock()
 
-            if self.__isLiveStreaming == False:
+            # 停止取流
+            if not self.__isLiveStreaming:
+                # ch:停止取流 | en:Stop grab image
+                if cam.MV_CC_StopGrabbing() != 0:
+                    del img_buff
+                    return
+
+                # ch:关闭设备 | Close device
+                if cam.MV_CC_CloseDevice() != 0:
+                    del img_buff
+                    return
+
+                # ch:销毁句柄 | Destroy handle
+                if cam.MV_CC_DestroyHandle() != 0:
+                    return
                 self.SetDoActiviteEnable(True)
                 del img_buff
-                break
 
     def ShowStreamImageSlot(self):
         """将获取的图片流显示到UI"""
