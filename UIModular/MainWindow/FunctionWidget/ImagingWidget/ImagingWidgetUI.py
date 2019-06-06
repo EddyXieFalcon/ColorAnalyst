@@ -2,12 +2,11 @@
 
 # Form implementation generated from reading ui file 'ImagingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
@@ -219,6 +218,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         self.spinBoxWidth = QtWidgets.QSpinBox(self.groupBoxImageFeature)
+        self.spinBoxWidth.setMaximum(999999999)
         self.spinBoxWidth.setObjectName("spinBoxWidth")
         self.horizontalLayout_11.addWidget(self.spinBoxWidth)
         self.gridLayout_2.addLayout(self.horizontalLayout_11, 0, 1, 1, 1)
@@ -228,6 +228,7 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_13 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.spinBoxHeight = QtWidgets.QSpinBox(self.groupBoxImageFeature)
+        self.spinBoxHeight.setMaximum(999999999)
         self.spinBoxHeight.setObjectName("spinBoxHeight")
         self.horizontalLayout_13.addWidget(self.spinBoxHeight)
         self.gridLayout_2.addLayout(self.horizontalLayout_13, 1, 1, 1, 1)
@@ -237,6 +238,8 @@ class Ui_ImagingWidget(object):
         self.horizontalLayout_15 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_15.setObjectName("horizontalLayout_15")
         self.spinBoxOffsetX = QtWidgets.QSpinBox(self.groupBoxImageFeature)
+        self.spinBoxOffsetX.setMinimum(-999999999)
+        self.spinBoxOffsetX.setMaximum(999999999)
         self.spinBoxOffsetX.setObjectName("spinBoxOffsetX")
         self.horizontalLayout_15.addWidget(self.spinBoxOffsetX)
         self.gridLayout_2.addLayout(self.horizontalLayout_15, 2, 1, 1, 1)
@@ -244,6 +247,7 @@ class Ui_ImagingWidget(object):
         self.labelOffsetYName.setObjectName("labelOffsetYName")
         self.gridLayout_2.addWidget(self.labelOffsetYName, 3, 0, 1, 1)
         self.spinBoxOffsetY = QtWidgets.QSpinBox(self.groupBoxImageFeature)
+        self.spinBoxOffsetY.setMaximum(999999999)
         self.spinBoxOffsetY.setObjectName("spinBoxOffsetY")
         self.gridLayout_2.addWidget(self.spinBoxOffsetY, 3, 1, 1, 1)
         self.labelReverseXName = QtWidgets.QLabel(self.groupBoxImageFeature)
@@ -345,5 +349,4 @@ class Ui_ImagingWidget(object):
         self.labelBinningXName.setText(_translate("ImagingWidget", "Binning X"))
         self.labelBinningYName.setText(_translate("ImagingWidget", "Binning Y"))
         self.btnDoActivite.setText(_translate("ImagingWidget", "配置生效"))
-
 

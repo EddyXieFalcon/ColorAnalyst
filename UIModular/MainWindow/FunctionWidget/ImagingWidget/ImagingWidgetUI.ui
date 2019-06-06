@@ -416,7 +416,11 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_11">
             <item>
-             <widget class="QSpinBox" name="spinBoxWidth"/>
+             <widget class="QSpinBox" name="spinBoxWidth">
+              <property name="maximum">
+               <number>999999999</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -430,7 +434,11 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_13">
             <item>
-             <widget class="QSpinBox" name="spinBoxHeight"/>
+             <widget class="QSpinBox" name="spinBoxHeight">
+              <property name="maximum">
+               <number>999999999</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -444,7 +452,14 @@
           <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_15">
             <item>
-             <widget class="QSpinBox" name="spinBoxOffsetX"/>
+             <widget class="QSpinBox" name="spinBoxOffsetX">
+              <property name="minimum">
+               <number>-999999999</number>
+              </property>
+              <property name="maximum">
+               <number>999999999</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -456,7 +471,11 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="spinBoxOffsetY"/>
+           <widget class="QSpinBox" name="spinBoxOffsetY">
+            <property name="maximum">
+             <number>999999999</number>
+            </property>
+           </widget>
           </item>
           <item row="4" column="0">
            <widget class="QLabel" name="labelReverseXName">
@@ -681,10 +700,10 @@
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_4"/>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_5"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>
