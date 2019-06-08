@@ -301,17 +301,13 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
             # 尝试打开ini文件，查询参数
             with open("FeatureFile.ini", 'r') as featureFile:
 
-                # 读取单行，一般第一行都是废话，无需处理
-                line = featureFile.readline()
-                newFile += line
+                # 新旧文本行
+                oldLine = parameterName + "\t" + oldParameterValue
+                newLine = parameterName + "\t" + newParameterValue
 
-                # 对剩下的每一行循环遍历处理
-                while line:
-                    if (parameterName + "\t") in line:
-                        line = line.replace(oldParameterValue, newParameterValue)
-                    newFile += line
-                    line = featureFile.readline()
-                newFile += line
+                # 读取单行，一般第一行都是废话，无需处理
+                oldFile = featureFile.read()
+                newFile += oldFile.replace(oldLine, newLine)
 
             # 将新数据写入文件
             with open("FeatureFile.ini", 'w') as featureFile:
