@@ -47,6 +47,11 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         # 载入
         self.btnLoad.clicked.connect(self.OnBtnLoadClickedSlot)
 
+        ######### 激光控制 #########
+        # 标识符，激光是否打开
+        self.__isOpenLaser = False
+        self.btnLaserMgr.clicked.connect(self.OnBtnLaserMgrClicked)
+
     def SetDoAlgorithmEnable(self, enable):
         """设置按钮是否能用"""
 
@@ -278,3 +283,18 @@ class ImagingWidget(ImagingWidgetSettingMgr):
         self.graphicsView.show()
 
         self.__lock.unlock()
+
+    def OnBtnLaserMgrClicked(self):
+        """激光控制按钮"""
+
+        # 如果激光当前处于开启状态
+        if self.__isOpenLaser:
+            # 关闭激光
+            pass
+        # 如果激光当前处于关闭状态
+        else:
+            # 打开激光
+            pass
+
+        # 反转标识状态
+        self.__isOpenLaser = not self.__isOpenLaser

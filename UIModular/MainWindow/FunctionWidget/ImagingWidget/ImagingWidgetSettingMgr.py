@@ -73,7 +73,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxFPSValueChangedSlot(self):
         """帧率"""
         # 写入文件
-        self.WriteSettingToFile("AcquisitionFrameRate", self.__fps, self.spinBoxFPS.value())
+        self.WriteSettingToFile("AcquisitionFrameRate", str(self.__fps), str(self.spinBoxFPS.value()))
         # 新数据记录
         self.__fps = self.spinBoxFPS.value()
 
@@ -90,7 +90,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxExposureTimeValueChangedSlot(self):
         """曝光时间"""
         # 写入文件
-        self.WriteSettingToFile("ExposureTime", self.__exposureTime, self.spinBoxExposureTime.value())
+        self.WriteSettingToFile("ExposureTime", str(self.__exposureTime), str(self.spinBoxExposureTime.value()))
         # 新数据记录
         self.__exposureTime = self.spinBoxExposureTime.value()
 
@@ -107,7 +107,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxGainValueChangedSlot(self):
         """增益大小"""
         # 写入文件
-        self.WriteSettingToFile("Gain", self.__gain, self.spinBoxGain.value())
+        self.WriteSettingToFile("Gain", str(self.__gain), str(self.spinBoxGain.value()))
         # 新数据记录
         self.__gain = self.spinBoxGain.value()
 
@@ -124,7 +124,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxGammaValueChangedSlot(self):
         """伽马大小"""
         # 写入文件
-        self.WriteSettingToFile("Gamma", self.__gama, self.spinBoxGamma.value())
+        self.WriteSettingToFile("Gamma", str(self.__gama), str(self.spinBoxGamma.value()))
         # 新数据记录
         self.__gama = self.spinBoxGamma.value()
 
@@ -141,35 +141,35 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
     def OnSpinBoxBlackLevelValueChangedSlot(self):
         """Black Level大小"""
         # 写入文件
-        self.WriteSettingToFile("BlackLevel", self.__blackLevel, self.spinBoxBlackLevel.value())
+        self.WriteSettingToFile("BlackLevel", str(self.__blackLevel), str(self.spinBoxBlackLevel.value()))
         # 新数据记录
         self.__blackLevel = self.spinBoxBlackLevel.value()
 
     def OnSpinBoxWidthValueChangedSlot(self):
         """宽度"""
         # 写入文件
-        self.WriteSettingToFile("AutoFunctionAOIWidth", self.__width, self.spinBoxWidth.value())
+        self.WriteSettingToFile("AutoFunctionAOIWidth", str(self.__width), str(self.spinBoxWidth.value()))
         # 新数据记录
         self.__width = self.spinBoxWidth.value()
 
     def OnSpinBoxHeightValueChangedSlot(self):
         """高度"""
         # 写入文件
-        self.WriteSettingToFile("AutoFunctionAOIHeight", self.__height, self.spinBoxHeight.value())
+        self.WriteSettingToFile("AutoFunctionAOIHeight", str(self.__height), str(self.spinBoxHeight.value()))
         # 新数据记录
         self.__height = self.spinBoxHeight.value()
 
     def OnSpinBoxOffsetXValueChangedSlot(self):
         """Offset X"""
         # 写入文件
-        self.WriteSettingToFile("AutoFunctionAOIOffsetX", self.__offsetX, self.spinBoxOffsetX.value())
+        self.WriteSettingToFile("AutoFunctionAOIOffsetX", str(self.__offsetX), str(self.spinBoxOffsetX.value()))
         # 新数据记录
         self.__offsetX = self.spinBoxOffsetX.value()
 
     def OnSpinBoxOffsetYValueChangedSlot(self):
         """Offset X"""
         # 写入文件
-        self.WriteSettingToFile("AutoFunctionAOIOffsetY", self.__offsetY, self.spinBoxOffsetY.value())
+        self.WriteSettingToFile("AutoFunctionAOIOffsetY", str(self.__offsetY), str(self.spinBoxOffsetY.value()))
         # 新数据记录
         self.__offsetY = self.spinBoxOffsetY.value()
 
@@ -208,6 +208,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
                         elif line.split("\t")[-1] == "Off\n":
                             self.btnAutoExposureOn.setChecked(True)
                             self.__autoExposureEnable = True
+                        self.spinBoxExposureTime.setDisabled(self.__autoExposureEnable)
                     # 读取曝光时间
                     elif "ExposureTime\t" in line:
                         self.spinBoxExposureTime.setValue(float(line.split("\t")[-1]))
@@ -222,6 +223,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
                         elif line.split("\t")[-1] == "Off\n":
                             self.btnGainOn.setChecked(True)
                             self.__gainEnable = True
+                        self.spinBoxGain.setDisabled(self.__gainEnable)
                     # 读取增益大小
                     elif "Gain\t" in line:
                         self.spinBoxGain.setValue(float(line.split("\t")[-1]))
@@ -236,6 +238,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
                         elif line.split("\t")[-1]:
                             self.btnGammaOn.setChecked(True)
                             self.__gamaEnable = True
+                        self.spinBoxGamma.setDisabled(self.__gamaEnable)
                     # 读取伽马大小
                     elif "Gamma\t" in line:
                         self.spinBoxGamma.setValue(float(line.split("\t")[-1]))
@@ -250,6 +253,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
                         elif line.split("\t")[-1]:
                             self.btnBlackLevelOn.setChecked(True)
                             self.__blackLevelEnable = True
+                        self.spinBoxBlackLevel.setDisabled(self.__blackLevelEnable)
                     # 读取BlackLevel大小
                     elif "BlackLevel\t" in line:
                         self.spinBoxBlackLevel.setValue(int(line.split("\t")[-1]))
@@ -342,6 +346,10 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
             return
 
+        # ch:打开设备 | en:Open device
+        if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
+            return
+
         # ch:将相机属性导出到文件中 | en:Export the camera properties to the file
         if MV_OK != cam.MV_CC_FeatureSave("FeatureFile.ini"):
             return
@@ -381,8 +389,8 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         if cam.MV_CC_OpenDevice(MV_ACCESS_Exclusive, 0) != 0:
             return
 
-        # ch:从文件中导入相机属性 | en:Import the camera properties from the file
-        if MV_OK != cam.MV_CC_FeatureLoad("FeatureFile.ini"):
+        # ch:将相机属性导出到文件中 | en:Export the camera properties to the file
+        if MV_OK != cam.MV_CC_FeatureSave("FeatureFile.ini"):
             return
 
         # ch:关闭设备 | Close device

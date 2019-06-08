@@ -65,6 +65,13 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_16">
        <item>
+        <widget class="QPushButton" name="btnLaserMgr">
+         <property name="text">
+          <string>打开激光</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnDoAlgorithm">
          <property name="text">
           <string>执行算法</string>
@@ -169,12 +176,12 @@
           <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QDoubleSpinBox" name="spinBoxExposureTime">
+             <widget class="QSpinBox" name="spinBoxExposureTime">
               <property name="enabled">
                <bool>false</bool>
               </property>
               <property name="maximum">
-               <double>1000000.000000000000000</double>
+               <number>999999999</number>
               </property>
              </widget>
             </item>
@@ -243,12 +250,9 @@
           <item row="4" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QDoubleSpinBox" name="spinBoxGain">
+             <widget class="QSpinBox" name="spinBoxGain">
               <property name="enabled">
                <bool>false</bool>
-              </property>
-              <property name="maximum">
-               <double>20.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -396,7 +400,7 @@
                <bool>false</bool>
               </property>
               <property name="maximum">
-               <number>999</number>
+               <number>999999999</number>
               </property>
              </widget>
             </item>
@@ -618,70 +622,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnAutoExposureOn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxExposureTime</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>106</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>483</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnAutoExposureOff</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxExposureTime</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>650</x>
-     <y>123</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>506</x>
-     <y>162</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGainOn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGain</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>565</x>
-     <y>227</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>562</x>
-     <y>279</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnGainOff</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>spinBoxGain</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>650</x>
-     <y>227</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>486</x>
-     <y>270</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btnGammaOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxGamma</receiver>
@@ -715,10 +655,10 @@
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
-  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup_5"/>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>
