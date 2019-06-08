@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
+    <width>939</width>
     <height>555</height>
    </rect>
   </property>
@@ -133,6 +133,9 @@
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup</string>
               </attribute>
@@ -147,7 +150,7 @@
                <bool>true</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup</string>
@@ -204,6 +207,9 @@
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_2</string>
               </attribute>
@@ -218,7 +224,7 @@
                <bool>true</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_2</string>
@@ -275,6 +281,9 @@
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_3</string>
               </attribute>
@@ -289,7 +298,7 @@
                <bool>true</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_3</string>
@@ -346,6 +355,9 @@
               <property name="checkable">
                <bool>true</bool>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_4</string>
               </attribute>
@@ -360,7 +372,7 @@
                <bool>true</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">buttonGroup_4</string>
@@ -499,6 +511,9 @@
                 <property name="checkable">
                  <bool>true</bool>
                 </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
                 <attribute name="buttonGroup">
                  <string notr="true">buttonGroup_5</string>
                 </attribute>
@@ -513,7 +528,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">buttonGroup_5</string>
@@ -574,15 +589,15 @@
    <sender>btnBlackLevelOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxBlackLevel</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>515</x>
-     <y>437</y>
+     <x>565</x>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>488</y>
+     <x>562</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
@@ -590,15 +605,15 @@
    <sender>btnBlackLevelOff</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxBlackLevel</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>590</x>
-     <y>437</y>
+     <x>650</x>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>488</y>
+     <x>562</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
@@ -606,7 +621,7 @@
    <sender>btnAutoExposureOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxExposureTime</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>481</x>
@@ -622,11 +637,11 @@
    <sender>btnAutoExposureOff</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxExposureTime</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>561</x>
-     <y>111</y>
+     <x>650</x>
+     <y>123</y>
     </hint>
     <hint type="destinationlabel">
      <x>506</x>
@@ -638,15 +653,15 @@
    <sender>btnGainOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxGain</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>209</y>
+     <x>565</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
-     <x>460</x>
-     <y>265</y>
+     <x>562</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>
@@ -654,11 +669,11 @@
    <sender>btnGainOff</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxGain</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>557</x>
-     <y>214</y>
+     <x>650</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -670,15 +685,15 @@
    <sender>btnGammaOn</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxGamma</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>477</x>
-     <y>317</y>
+     <x>565</x>
+     <y>331</y>
     </hint>
     <hint type="destinationlabel">
-     <x>474</x>
-     <y>377</y>
+     <x>562</x>
+     <y>383</y>
     </hint>
    </hints>
   </connection>
@@ -686,11 +701,11 @@
    <sender>btnGammaOff</sender>
    <signal>clicked(bool)</signal>
    <receiver>spinBoxGamma</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>550</x>
-     <y>324</y>
+     <x>650</x>
+     <y>331</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -700,10 +715,10 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_5"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_4"/>
+  <buttongroup name="buttonGroup_5"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

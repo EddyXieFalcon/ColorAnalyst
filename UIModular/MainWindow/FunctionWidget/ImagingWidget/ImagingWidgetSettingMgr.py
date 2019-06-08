@@ -17,25 +17,25 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         self.__fps = self.spinBoxFPS.value()
         self.spinBoxFPS.valueChanged.connect(self.OnSpinBoxFPSValueChangedSlot)
         # 曝光
-        self.__autoExposureEnable = False
+        self.__autoExposureEnable = True
         self.__exposureTime = self.spinBoxExposureTime.value()
         self.btnAutoExposureOn.clicked.connect(self.OnBtnAutoExposureClickedSlot)
         self.btnAutoExposureOff.clicked.connect(self.OnBtnAutoExposureClickedSlot)
         self.spinBoxExposureTime.valueChanged.connect(self.OnSpinBoxExposureTimeValueChangedSlot)
         # 增益
-        self.__gainEnable = False
+        self.__gainEnable = True
         self.__gain = self.spinBoxGain.value()
         self.btnGainOn.clicked.connect(self.OnBtnGainClickedSlot)
         self.btnGainOff.clicked.connect(self.OnBtnGainClickedSlot)
         self.spinBoxGain.valueChanged.connect(self.OnSpinBoxGainValueChangedSlot)
         # 伽马
-        self.__gamaEnable = False
+        self.__gamaEnable = True
         self.__gama = self.spinBoxGamma.value()
         self.btnGammaOn.clicked.connect(self.OnBtnGammaClickedSlot)
         self.btnGammaOff.clicked.connect(self.OnBtnGammaClickedSlot)
         self.spinBoxGamma.valueChanged.connect(self.OnSpinBoxGammaValueChangedSlot)
         # Black Level
-        self.__blackLevelEnable = False
+        self.__blackLevelEnable = True
         self.__blackLevel = self.spinBoxBlackLevel.value()
         self.btnBlackLevelOn.clicked.connect(self.OnBtnBlackLevelClickedSlot)
         self.btnBlackLevelOff.clicked.connect(self.OnBtnBlackLevelClickedSlot)
@@ -55,7 +55,7 @@ class ImagingWidgetSettingMgr(ImagingWidgetModify):
         self.__offsetY = self.spinBoxOffsetY.value()
         self.spinBoxOffsetY.valueChanged.connect(self.OnSpinBoxOffsetYValueChangedSlot)
         # Reverse X
-        self.__reverseX = False
+        self.__reverseX = True
         self.btnReverseXOn.clicked.connect(self.OnBtnReverseXClickedSlot)
         self.btnReverseXOff.clicked.connect(self.OnBtnReverseXClickedSlot)
 
