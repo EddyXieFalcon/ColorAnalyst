@@ -276,12 +276,14 @@ class ImagingWidget(ImagingWidgetSettingMgr):
     def ShowStreamImageSlot(self):
         """将获取的图片流显示到UI"""
 
+        # 加锁
         self.__lock.lock()
 
-        # 显示
+        # 贴图，显示
         self.__pixmapItem.setPixmap(self.__pixmap)
         self.graphicsView.show()
 
+        # 解锁
         self.__lock.unlock()
 
     def OnBtnLaserMgrClicked(self):
