@@ -3,7 +3,7 @@
 import os, sys
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
-from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailogUI import Ui_CommendDailog
+from UIModular.MainWindow.FunctionWidget.LaserWidget.CommendDailog.CommendDailogUI import Ui_CommendDailog
 from ControllerModular.Device import Device
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OpticsWidget</class>
- <widget class="QWidget" name="OpticsWidget">
+ <class>LaserWidget</class>
+ <widget class="QWidget" name="LaserWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -38,26 +38,6 @@
        <column>
         <property name="text">
          <string>instructions </string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>parameter1</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>parameter2</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>parameter3</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>parameter4</string>
         </property>
        </column>
        <column>

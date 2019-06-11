@@ -3,11 +3,11 @@
 import os, sys
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
-from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailogUI import Ui_CommendDailog
+from UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidgetUI import Ui_LaserWidget
 from ControllerModular.Device import Device
 
 
-class CommendDailogModify(QtWidgets.QWidget, Ui_CommendDailog):
+class LaserWidgetModify(QtWidgets.QWidget, Ui_LaserWidget):
     def __init__(self, parent=None):
         """构造方法"""
 

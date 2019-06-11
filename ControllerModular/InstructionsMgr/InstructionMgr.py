@@ -38,4 +38,20 @@ class STM32InstructionMgr(object):
     def GetSTM32InstructionsMap(self):
         return self.__stm32InstructionMap
 
+
+class LaserInstructionMgr(object):
+    def __init__(self):
+        """初始化方法，加载配置参数"""
+        self.__laserInstructionMap = {}
+
+        # 尝试打开json文件
+        try:
+            with open("Laser_InstructionList.json", 'r') as jsonFileLaser:
+                self.__laserInstructionMap = json.load(jsonFileLaser)
+        except:
+            pass
+
+    def GetLaserInstructionsMap(self):
+        return self.__laserInstructionMap
+
 # 测试代码

@@ -6,6 +6,7 @@ from UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidget import 
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidget import SamplingWidget
 from UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidget import ImagingWidget
 from UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidget import OpticsWidget
+from UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidget import LaserWidget
 from UIModular.MainWindow.StatusBarWidget.StatusBarWidget import StatusBarWidget
 
 
@@ -38,6 +39,10 @@ class MainWindow(MainWindowModify):
         self.__opticsWidget = OpticsWidget(self.widgetFunction)
         self.gridLayout_3.addWidget(self.__opticsWidget, 0, 0, 1, 1)
         self.__functionWidgetDict[self.pushButton_Optics] = self.__opticsWidget
+
+        self.__laserWidget = LaserWidget(self.widgetFunction)
+        self.gridLayout_3.addWidget(self.__laserWidget, 0, 0, 1, 1)
+        self.__functionWidgetDict[self.pushButton_Laser] = self.__laserWidget
 
         # 将所有的子界面隐藏，默认显示第一个界面
         self.HideAllFunctionWidget()

@@ -3,8 +3,8 @@
 import json
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal
-from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailogModify import CommendDailogModify
-from ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
+from UIModular.MainWindow.FunctionWidget.LaserWidget.CommendDailog.CommendDailogModify import CommendDailogModify
+from ControllerModular.InstructionsMgr.InstructionMgr import LaserInstructionMgr
 
 
 class CommendDailog(CommendDailogModify):
@@ -17,7 +17,7 @@ class CommendDailog(CommendDailogModify):
         super(CommendDailog, self).__init__()
 
         # 将所有的选项放入列表中
-        self.__instructionDict = STM32InstructionMgr().GetSTM32InstructionsMap()
+        self.__instructionDict = LaserInstructionMgr().GetLaserInstructionsMap()
         for instruction in self.__instructionDict:
             self.comboBox.addItem(instruction)
 

@@ -1,21 +1,22 @@
 # coding=utf8
 
 import time
+import struct
 import json
 import serial
 import serial.tools.list_ports
 from PyQt5.QtWidgets import *
-from UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidgetModify import OpticsWidgetModify
-from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailog import CommendDailog
-from ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
+from UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidgetModify import LaserWidgetModify
+from UIModular.MainWindow.FunctionWidget.LaserWidget.CommendDailog.CommendDailog import CommendDailog
+from ControllerModular.InstructionsMgr.InstructionMgr import LaserInstructionMgr
 
 
-class OpticsWidget(OpticsWidgetModify):
+class LaserWidget(LaserWidgetModify):
     def __init__(self, parent=None):
         """构造方法"""
 
         # 父类构造方法
-        super(OpticsWidget, self).__init__()
+        super(LaserWidget, self).__init__()
 
         # 当前控制的串口
         self.__serialForMotor = None
@@ -29,7 +30,7 @@ class OpticsWidget(OpticsWidgetModify):
         self.__commendDailogForEdit.selectedInstruction.connect(self.editInstructionToTableWidget)
 
         # 初始化状态
-        self.InitStatus()
+        # self.InitStatus()
 
         # 串口连接的槽函数
         self.pushButton_connect.clicked.connect(self.on_pushbutton_connect_clicked_slot)
@@ -210,40 +211,15 @@ class OpticsWidget(OpticsWidgetModify):
 
             # 获取指令
             msg = self.tableWidget.item(index, 0).text()
-            commend = STM32InstructionMgr().GetSTM32InstructionsMap()[msg]
+            commend = LaserInstructionMgr().GetLaserInstructionsMap()[msg]
 
             # 解析指令
-            instruction = commend[0]
-
-            # 判断有几个参数
-            paraNum = len(instruction.split(" ")) - 1
-
-            # 为指令添加参数
-            paraList = []
-            for num in range(paraNum):
-                # 获取参数
-                if self.tableWidget.item(index, num + 1) is not None:
-                    parameter = self.tableWidget.item(index, num + 1).text()
-                else:
-                    parameter = '0'
-
-                # 判断添加的参数是否合法，如果不合法，自动转换为最小值
-                try:
-                    value = float(parameter)
-                    assert (value >= commend[num + 1][0] and value <= commend[num + 1][1])
-                except:
-                    parameter = str(commend[num + 1][0])
-                    self.tableWidget.setItem(index, num + 1, QTableWidgetItem(parameter))
-
-                # 放入参数
-                paraList.append(parameter)
-
-            # 合成指令
-            if paraNum > 0:
-                instruction = instruction % tuple(paraList)
+            instruction = []
+            for number in commend[0].split(" "):
+                instruction.append(int(number, 16))
 
             # 发送指令
-            self.__serialForMotor.write(instruction.encode("utf-8"))
+            self.__serialForMotor.write(instruction)
 
             # 选中当前行
             self.tableWidget.setCurrentCell(index, 0)
@@ -281,7 +257,7 @@ class OpticsWidget(OpticsWidgetModify):
         """添加指令"""
 
         # 容错
-        instructionlist = STM32InstructionMgr().GetSTM32InstructionsMap()
+        instructionlist = LaserInstructionMgr().GetLaserInstructionsMap()
         if instruction not in instructionlist:
             return
 
@@ -312,4 +288,4 @@ class OpticsWidget(OpticsWidgetModify):
         # 断开串口链接
         if self.__serialForMotor is not None and self.__serialForMotor.isOpen():
             self.__serialForMotor.close()
-            self.__serialForMotor = None
+            self.__serialForMotor = No
