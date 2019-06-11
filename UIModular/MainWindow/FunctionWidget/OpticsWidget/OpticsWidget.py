@@ -5,17 +5,17 @@ import json
 import serial
 import serial.tools.list_ports
 from PyQt5.QtWidgets import *
-from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetModify import SamplingWidgetModify
-from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailog import CommendDailog
+from UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidgetModify import OpticsWidgetModify
+from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailog import CommendDailog
 from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
 
 
-class SamplingWidget(SamplingWidgetModify):
+class OpticsWidget(OpticsWidgetModify):
     def __init__(self, parent=None):
         """构造方法"""
 
         # 父类构造方法
-        super(SamplingWidget, self).__init__()
+        super(OpticsWidget, self).__init__()
 
         # 当前控制的串口
         self.__serial = None

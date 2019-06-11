@@ -18,7 +18,7 @@ class ReceiveMsgMgr(object):
                 self.__settingMap = json.load(jsonFile)
         except:
             pass
-            # fp = open("InstructionList.json", "w")
+            # fp = open("RS485_InstructionList.json", "w")
             # fp.close()
 
     def GetParameter(self):

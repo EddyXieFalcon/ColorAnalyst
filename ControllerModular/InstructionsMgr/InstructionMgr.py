@@ -10,21 +10,30 @@ import json
 class InstructionMgr(object):
     def __init__(self):
         """初始化方法，加载配置参数"""
-        self.__settingMap = {}
+        self.__rs485InstructionMap = {}
+        self.__stm32InstructionMap = {}
 
         # 尝试打开json文件
         try:
-            with open("InstructionList.json", 'r') as jsonFile:
-                self.__settingMap = json.load(jsonFile)
+            with open("RS485_InstructionList.json", 'r') as jsonFile:
+                self.__rs485InstructionMap = json.load(jsonFile)
         except:
             pass
-            # fp = open("InstructionList.json", "w")
-            # fp.close()
 
-    def GetParameter(self):
-        return self.__settingMap
+        # 尝试打开json文件
+        try:
+            with open("STM32_InstructionList.json", 'r') as jsonFile:
+                self.__stm32InstructionMap = json.load(jsonFile)
+        except:
+            pass
+
+    def GetRS485InstructionsMap(self):
+        return self.__rs485InstructionMap
+
+    def GetSTM32InstructionsMap(self):
+        return self.__stm32InstructionMap
 
 
 # 测试代码
 if __name__ == '__main__':
-    print(InstructionMgr().GetParameter())
+    print(InstructionMgr().GetRS485InstructionsMap())

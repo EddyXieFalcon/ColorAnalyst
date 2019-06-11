@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file 'ImagingWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_ImagingWidget(object):
     def setupUi(self, ImagingWidget):
@@ -41,9 +42,6 @@ class Ui_ImagingWidget(object):
         self.verticalLayout_3.addLayout(self.verticalLayout)
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.btnLaserMgr = QtWidgets.QPushButton(ImagingWidget)
-        self.btnLaserMgr.setObjectName("btnLaserMgr")
-        self.horizontalLayout_16.addWidget(self.btnLaserMgr)
         self.btnDoAlgorithm = QtWidgets.QPushButton(ImagingWidget)
         self.btnDoAlgorithm.setObjectName("btnDoAlgorithm")
         self.horizontalLayout_16.addWidget(self.btnDoAlgorithm)
@@ -320,7 +318,6 @@ class Ui_ImagingWidget(object):
         self.btnCapture.setText(_translate("ImagingWidget", "Capture"))
         self.btnSaveAs.setText(_translate("ImagingWidget", "Save as"))
         self.btnLoad.setText(_translate("ImagingWidget", "Load"))
-        self.btnLaserMgr.setText(_translate("ImagingWidget", "打开激光"))
         self.btnDoAlgorithm.setText(_translate("ImagingWidget", "执行算法"))
         self.groupBoxBaseFeature.setTitle(_translate("ImagingWidget", "基本属性"))
         self.labelFPSName.setText(_translate("ImagingWidget", "帧率"))
@@ -353,4 +350,5 @@ class Ui_ImagingWidget(object):
         self.labelBinningXName.setText(_translate("ImagingWidget", "Binning X"))
         self.labelBinningYName.setText(_translate("ImagingWidget", "Binning Y"))
         self.btnDoActivite.setText(_translate("ImagingWidget", "配置生效"))
+
 

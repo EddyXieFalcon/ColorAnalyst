@@ -65,13 +65,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_16">
        <item>
-        <widget class="QPushButton" name="btnLaserMgr">
-         <property name="text">
-          <string>打开激光</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btnDoAlgorithm">
          <property name="text">
           <string>执行算法</string>
@@ -655,10 +648,10 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_5"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_4"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

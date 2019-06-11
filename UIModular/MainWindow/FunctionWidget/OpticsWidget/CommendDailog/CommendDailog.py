@@ -17,7 +17,7 @@ class CommendDailog(CommendDailogModify):
         super(CommendDailog, self).__init__()
 
         # 将所有的选项放入列表中
-        self.__instructionDict = InstructionMgr().GetRS485InstructionsMap()
+        self.__instructionDict = InstructionMgr().GetSTM32InstructionsMap()
         for instruction in self.__instructionDict:
             self.comboBox.addItem(instruction)
 

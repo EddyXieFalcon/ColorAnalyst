@@ -40,7 +40,7 @@ class BaseCOM(threading.Thread):
         self.__msg_queue = []
 
         # 串口指令表
-        self.__InstructionList = InstructionMgr().GetParameter()
+        self.__InstructionList = InstructionMgr().GetRS485InstructionsMap()
 
         # 串口返回值列表
         self.__ReceiveMsgList = ReceiveMsgMgr().GetParameter()
