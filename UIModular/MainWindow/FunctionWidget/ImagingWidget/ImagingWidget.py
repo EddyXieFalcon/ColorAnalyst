@@ -289,10 +289,14 @@ class ImagingWidget(ImagingWidgetSettingMgr):
 
         # 如果激光当前处于开启状态
         if self.__isOpenLaser:
+            # 反转文字提示
+            self.btnLaserMgr.setText("打开激光")
             # 关闭激光
             pass
         # 如果激光当前处于关闭状态
         else:
+            # 反转文字提示
+            self.btnLaserMgr.setText("关闭激光")
             # 打开激光
             pass
 
