@@ -7,7 +7,7 @@ import serial.tools.list_ports
 from PyQt5.QtWidgets import *
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetModify import SamplingWidgetModify
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailog import CommendDailog
-from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.InstructionsMgr.InstructionMgr import RS485InstructionMgr
 
 
 class SamplingWidget(SamplingWidgetModify):
@@ -114,7 +114,7 @@ class SamplingWidget(SamplingWidgetModify):
         # 没有获取设备号
         if len(port_list) <= 0:
             QMessageBox.warning(self, "警告", "没有连接设备！！！", QMessageBox.Yes)
-            # 判断有设备
+        # 判断有设备
         else:
             # 解析设备
             for port_info in port_list:
@@ -271,7 +271,7 @@ class SamplingWidget(SamplingWidgetModify):
 
             # 获取指令
             msg = self.tableWidget.item(index, 0).text()
-            commend = InstructionMgr().GetRS485InstructionsMap()[msg]
+            commend = RS485InstructionMgr().GetRS485InstructionsMap()[msg]
 
             # 解析指令
             instruction = commend[0]
@@ -342,7 +342,7 @@ class SamplingWidget(SamplingWidgetModify):
         """添加指令"""
 
         # 容错
-        instructionlist = InstructionMgr().GetRS485InstructionsMap()
+        instructionlist = RS485InstructionMgr().GetRS485InstructionsMap()
         if instruction not in instructionlist:
             return
 

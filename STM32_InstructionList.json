@@ -1,0 +1,27 @@
+{
+"pos model move":                             ["M01 %s %s %s %s"],
+"speed model move":                           ["M02 %s %s %s %s"],
+"stop at once":                               ["M03 %s %s %s %s", [0, 1]],
+"stop after a while":                         ["M04 %s %s %s %s", [0, 1]],
+"set zero":                                   ["M05 %s %s %s %s"],
+
+"set acceleration":                           ["S01 %s %s %s %s"],
+"set deceleration":                           ["S02 %s %s %s %s"],
+"set max acceleration":                       ["S03 %s %s %s %s"],
+"set the number of pulses per cycle":         ["S04 %s %s %s %s"],
+"set slow stop and deceleration degree":      ["S05 %s %s %s %s"],
+"set whether the LED flickers":               ["S06"],
+"zero number of pulses":                      ["S07 %s"],
+"parameter recovery":                         ["S08"],
+"acceleration of setting speed mode":         ["S09"],
+"set the number of zero-return pulses":       ["S10 %s %s %s %s"],
+"setting port configuration mode":            ["S13 %s", [1, 9]],
+
+"universal output":                           ["P01 %s", [1, 8], [0, 1]],
+"universal input":                            ["I01"],
+
+"query firmware version number":              ["Q01"],
+"query parameters":                           ["Q02 %s", [1, 4]],
+"query axis motion status":                   ["Q03"],
+"query axis pulse number":                    ["Q04"]
+}

@@ -4,7 +4,7 @@ import json
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailogModify import CommendDailogModify
-from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
 
 
 class CommendDailog(CommendDailogModify):
@@ -17,7 +17,7 @@ class CommendDailog(CommendDailogModify):
         super(CommendDailog, self).__init__()
 
         # 将所有的选项放入列表中
-        self.__instructionDict = InstructionMgr().GetSTM32InstructionsMap()
+        self.__instructionDict = STM32InstructionMgr().GetSTM32InstructionsMap()
         for instruction in self.__instructionDict:
             self.comboBox.addItem(instruction)
 

@@ -7,7 +7,7 @@ import serial.tools.list_ports
 from PyQt5.QtWidgets import *
 from UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidgetModify import OpticsWidgetModify
 from UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailog import CommendDailog
-from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
 
 
 class OpticsWidget(OpticsWidgetModify):
@@ -37,9 +37,6 @@ class OpticsWidget(OpticsWidgetModify):
         # “连接”下拉菜单的槽
         self.comboBox_connect.currentTextChanged.connect(self.on_comboBox_currentTextChanged_slot)
 
-        # 串口扫描的槽函数
-        self.pushButton_scan.clicked.connect(self.on_pushbutton_scan_clicked_slot)
-
         # 五个按钮的槽函数
         self.pushButton_load.clicked.connect(self.on_pushbutton_load_clicked_slot)
         self.pushButton_export.clicked.connect(self.on_pushbutton_export_clicked_slot)
@@ -51,19 +48,12 @@ class OpticsWidget(OpticsWidgetModify):
     def InitStatus(self):
         """初始化状态，所有的按钮不可用"""
 
-        # 隐藏进度条
-        self.progressBar.hide()
-
         # 设置“连接”按钮文本
         self.pushButton_connect.setText("Connect")
 
         # 关闭“连接”按钮
         self.comboBox_connect.setEnabled(False)
         self.comboBox_connect.clear()
-
-        # 关闭“扫描”按钮
-        self.comboBox_scan.setEnabled(False)
-        self.comboBox_scan.clear()
 
         # 关闭控制按钮
         self.pushButton_load.setEnabled(False)
@@ -85,15 +75,6 @@ class OpticsWidget(OpticsWidgetModify):
         if self.__serial is not None and self.__serial.isOpen():
             self.__serial.close()
 
-        # 隐藏进度条
-        self.progressBar.hide()
-
-        # 清空下拉菜单
-        self.comboBox_scan.clear()
-
-        # 禁用
-        self.comboBox_scan.setEnabled(False)
-
     def on_pushbutton_connect_clicked_slot(self):
         """连接按钮，刷新串口列表"""
 
@@ -114,7 +95,7 @@ class OpticsWidget(OpticsWidgetModify):
         # 没有获取设备号
         if len(port_list) <= 0:
             QMessageBox.warning(self, "警告", "没有连接设备！！！", QMessageBox.Yes)
-            # 判断有设备
+        # 判断有设备
         else:
             # 解析设备
             for port_info in port_list:
@@ -131,57 +112,15 @@ class OpticsWidget(OpticsWidgetModify):
             # 连接按钮反转状态
             self.pushButton_connect.setText("Disconnect")
 
-    def on_pushbutton_scan_clicked_slot(self):
-        """扫描按钮，对选中的串口发起链接通讯"""
-
-        # 串口通信初始化
-        self.InitSerial()
-
-        # 获取用户选择的串口名称
-        port_serial = self.comboBox_connect.currentText()
-
-        # 创建链接
-        if not len(port_serial):
-            return
-        self.__serial = serial.Serial(port_serial, 115200, timeout=0.1)
-
-        # 隐藏下拉菜单，显示进度条
-        self.comboBox_scan.hide()
-        self.progressBar.show()
-
-        # 循环遍历1-32个
-        for id in range(1, 33):
-            # 发送握手
-            msg = "%s hsk\n" % id
-            self.__serial.write(msg.encode("utf-8"))
-
-            # 读取反馈
-            result = self.__serial.read(28)
-
-            # 如果有反馈，将id加入下拉菜单
-            if len(result) != 0:
-                # 将id放入下拉菜单
-                self.comboBox_scan.addItem(str(id))
-
-            # 设置进度
-            self.progressBar.setValue(100 * id / 32)
-
-        # 隐藏进度条，显示下拉菜单
-        self.progressBar.hide()
-        self.comboBox_scan.show()
-
-        # 如果扫描到设备，下拉菜单可用
-        if self.comboBox_scan.count():
-            # 下拉菜单可用
-            self.comboBox_scan.setEnabled(True)
-
-            # 打开所有的控制按钮
-            self.pushButton_load.setEnabled(True)
-            self.pushButton_export.setEnabled(True)
-            self.pushButton_add.setEnabled(True)
-            self.pushButton_remove.setEnabled(True)
-            self.pushButton_edit.setEnabled(True)
-            self.pushButton_DoIt.setEnabled(True)
+            # 如果扫描到设备，下拉菜单可用
+            if self.comboBox_connect.count():
+                # 打开所有的控制按钮
+                self.pushButton_load.setEnabled(True)
+                self.pushButton_export.setEnabled(True)
+                self.pushButton_add.setEnabled(True)
+                self.pushButton_remove.setEnabled(True)
+                self.pushButton_edit.setEnabled(True)
+                self.pushButton_DoIt.setEnabled(True)
 
     def on_pushbutton_load_clicked_slot(self):
         """加载文件"""
@@ -214,7 +153,7 @@ class OpticsWidget(OpticsWidgetModify):
             instrction = []
 
             # 读取指令表格数据
-            for i in range(4):
+            for i in range(5):
                 if self.tableWidget.item(index, i) is not None:
                     instrction.append(self.tableWidget.item(index, i).text())
                 else:
@@ -271,13 +210,17 @@ class OpticsWidget(OpticsWidgetModify):
 
             # 获取指令
             msg = self.tableWidget.item(index, 0).text()
-            commend = InstructionMgr().GetRS485InstructionsMap()[msg]
+            print("msg = ", msg)
+            commend = STM32InstructionMgr().GetSTM32InstructionsMap()[msg]
+            print("commend = ", commend)
 
             # 解析指令
             instruction = commend[0]
+            print("instruction = ", instruction)
 
             # 判断有几个参数
-            paraNum = len(commend) - 1
+            paraNum = len(instruction.split(" ")) - 1
+            print("paraNum = ", paraNum)
 
             # 为指令添加参数
             paraList = []
@@ -298,11 +241,12 @@ class OpticsWidget(OpticsWidgetModify):
 
                 # 放入参数
                 paraList.append(parameter)
+            print("paraList = ", paraList)
 
             # 合成指令
             if paraNum > 0:
                 instruction = instruction % tuple(paraList)
-            instruction = self.comboBox_scan.currentText() + " " + instruction
+                print("instruction = ", instruction)
 
             # 发送指令
             self.__serial.write(instruction.encode("utf-8"))
@@ -337,12 +281,13 @@ class OpticsWidget(OpticsWidgetModify):
             self.tableWidget.setItem(index, 1, QTableWidgetItem(script[str(index)][1]))
             self.tableWidget.setItem(index, 2, QTableWidgetItem(script[str(index)][2]))
             self.tableWidget.setItem(index, 3, QTableWidgetItem(script[str(index)][3]))
+            self.tableWidget.setItem(index, 4, QTableWidgetItem(script[str(index)][4]))
 
     def addInstructionToTableWidget(self, instruction):
         """添加指令"""
 
         # 容错
-        instructionlist = InstructionMgr().GetRS485InstructionsMap()
+        instructionlist = STM32InstructionMgr().GetSTM32InstructionsMap()
         if instruction not in instructionlist:
             return
 

@@ -4,7 +4,7 @@ import json
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal
 from UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailogModify import CommendDailogModify
-from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.InstructionsMgr.InstructionMgr import RS485InstructionMgr
 
 
 class CommendDailog(CommendDailogModify):
@@ -17,7 +17,7 @@ class CommendDailog(CommendDailogModify):
         super(CommendDailog, self).__init__()
 
         # 将所有的选项放入列表中
-        self.__instructionDict = InstructionMgr().GetRS485InstructionsMap()
+        self.__instructionDict = RS485InstructionMgr().GetRS485InstructionsMap()
         for instruction in self.__instructionDict:
             self.comboBox.addItem(instruction)
 

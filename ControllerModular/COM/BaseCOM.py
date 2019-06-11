@@ -5,7 +5,7 @@ import time
 import serial.tools.list_ports
 import threading
 import binascii
-from ControllerModular.InstructionsMgr.InstructionMgr import InstructionMgr
+from ControllerModular.InstructionsMgr.InstructionMgr import *
 from ControllerModular.ReceiveMsgMgr.ReceiveMsgMgr import ReceiveMsgMgr
 
 """
