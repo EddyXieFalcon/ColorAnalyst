@@ -1,8 +1,13 @@
 # coding=utf8
 
 import sys
+import pims
+import numpy as np
+import pandas as pd
+import trackpy as tp
 from PyQt5 import QtWidgets, QtGui
 from AlgorithmDemo.MainWindowUI import Ui_MainWindow
+from pandas import DataFrame, Series  # for convenience
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -49,11 +54,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """点击加载按钮"""
 
         # 容错
-        if self.__pictrureName is None:
+        if self.__pictrureName is None or len(self.__pictrureName) == 0:
             return
 
         # 加载图片
+        frames = pims.ImageSequence('../sample_data/bulk_water/*.png', as_grey=True)
 
+        #
 
 def main():
     # 创建事件
