@@ -247,7 +247,6 @@ class LaserWidget(LaserWidgetModify):
                 instruction.append(int(number, 16))
 
             # 发送指令
-            # print("instruction = ", instruction)
             self.__serialForMotor.write(instruction)
 
             # 选中当前行
