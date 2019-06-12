@@ -274,9 +274,6 @@ class LaserWidget(LaserWidgetModify):
     def on_comboBox_currentTextChanged_slot(self):
         """连接下来菜单的槽函数"""
 
-        # 关闭“扫描”按钮
-        self.comboBox_scan.clear()
-
         # 关闭控制按钮
         self.pushButton_load.setEnabled(False)
         self.pushButton_export.setEnabled(False)
