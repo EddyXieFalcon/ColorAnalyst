@@ -222,19 +222,12 @@ class OpticsWidget(OpticsWidgetModify):
             # 为指令添加参数
             paraList = []
             for num in range(paraNum):
+
                 # 获取参数
                 if self.tableWidget.item(index, num + 1) is not None:
                     parameter = self.tableWidget.item(index, num + 1).text()
                 else:
                     parameter = '0'
-
-                # 判断添加的参数是否合法，如果不合法，自动转换为最小值
-                try:
-                    value = float(parameter)
-                    assert (value >= commend[num + 1][0] and value <= commend[num + 1][1])
-                except:
-                    parameter = str(commend[num + 1][0])
-                    self.tableWidget.setItem(index, num + 1, QTableWidgetItem(parameter))
 
                 # 放入参数
                 paraList.append(parameter)
@@ -253,7 +246,7 @@ class OpticsWidget(OpticsWidgetModify):
             returnMessage = self.__serialForMotor.read(128)
 
             # 设置返回值到界面
-            self.tableWidget.setItem(index, 4, QTableWidgetItem(str(returnMessage)))
+            self.tableWidget.setItem(index, 5, QTableWidgetItem(str(returnMessage)))
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
