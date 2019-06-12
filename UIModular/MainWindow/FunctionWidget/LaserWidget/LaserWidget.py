@@ -226,11 +226,9 @@ class LaserWidget(LaserWidgetModify):
 
             # 监听返回值
             returnMessage = self.__serialForMotor.read(128)
-            print(returnMessage)
 
             # 设置返回值到界面
             self.tableWidget.setItem(index, 1, QTableWidgetItem(str(returnMessage)))
-            print(2222222222222, "\n")
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""
