@@ -1,6 +1,6 @@
 {
 "init for check port":        ["A0 00"],
-"set PA6 to 3.3V":            ["A1 00 01 "],
+"set PA6 to 3.3V":            ["A1 00 01"],
 "set PA6 to 0V":              ["A1 00 00"],
 "set PA7 to 3.3V":            ["A1 01 01"]
 }
