@@ -238,7 +238,8 @@ class LaserWidget(LaserWidgetModify):
                 parameter_hex = ["00", "00"]
 
             # 为指令添加参数
-            commend = commend % tuple(parameter_hex)
+            if "%s" in commend:
+                commend = commend % tuple(parameter_hex)
 
             # 解析指令
             instruction = []
@@ -246,6 +247,7 @@ class LaserWidget(LaserWidgetModify):
                 instruction.append(int(number, 16))
 
             # 发送指令
+            # print("instruction = ", instruction)
             self.__serialForMotor.write(instruction)
 
             # 选中当前行
