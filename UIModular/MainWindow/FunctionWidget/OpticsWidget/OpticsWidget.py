@@ -1,6 +1,7 @@
 # coding=utf8
 
 import time
+import binascii
 import json
 import serial
 import serial.tools.list_ports
