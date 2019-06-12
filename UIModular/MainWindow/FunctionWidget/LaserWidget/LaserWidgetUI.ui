@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1062</width>
-    <height>841</height>
+    <width>721</width>
+    <height>437</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,6 +38,11 @@
        <column>
         <property name="text">
          <string>instructions </string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>voltage(mV)</string>
         </property>
        </column>
        <column>

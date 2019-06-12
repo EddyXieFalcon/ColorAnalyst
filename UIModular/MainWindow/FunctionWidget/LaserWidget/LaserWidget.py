@@ -211,11 +211,38 @@ class LaserWidget(LaserWidgetModify):
 
             # 获取指令
             msg = self.tableWidget.item(index, 0).text()
-            commend = LaserInstructionMgr().GetLaserInstructionsMap()[msg]
+            commend = LaserInstructionMgr().GetLaserInstructionsMap()[msg][0]
+
+            # 获取界面参数
+            parameter_hex = []
+            if self.tableWidget.item(index, 1) is not None:
+                parameter = self.tableWidget.item(index, 1).text()
+                parameter = str(hex(int(parameter, 10))).replace("0x", "")
+                if 0 >= len(parameter):
+                    parameter_hex = ["00", "00"]
+                elif 1 == len(parameter):
+                    parameter_hex.append("00")
+                    parameter_hex.append("0" + parameter)
+                elif 2 == len(parameter):
+                    parameter_hex.append("00")
+                    parameter_hex.append(parameter)
+                elif 3 == len(parameter):
+                    parameter_hex.append("0" + parameter[0])
+                    parameter_hex.append(parameter[1] + parameter[2])
+                elif 4 == len(parameter):
+                    parameter_hex.append(parameter[:2])
+                    parameter_hex.append(parameter[2:])
+                else:
+                    parameter_hex = ["FF", "FF"]
+            else:
+                parameter_hex = ["00", "00"]
+
+            # 为指令添加参数
+            commend = commend % tuple(parameter_hex)
 
             # 解析指令
             instruction = []
-            for number in commend[0].split(" "):
+            for number in commend.split(" "):
                 instruction.append(int(number, 16))
 
             # 发送指令
@@ -228,7 +255,7 @@ class LaserWidget(LaserWidgetModify):
             returnMessage = self.__serialForMotor.read(128)
 
             # 设置返回值到界面
-            self.tableWidget.setItem(index, 1, QTableWidgetItem(str(returnMessage)))
+            self.tableWidget.setItem(index, 2, QTableWidgetItem(str(returnMessage)))
 
     def load_experiment_script(self, filePath):
         """加载已保存的1实验脚本"""

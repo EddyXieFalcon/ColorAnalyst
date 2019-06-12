@@ -2,17 +2,16 @@
 
 # Form implementation generated from reading ui file 'LaserWidgetUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_LaserWidget(object):
     def setupUi(self, LaserWidget):
         LaserWidget.setObjectName("LaserWidget")
-        LaserWidget.resize(1062, 841)
+        LaserWidget.resize(721, 437)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(LaserWidget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
@@ -28,12 +27,14 @@ class Ui_LaserWidget(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tableWidget = QtWidgets.QTableWidget(LaserWidget)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setColumnCount(3)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.horizontalLayout.addWidget(self.tableWidget)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -73,6 +74,8 @@ class Ui_LaserWidget(object):
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("LaserWidget", "instructions "))
         item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("LaserWidget", "voltage(mV)"))
+        item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("LaserWidget", "return message"))
         self.pushButton_load.setText(_translate("LaserWidget", "load"))
         self.pushButton_export.setText(_translate("LaserWidget", "export"))
@@ -80,5 +83,4 @@ class Ui_LaserWidget(object):
         self.pushButton_remove.setText(_translate("LaserWidget", "remove"))
         self.pushButton_edit.setText(_translate("LaserWidget", "edit"))
         self.pushButton_DoIt.setText(_translate("LaserWidget", "Do it"))
-
 
