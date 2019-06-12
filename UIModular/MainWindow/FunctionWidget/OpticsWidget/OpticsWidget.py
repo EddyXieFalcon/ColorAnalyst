@@ -293,12 +293,12 @@ class OpticsWidget(OpticsWidgetModify):
         """连接下来菜单的槽函数"""
 
         # 关闭控制按钮
-        self.pushButton_load.setEnabled(False)
-        self.pushButton_export.setEnabled(False)
-        self.pushButton_add.setEnabled(False)
-        self.pushButton_remove.setEnabled(False)
-        self.pushButton_edit.setEnabled(False)
-        self.pushButton_DoIt.setEnabled(False)
+        # self.pushButton_load.setEnabled(False)
+        # self.pushButton_export.setEnabled(False)
+        # self.pushButton_add.setEnabled(False)
+        # self.pushButton_remove.setEnabled(False)
+        # self.pushButton_edit.setEnabled(False)
+        # self.pushButton_DoIt.setEnabled(False)
 
         # 链接串口
         self.connect_serial()
