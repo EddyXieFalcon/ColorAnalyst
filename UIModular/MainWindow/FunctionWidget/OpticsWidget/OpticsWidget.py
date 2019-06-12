@@ -74,6 +74,7 @@ class OpticsWidget(OpticsWidgetModify):
         # 断开串口
         if self.__serialForMotor is not None and self.__serialForMotor.isOpen():
             self.__serialForMotor.close()
+            self.__serialForMotor = None
 
     def on_pushbutton_connect_clicked_slot(self):
         """连接按钮，刷新串口列表"""
@@ -88,7 +89,7 @@ class OpticsWidget(OpticsWidgetModify):
 
     def ReflashComList(self):
         """扫描串口列表"""
-        
+
         # 获取所有的串口设备号
         port_list = list(serial.tools.list_ports.comports())
 
@@ -199,7 +200,7 @@ class OpticsWidget(OpticsWidgetModify):
 
     def on_pushbutton_Doit_clicked_slot(self):
         """执行脚本"""
-        
+
         # 获取表格中的行数
         rowCount = self.tableWidget.rowCount()
         if rowCount <= 0:
@@ -298,9 +299,6 @@ class OpticsWidget(OpticsWidgetModify):
     def on_comboBox_currentTextChanged_slot(self):
         """连接下来菜单的槽函数"""
 
-        # 关闭“扫描”按钮
-        self.comboBox_scan.clear()
-
         # 关闭控制按钮
         self.pushButton_load.setEnabled(False)
         self.pushButton_export.setEnabled(False)
@@ -309,7 +307,19 @@ class OpticsWidget(OpticsWidgetModify):
         self.pushButton_edit.setEnabled(False)
         self.pushButton_DoIt.setEnabled(False)
 
-        # 断开串口链接
-        if self.__serialForMotor is not None and self.__serialForMotor.isOpen():
-            self.__serialForMotor.close()
-            self.__serialForMotor = None
+        # 链接串口
+        self.connect_serial()
+
+    def connect_serial(self):
+        """对选中的串口发起链接通讯"""
+
+        # 串口通信初始化
+        self.InitSerial()
+
+        # 获取用户选择的串口名称
+        port_serial = self.comboBox_connect.currentText()
+
+        # 创建链接
+        if not len(port_serial):
+            return
+        self.__serialForMotor = serial.Serial(port_serial, 115200, timeout=0.1)

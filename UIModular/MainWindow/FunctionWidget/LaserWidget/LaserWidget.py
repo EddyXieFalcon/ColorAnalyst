@@ -285,7 +285,19 @@ class LaserWidget(LaserWidgetModify):
         self.pushButton_edit.setEnabled(False)
         self.pushButton_DoIt.setEnabled(False)
 
-        # 断开串口链接
-        if self.__serialForMotor is not None and self.__serialForMotor.isOpen():
-            self.__serialForMotor.close()
-            self.__serialForMotor = No
+        # 链接串口
+        self.connect_serial()
+
+    def connect_serial(self):
+        """对选中的串口发起链接通讯"""
+
+        # 串口通信初始化
+        self.InitSerial()
+
+        # 获取用户选择的串口名称
+        port_serial = self.comboBox_connect.currentText()
+
+        # 创建链接
+        if not len(port_serial):
+            return
+        self.__serialForMotor = serial.Serial(port_serial, 115200, timeout=0.1)
