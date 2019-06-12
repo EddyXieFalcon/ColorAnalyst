@@ -32,6 +32,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 获取打开的文件
         self.__pictrureName, type = QtWidgets.QFileDialog.getOpenFileName(self, u"打开文件", "./", "Image Files(*.jpg)")
+        if len(self.__pictrureName) == 0:
+            return
 
         # 加载文件
         self.__image = QtGui.QImage(self.__pictrureName)

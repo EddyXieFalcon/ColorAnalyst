@@ -188,6 +188,8 @@ class ImagingWidget(ImagingWidgetSettingMgr):
 
         # 获取打开的文件
         pictrureName, type = QtWidgets.QFileDialog.getOpenFileName(self, u"打开文件", "./", "Image Files(*.jpg)")
+        if len(pictrureName) == 0:
+            return
 
         # 加载文件
         self.__image = QtGui.QImage(pictrureName)
