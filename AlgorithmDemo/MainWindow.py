@@ -5,8 +5,10 @@ import pims
 import numpy as np
 import pandas as pd
 import trackpy as tp
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets, QtGui
-from AlgorithmDemo.MainWindowUI import Ui_MainWindow
+from MainWindowUI import Ui_MainWindow
 from pandas import DataFrame, Series  # for convenience
 
 
@@ -58,9 +60,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         # 加载图片
-        frames = pims.ImageSequence('../sample_data/bulk_water/*.png', as_grey=True)
+        frames = pims.ImageSequence(self.__pictrureName, as_grey=True)
+        plt.imshow(frames[0])
 
-        #
+        # 查找特征点，返回一个DataFrame
+        features = tp.locate(frames[0], 11, invert=True)
+        features.head()
+
+        # 分析显示
+        plt.figure()  # make a new figure
+        tp.annotate(features, frames[0])
+
 
 def main():
     # 创建事件
@@ -70,8 +80,7 @@ def main():
     ui = MainWindow()
 
     # 显示ui界面
-    ui.showMaximized()
-    # ui.show()
+    ui.show()
 
     # 进入消息循环
     sys.exit(app.exec_())
