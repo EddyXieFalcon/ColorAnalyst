@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget import Ui_LaserWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidgetUI import Ui_LaserWidget
 
 
 class LaserWidgetModify(QtWidgets.QWidget, Ui_LaserWidget):

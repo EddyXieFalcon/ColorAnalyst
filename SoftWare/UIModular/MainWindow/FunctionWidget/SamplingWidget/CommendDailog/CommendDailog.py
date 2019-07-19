@@ -1,8 +1,8 @@
 # coding=utf8
 
 from PyQt5.QtCore import pyqtSignal
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import CommendDailogModify
-from SoftWare.ControllerModular.InstructionsMgr import RS485InstructionMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailogModify import CommendDailogModify
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import RS485InstructionMgr
 
 
 class CommendDailog(CommendDailogModify):

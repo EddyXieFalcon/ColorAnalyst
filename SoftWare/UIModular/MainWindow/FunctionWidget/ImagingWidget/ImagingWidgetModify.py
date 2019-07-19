@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget import Ui_ImagingWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetUI import Ui_ImagingWidget
 
 
 class ImagingWidgetModify(QtWidgets.QWidget, Ui_ImagingWidget):

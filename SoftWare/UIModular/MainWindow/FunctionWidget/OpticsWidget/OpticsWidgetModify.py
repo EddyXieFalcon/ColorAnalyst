@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget import Ui_OpticsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidgetUI import Ui_OpticsWidget
 
 
 class OpticsWidgetModify(QtWidgets.QWidget, Ui_OpticsWidget):

@@ -1,6 +1,6 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget import SettingsWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget.SettingsWidgetModify import SettingsWidgetModify
 
 
 class SettingsWidget(SettingsWidgetModify):

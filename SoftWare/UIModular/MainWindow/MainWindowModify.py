@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow import Ui_MainWindow
+from SoftWare.UIModular.MainWindow.MainWindowUI import Ui_MainWindow
 
 
 class MainWindowModify(QtWidgets.QMainWindow, Ui_MainWindow):

@@ -6,7 +6,7 @@ import serial.tools.list_ports
 from PyQt5.QtWidgets import *
 from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidgetModify import LaserWidgetModify
 from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget.CommendDailog.CommendDailog import CommendDailog
-from SoftWare.ControllerModular.InstructionsMgr import LaserInstructionMgr
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import LaserInstructionMgr
 
 
 class LaserWidget(LaserWidgetModify):

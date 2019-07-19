@@ -1,6 +1,6 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import PlateLayoutWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.PlateLayoutWidget.PlateLayoutWidgetModify import PlateLayoutWidgetModify
 
 
 class PlateLayoutWidget(PlateLayoutWidgetModify):

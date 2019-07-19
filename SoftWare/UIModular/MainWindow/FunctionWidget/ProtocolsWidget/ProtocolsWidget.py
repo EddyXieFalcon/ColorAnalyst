@@ -1,9 +1,9 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import ProtocolsWidgetModify
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget import SettingsWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import AnalytesWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import PlateLayoutWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidgetModify import ProtocolsWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget.SettingsWidget import SettingsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.AnalytesWidget.AnalytesWidget import AnalytesWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.PlateLayoutWidget.PlateLayoutWidget import PlateLayoutWidget
 
 
 class ProtocolsWidget(ProtocolsWidgetModify):

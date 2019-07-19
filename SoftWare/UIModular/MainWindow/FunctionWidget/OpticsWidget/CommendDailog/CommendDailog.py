@@ -1,8 +1,8 @@
 # coding=utf8
 
 from PyQt5.QtCore import pyqtSignal
-from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget import CommendDailogModify
-from SoftWare.ControllerModular.InstructionsMgr import STM32InstructionMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailogModify import CommendDailogModify
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
 
 
 class CommendDailog(CommendDailogModify):

@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import Ui_ProtocolsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidgetUI import Ui_ProtocolsWidget
 
 
 class ProtocolsWidgetModify(QtWidgets.QWidget, Ui_ProtocolsWidget):

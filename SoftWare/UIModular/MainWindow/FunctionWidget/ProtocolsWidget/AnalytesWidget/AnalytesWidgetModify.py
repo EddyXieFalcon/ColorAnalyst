@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import Ui_AnalytesWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.AnalytesWidget.AnalytesWidgetUI import Ui_AnalytesWidget
 
 
 class AnalytesWidgetModify(QtWidgets.QWidget, Ui_AnalytesWidget):

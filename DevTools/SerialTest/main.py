@@ -3,7 +3,7 @@
 
 import sys
 from PyQt5.QtWidgets import QApplication
-from DevTools.SerialTest.UI import MainWindow
+from DevTools.SerialTest.UI.MainWindow import MainWindow
 
 
 def main():
@@ -14,8 +14,7 @@ def main():
     ui = MainWindow()
 
     # 显示ui界面
-    ui.showMaximized()
-    # ui.show()
+    ui.show()
 
     # 进入消息循环
     sys.exit(app.exec_())

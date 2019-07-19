@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import Ui_SamplingWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetUI import Ui_SamplingWidget
 
 
 class SamplingWidgetModify(QtWidgets.QWidget, Ui_SamplingWidget):

@@ -2,12 +2,12 @@
 
 from SoftWare.UIModular.MainWindow.MainWindowModify import MainWindowModify
 from SoftWare.UIModular.MainWindow.FunctionWidget.HomeWidget.HomeWidget import HomeWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import ProtocolsWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import SamplingWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.ProtocolsWidget import ProtocolsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidget import SamplingWidget
 from SoftWare.UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidget import ImagingWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget import OpticsWidget
-from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget import LaserWidget
-from SoftWare.UIModular.MainWindow.StatusBarWidget import StatusBarWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidget import OpticsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget.LaserWidget import LaserWidget
+from SoftWare.UIModular.MainWindow.StatusBarWidget.StatusBarWidget import StatusBarWidget
 
 
 class MainWindow(MainWindowModify):

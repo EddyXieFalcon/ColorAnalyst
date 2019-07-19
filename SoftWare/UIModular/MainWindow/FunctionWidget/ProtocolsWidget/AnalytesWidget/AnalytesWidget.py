@@ -1,6 +1,6 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import AnalytesWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.AnalytesWidget.AnalytesWidgetModify import AnalytesWidgetModify
 
 
 class AnalytesWidget(AnalytesWidgetModify):

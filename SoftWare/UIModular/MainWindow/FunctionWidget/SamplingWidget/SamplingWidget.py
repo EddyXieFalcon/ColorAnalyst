@@ -4,9 +4,9 @@ import json
 import serial
 import serial.tools.list_ports
 from PyQt5.QtWidgets import *
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import SamplingWidgetModify
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import CommendDailog
-from SoftWare.ControllerModular.InstructionsMgr import RS485InstructionMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.SamplingWidgetModify import SamplingWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailog import CommendDailog
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import RS485InstructionMgr
 
 
 class SamplingWidget(SamplingWidgetModify):

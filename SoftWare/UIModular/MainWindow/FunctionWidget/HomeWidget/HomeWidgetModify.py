@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.HomeWidget import Ui_HomeWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.HomeWidget.HomeWidgetUI import Ui_HomeWidget
 
 
 class HomeWidgetModify(QtWidgets.QWidget, Ui_HomeWidget):

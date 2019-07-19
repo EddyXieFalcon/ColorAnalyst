@@ -1,6 +1,6 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.StatusBarWidget import StatusBarWidgetModify
+from SoftWare.UIModular.MainWindow.StatusBarWidget.StatusBarWidgetModify import StatusBarWidgetModify
 
 
 class StatusBarWidget(StatusBarWidgetModify):

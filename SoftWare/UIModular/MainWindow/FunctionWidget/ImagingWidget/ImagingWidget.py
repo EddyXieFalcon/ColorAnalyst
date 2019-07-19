@@ -8,7 +8,7 @@ from SoftWare.ThirdParty.MVS.MvImport.MvCameraControl_header import *
 from SoftWare.ThirdParty.MVS.MvImport.CameraParams_const import *
 
 from PyQt5 import QtWidgets, QtGui, QtCore
-from SoftWare.UIModular.MainWindow.FunctionWidget import ImagingWidgetSettingMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetSettingMgr import ImagingWidgetSettingMgr
 
 
 class ImagingWidget(ImagingWidgetSettingMgr):

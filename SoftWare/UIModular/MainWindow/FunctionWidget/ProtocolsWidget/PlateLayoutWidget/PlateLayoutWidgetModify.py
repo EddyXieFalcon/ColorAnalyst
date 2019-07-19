@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget import Ui_PlateLayoutWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.PlateLayoutWidget.PlateLayoutWidgetUI import Ui_PlateLayoutWidget
 
 
 class PlateLayoutWidgetModify(QtWidgets.QWidget, Ui_PlateLayoutWidget):

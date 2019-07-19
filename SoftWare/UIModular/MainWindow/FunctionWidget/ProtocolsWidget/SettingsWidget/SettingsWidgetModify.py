@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget import Ui_SettingsWidget
+from SoftWare.UIModular.MainWindow.FunctionWidget.ProtocolsWidget.SettingsWidget.SettingsWidgetUI import Ui_SettingsWidget
 
 
 class SettingsWidgetModify(QtWidgets.QWidget, Ui_SettingsWidget):

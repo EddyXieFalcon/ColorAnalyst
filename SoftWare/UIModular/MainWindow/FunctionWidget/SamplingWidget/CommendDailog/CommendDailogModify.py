@@ -2,7 +2,7 @@
 
 import os
 from PyQt5 import QtWidgets
-from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget import Ui_CommendDailog
+from SoftWare.UIModular.MainWindow.FunctionWidget.SamplingWidget.CommendDailog.CommendDailogUI import Ui_CommendDailog
 
 
 class CommendDailogModify(QtWidgets.QWidget, Ui_CommendDailog):

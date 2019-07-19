@@ -1,6 +1,13 @@
 # coding=utf8
 
-from SoftWare.UIModular.MainWindow.FunctionWidget import ImagingWidgetModify
+import sys
+import msvcrt
+
+from ctypes import *
+from SoftWare.ThirdParty.MVS.MvImport.MvCameraControl_header import *
+from SoftWare.ThirdParty.MVS.MvImport.MvErrorDefine_const import *
+from SoftWare.ThirdParty.MVS.MvImport.MvCameraControl_class import *
+from SoftWare.UIModular.MainWindow.FunctionWidget.ImagingWidget.ImagingWidgetModify import ImagingWidgetModify
 
 
 class ImagingWidgetSettingMgr(ImagingWidgetModify):

@@ -4,9 +4,9 @@ import json
 import serial
 import serial.tools.list_ports
 from PyQt5.QtWidgets import *
-from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget import OpticsWidgetModify
-from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget import CommendDailog
-from SoftWare.ControllerModular.InstructionsMgr import STM32InstructionMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget.OpticsWidgetModify import OpticsWidgetModify
+from SoftWare.UIModular.MainWindow.FunctionWidget.OpticsWidget.CommendDailog.CommendDailog import CommendDailog
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import STM32InstructionMgr
 
 
 class OpticsWidget(OpticsWidgetModify):

@@ -1,8 +1,8 @@
 # coding=utf8
 
 from PyQt5.QtCore import pyqtSignal
-from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget import CommendDailogModify
-from SoftWare.ControllerModular.InstructionsMgr import LaserInstructionMgr
+from SoftWare.UIModular.MainWindow.FunctionWidget.LaserWidget.CommendDailog.CommendDailogModify import CommendDailogModify
+from SoftWare.ControllerModular.InstructionsMgr.InstructionMgr import LaserInstructionMgr
 
 
 class CommendDailog(CommendDailogModify):
