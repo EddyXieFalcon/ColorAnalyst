@@ -23,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 创建界面
         self.setupUi(self)  # 创建界面
         # 初始化动作
-        # self.InitStatus() todo
+        # self.InitStatus()
 
         # 扫描按钮
         self.btnScan.clicked.connect(self.OnBtnScanClickedSlot)
@@ -74,20 +74,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.lineEditRecvParam1.setEnabled(isEnabled)
         self.lineEditRecvParam2.setEnabled(isEnabled)
         self.lineEditRecvCeckCode.setEnabled(isEnabled)
+        self.lineEditErrorCode.setEnabled(isEnabled)
         self.lineEditLimitTime.setEnabled(isEnabled)
         self.lineEditTimeCount.setEnabled(isEnabled)
-
-    def GetSendCommend(self):
-        """获取界面上的串口通信码"""
-        CtrlAddr = self.lineEditSendCtrlAddr.text()
-        CmdType = self.lineEditSendCmdType.text()
-        FunCode = self.lineEditSendFunCode.text()
-        Param1 = self.lineEditSendParam1.text()
-        Param2 = self.lineEditSendParam2.text()
-
-        # todo
-        CeckCode = self.lineEditSendCeckCode.text()
-
 
     @pyqtSlot()
     def OnBtnScanClickedSlot(self):
@@ -155,3 +144,5 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         # 获取发送码, todo
+
+
